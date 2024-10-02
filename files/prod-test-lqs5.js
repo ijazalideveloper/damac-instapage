@@ -428,23 +428,19 @@ async function checkOrObtainAccessToken(clientId, clientSecret, tokenEndpoint) {
 //Perform a POST request. Send the given payload (data parameter) to LQS (Mashery TIBCO)
 const pushToNewLQS = async data => {
 
-  // Check if values are correctly retrieved from sessionStorage
+  // Retrieve token and expiry time from sessionStorage
   let accessToken = sessionStorage.getItem("lqsat") || null;
   let tokenExpiry = sessionStorage.getItem("lqsgt") ? Number(sessionStorage.getItem("lqsgt")) : null;
 
   const currentTime = new Date().getTime();
 
-  // Step 2: Check if access token is valid
-  if (accessToken && tokenExpiry && currentTime < tokenExpiry) {
-    return accessToken;
-  }
-
-  // If token is expired or not present, obtain a new one
-  if (!accessToken || !tokenExpiry || currentTime > tokenExpiry) {
+  // Step 1: Check if access token is valid
+  if (!accessToken || !tokenExpiry || currentTime >= tokenExpiry) {
+    // If the token is expired or not present, obtain a new one
     accessToken = await checkOrObtainAccessToken(lqs2clientId, lqs2clientSecret, lqs2tokenEndpoint);
     if (!accessToken) {
       console.error("Failed to obtain a new access token.");
-      return;  // Handle the failure case
+      return; // Exit the function if a token cannot be obtained
     }
   }
   
