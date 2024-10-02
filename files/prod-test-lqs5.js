@@ -2496,5 +2496,5 @@ checkOrObtainAccessToken(lqs2clientId, lqs2clientSecret, lqs2tokenEndpoint) //Ru
 //   obtainAccessToken(lqs2clientId, lqs2clientSecret, lqs2tokenEndpoint) //Repeat every 25 minutes
 // }, 25*60*1000)
 
-addUTMParamsToSessionStorage()
+// addUTMParamsToSessionStorage()
 // ======== E N D   O F   O N   I N I T ========
