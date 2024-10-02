@@ -441,6 +441,7 @@ const pushToNewLQS = async data => {
     accessToken = await checkOrObtainAccessToken(lqs2clientId, lqs2clientSecret, lqs2tokenEndpoint);
     if (!accessToken) {
       console.error("Failed to obtain a new access token.");
+      accessToken = await checkOrObtainAccessToken(lqs2clientId, lqs2clientSecret, lqs2tokenEndpoint);
       return; // Exit the function if a token cannot be obtained
     }
   }
