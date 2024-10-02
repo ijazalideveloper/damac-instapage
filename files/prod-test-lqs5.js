@@ -2490,7 +2490,15 @@ function replaceTextInElements(oldText, newText, element) {
 
 
 // ======== O N   I N I T ========
-checkOrObtainAccessToken(lqs2clientId, lqs2clientSecret, lqs2tokenEndpoint) //Run once on init
+(async () => {
+  const token = await checkOrObtainAccessToken(lqs2clientId, lqs2clientSecret, lqs2tokenEndpoint);
+  if (token) {
+    console.log("Token acquired:", token);
+    // Proceed with the token for API requests
+  } else {
+    console.error("Failed to obtain access token.");
+  }
+})(); //Run once on init
 // setInterval(() => {
 //   console.log('Refreshing access token...');
 //   obtainAccessToken(lqs2clientId, lqs2clientSecret, lqs2tokenEndpoint) //Repeat every 25 minutes
