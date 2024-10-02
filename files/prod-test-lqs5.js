@@ -371,13 +371,14 @@ function loadScript(url, callback) {
 
 // ================ Obtain Access Token Start ================
 async function checkOrObtainAccessToken(clientId, clientSecret, tokenEndpoint) {
+
   // Step 1: Retrieve token and expiry from sessionStorage
   let accessToken = sessionStorage.getItem("lqsat") || null;
   let tokenExpiry = sessionStorage.getItem("lqsgt") ? Number(sessionStorage.getItem("lqsgt")) : null;
 
   const currentTime = new Date().getTime();
 
-  // Step 2: Check if a valid token exists
+  // Step 2: Check if a valid token exists - Have token and not expired. Expiry time is 25 mint
   if (accessToken && tokenExpiry && currentTime < tokenExpiry) {
     console.log("Using existing valid access token.");
     return accessToken;  // Return the existing valid token
@@ -406,20 +407,19 @@ async function checkOrObtainAccessToken(clientId, clientSecret, tokenEndpoint) {
     const data = await response.json();
     const { access_token: token, refresh_token: refresh } = data;
 
-    // Step 4: Save the new token and expiry time in sessionStorage
+    // Step 4: Save the new token, refresh token and expiry time in sessionStorage
     const expireTime = currentTime + 25 * 60 * 1000;  // Set expiration to 25 minutes from now
     window.sessionStorage.setItem('lqsat', token);
     window.sessionStorage.setItem('lqsrt', refresh);
     window.sessionStorage.setItem('lqsgt', expireTime);
 
-    return token;  // Return the new token
+    return token;
 
   } catch (error) {
     console.error('Error obtaining token:', error);
     return null;  // Return null or handle fallback
   }
 }
-
 // ================ Obtain Access Token End ================
 
 
@@ -428,13 +428,14 @@ async function checkOrObtainAccessToken(clientId, clientSecret, tokenEndpoint) {
 //Perform a POST request. Send the given payload (data parameter) to LQS (Mashery TIBCO)
 const pushToNewLQS = async data => {
 
-  // Retrieve token and expiry time from sessionStorage
+  // Step1: Retrieve token and expiry time from sessionStorage
   let accessToken = sessionStorage.getItem("lqsat") || null;
   let tokenExpiry = sessionStorage.getItem("lqsgt") ? Number(sessionStorage.getItem("lqsgt")) : null;
 
+  // Step 2: Get the current time 
   const currentTime = new Date().getTime();
 
-  // Step 1: Check if access token is valid
+  // Step 3: Check if access token, refresh token is not present and access_token is expired. In any case we will obtain new token
   if (!accessToken || !tokenExpiry || currentTime >= tokenExpiry) {
     // If the token is expired or not present, obtain a new one
     accessToken = await checkOrObtainAccessToken(lqs2clientId, lqs2clientSecret, lqs2tokenEndpoint);
@@ -2490,7 +2491,6 @@ function replaceTextInElements(oldText, newText, element) {
   const token = await checkOrObtainAccessToken(lqs2clientId, lqs2clientSecret, lqs2tokenEndpoint);
   if (token) {
     console.log("Token acquired:", token);
-    // Proceed with the token for API requests
   } else {
     console.error("Failed to obtain access token.");
   }
