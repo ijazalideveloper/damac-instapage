@@ -388,8 +388,8 @@ async function checkOrObtainAccessToken(clientId, clientSecret, tokenEndpoint) {
   console.log("Generating a new access token...");
   const params = new URLSearchParams();
   params.append("grant_type", "client_credentials");
-  params.append("client_id", clientId);
-  params.append("client_secret", clientSecret);
+  params.append("client_id", encodeURIComponent(clientId));
+  params.append("client_secret", encodeURIComponent(clientSecret));
 
   try {
     const response = await fetch(tokenEndpoint, {
