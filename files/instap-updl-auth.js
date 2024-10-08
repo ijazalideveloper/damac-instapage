@@ -1880,7 +1880,7 @@ window.addEventListener("DOMContentLoaded", function () {
     [].forEach.call(telInput, function (div, index) {
       // do whatever
       div.setAttribute("type", "tel");
-      iti.push(
+      iti?.push(
         window.intlTelInput(div, {
           initialCountry: "auto",
           preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
@@ -1950,13 +1950,14 @@ window.addEventListener("DOMContentLoaded", function () {
           .replace("+", "00");
 
         var selectedCountryName = iti[index].getSelectedCountryData().name
+        console.log("selectedCountryName", selectedCountryName)
         
         var selectedData = iti[index]
           .getSelectedCountryData()
           .name.replace(/ *\([^)]*\) */g, "");
 
         $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
-        $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName).sendAs.country));
+        $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
         $("input[name='ga_client_id']").val(getCookie("_ga"));
         $("input[name='fbid']").val(getFacebookCookie("_fbp"));
         $("input[name='fbclid']").val(getFbc());
