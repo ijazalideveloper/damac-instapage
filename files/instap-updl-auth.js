@@ -609,6 +609,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log('Recaptcha enabled.');
   })
 
+  loadScript(`https://ijazalideveloper.github.io/damac-instapage/files/new_relic.js`, function() {
+    console.log('New Relic Loaded');
+  })
+
 
   // _Translate.set( original in English, translated );
   if (websiteLanguage == "EN") {
