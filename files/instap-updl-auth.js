@@ -1965,14 +1965,14 @@ window.addEventListener("DOMContentLoaded", function () {
           .replace("+", "00");
 
         var selectedCountryName = iti[index].getSelectedCountryData().name
-        console.log("selectedCountryName", retrieveCountry(selectedCountryName)?.sendAs?.country)
+        console.log("selectedCountryName", retrieveCountry(selectedCountryName)?.sendAs?.country, selectedCountryName)
         
         var selectedData = iti[index]
           .getSelectedCountryData()
           .name.replace(/ *\([^)]*\) */g, "");
 
-        $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
-        $("input[name='country']").val(retrieveCountry(selectedCountryName)?.sendAs?.country);
+        $("input[name='countryNameSync']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
+        $("input[name='countryNameSync']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
         $("input[name='ga_client_id']").val(getCookie("_ga"));
         $("input[name='fbid']").val(getFacebookCookie("_fbp"));
         $("input[name='fbclid']").val(getFbc());
