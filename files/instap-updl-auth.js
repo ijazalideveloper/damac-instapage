@@ -609,7 +609,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log('Recaptcha enabled.');
   })
 
-  loadScript(`https://ijazalideveloper.github.io/damac-instapage/files/new_relic.js`, function() {
+  loadScript(`https://prod-cdn.damacproperties.com/uploads/instapages/native/js/nrl.js`, function() {
     console.log('New Relic Loaded');
   })
 
