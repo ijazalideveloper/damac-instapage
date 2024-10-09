@@ -279,28 +279,10 @@ const itiSFCountryAdaptor = [
     {  name: "Åland Islands", diallingCode: "+358", sendAs: { country: "Finland", countryCode: "Finland: 00358" }  }
 ]
 
-// function retrieveCountry(countryName) {
-//   // Pass the selected country and return the country object with all details that match SF requirements.
-//   const country = itiSFCountryAdaptor.find(country => country.name === countryName);
-//   return country;
-// }
-
 function retrieveCountry(countryName) {
-  // Log the input country name
-  console.log("Received countryName: ", countryName);
-  
-  // Normalize the country name by removing special characters
-  const normalizedCountryName = countryName.replace(/[^\w\s]/gi, '').trim();
-  console.log("Normalized countryName: ", normalizedCountryName);
-
-  // Find the country with a matching name (ignoring special characters)
-  const country = itiSFCountryAdaptor.find(countryData => {
-    const normalizedCountryFromList = countryData.name.replace(/[^\w\s]/gi, '').trim();
-    console.log("Comparing with: ", normalizedCountryFromList);
-    return normalizedCountryFromList === normalizedCountryName;
-  });
-
-  console.log("Matched country: ", country);
+  // Pass the selected country and return the country object with all details that match SF requirements.
+  let countryFromListAfterDecoding = decodeURIComponent(country.name);
+  const country = itiSFCountryAdaptor.find(country => countryFromListAfterDecoding == countryName);
   return country;
 }
 
