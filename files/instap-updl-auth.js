@@ -1979,15 +1979,17 @@ window.addEventListener("DOMContentLoaded", function () {
           .text()
           .replace("+", "00");
 
-        var selectedCountryName = iti[index].getSelectedCountryData().name
-        console.log("selectedCountryName", retrieveCountry(selectedCountryName)?.sendAs?.country, selectedCountryName)
+        var selectedCountryName = iti[index].getSelectedCountryData().name;
+
+        var decodedCountryName = decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country);
+        var retrieveCountryCode = retrieveCountry(selectedCountryName)?.sendAs?.countryCode;
         
         var selectedData = iti[index]
           .getSelectedCountryData()
           .name.replace(/ *\([^)]*\) */g, "");
 
-        $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
-        $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
+        $("input[name='countryCode']").val(retrieveCountryCode);
+        $("input[name='country']").val(decodedCountryName);
         $("input[name='ga_client_id']").val(getCookie("_ga"));
         $("input[name='fbid']").val(getFacebookCookie("_fbp"));
         $("input[name='fbclid']").val(getFbc());
