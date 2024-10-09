@@ -1910,6 +1910,8 @@ window.addEventListener("DOMContentLoaded", function () {
                 $("input[name='city']").val(json.city);
                 $("input[name='citySync']").val(json.city);
                 $("input[name='countryNameSync']").val(json.country_name);
+                $("input[name='country']").val(json.country_name);
+                $("input[name='countryCode']").val(json.country_name);
                 $("input[name='ipAddress']").val(json.ip);
                 callback(json.country_code);
               },
@@ -1971,8 +1973,8 @@ window.addEventListener("DOMContentLoaded", function () {
           .getSelectedCountryData()
           .name.replace(/ *\([^)]*\) */g, "");
 
-        $("input[name='countryNameSync']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
-        $("input[name='countryNameSync']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
+        $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
+        $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
         $("input[name='ga_client_id']").val(getCookie("_ga"));
         $("input[name='fbid']").val(getFacebookCookie("_fbp"));
         $("input[name='fbclid']").val(getFbc());
