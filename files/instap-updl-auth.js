@@ -286,14 +286,21 @@ const itiSFCountryAdaptor = [
 // }
 
 function retrieveCountry(countryName) {
+  // Log the input country name
+  console.log("Received countryName: ", countryName);
+  
   // Normalize the country name by removing special characters
   const normalizedCountryName = countryName.replace(/[^\w\s]/gi, '').trim();
+  console.log("Normalized countryName: ", normalizedCountryName);
 
   // Find the country with a matching name (ignoring special characters)
-  const country = itiSFCountryAdaptor.find(country => 
-    country.name.replace(/[^\w\s]/gi, '').trim() === normalizedCountryName
-  );
+  const country = itiSFCountryAdaptor.find(countryData => {
+    const normalizedCountryFromList = countryData.name.replace(/[^\w\s]/gi, '').trim();
+    console.log("Comparing with: ", normalizedCountryFromList);
+    return normalizedCountryFromList === normalizedCountryName;
+  });
 
+  console.log("Matched country: ", country);
   return country;
 }
 
