@@ -281,8 +281,7 @@ const itiSFCountryAdaptor = [
 
 function retrieveCountry(countryName) {
   // Pass the selected country and return the country object with all details that match SF requirements.
-  let countryFromListAfterDecoding = decodeURIComponent(country.name);
-  const country = itiSFCountryAdaptor.find(country => countryFromListAfterDecoding == countryName);
+  const country = itiSFCountryAdaptor.find(country => decodeURIComponent(country.name) == countryName);
   return country;
 }
 
