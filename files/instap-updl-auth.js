@@ -613,10 +613,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log('New Relic Loaded');
   })
 
-  loadScript(`https://dp-site-assets.s3.eu-west-1.amazonaws.com/uploads/instapages/native/js/intlTelInput.min.js`, function() {
-    console.log('New Relic Loaded');
-  })
-
 
   // _Translate.set( original in English, translated );
   if (websiteLanguage == "EN") {
