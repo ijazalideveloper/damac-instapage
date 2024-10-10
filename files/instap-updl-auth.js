@@ -351,16 +351,31 @@ function loadScript(url, callback) {
 }
 
 function loadCSS(filename) {
+  // Check if <head> exists in the document
+  const head = document.getElementsByTagName("head")[0];
+
+  // Get all <link> elements in the <head>
+  const links = head.getElementsByTagName("link");
+
+  // Loop through existing <link> elements to check if the file is already loaded
+  for (let i = 0; i < links.length; i++) {
+      if (links[i].rel === "stylesheet" && links[i].href.includes(filename)) {
+          // If the CSS file is already loaded, remove the old one
+          head.removeChild(links[i]);
+          break; // Stop once the correct file is found and removed
+      }
+  }
+
   // Create a new <link> element
   const link = document.createElement("link");
-  
-  // Set the attributes for the link element
+
+  // Set the attributes for the new link element
   link.rel = "stylesheet";
   link.type = "text/css";
-  link.href = filename;  // Path to the CSS file
-  
-  // Append the link element to the head of the document
-  document.head.appendChild(link);
+  link.href = filename;  // Path to the new CSS file
+
+  // Append the new link element to the <head> of the document
+  head.appendChild(link);
 }
 
 // ======== E N D   O F   U I   H A N D L E R   F U N C T I O N S ========
