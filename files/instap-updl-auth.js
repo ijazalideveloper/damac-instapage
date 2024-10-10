@@ -280,8 +280,11 @@ const itiSFCountryAdaptor = [
 ]
 
 function sanitizeName(name) {
-  // Remove Unicode directional marks (e.g., U+202B and U+202C) and other unwanted characters
-  return name.replace(/[\u202b\u202c\u200e]/g, '').trim();
+  // Replace both the Unicode characters (like \u202b, \u202c) and the HTML-style placeholders (<U202b>, <U202c>)
+  return name
+      .replace(/[\u202b\u202c]/g, '')   // Remove actual Unicode directional marks
+      .replace(/<U202b>|<U202c>/g, '')  // Remove placeholders used in your list
+      .trim();                          // Trim any extra spaces
 }
 
 function retrieveCountry(countryName) {
