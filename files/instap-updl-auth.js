@@ -639,6 +639,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log('intlTelInput Loaded');
   })
 
+  loadScript(`https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.5.0/build/css/intlTelInput.min.css`, function() {
+    console.log('intlTelInput CSS Loaded');
+  })
+
 
   // _Translate.set( original in English, translated );
   if (websiteLanguage == "EN") {
