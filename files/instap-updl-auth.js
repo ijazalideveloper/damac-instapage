@@ -350,34 +350,6 @@ function loadScript(url, callback) {
   document.head.appendChild(script);
 }
 
-function loadCSS(filename) {
-  // Check if <head> exists in the document
-  const head = document.getElementsByTagName("head")[0];
-
-  // Get all <link> elements in the <head>
-  const links = head.getElementsByTagName("link");
-
-  // Loop through existing <link> elements to check if the file is already loaded
-  for (let i = 0; i < links.length; i++) {
-      if (links[i].rel === "stylesheet" && links[i].href.includes(filename)) {
-          // If the CSS file is already loaded, remove the old one
-          head.removeChild(links[i]);
-          break; // Stop once the correct file is found and removed
-      }
-  }
-
-  // Create a new <link> element
-  const link = document.createElement("link");
-
-  // Set the attributes for the new link element
-  link.rel = "stylesheet";
-  link.type = "text/css";
-  link.href = filename;  // Path to the new CSS file
-
-  // Append the new link element to the <head> of the document
-  head.appendChild(link);
-}
-
 function replaceCSS(oldFileName, newFileName) {
   // Get all <link> elements in the <head>
   const links = document.getElementsByTagName("link");
@@ -398,9 +370,6 @@ function replaceCSS(oldFileName, newFileName) {
   newLink.href = newFileName;
   document.getElementsByTagName("head")[0].appendChild(newLink);
 }
-
-// Usage: Replace the old CSS file "old-styles.css" with "new-styles.css"
-replaceCSS("old-styles.css", "new-styles.css");
 
 
 // ======== E N D   O F   U I   H A N D L E R   F U N C T I O N S ========
@@ -694,7 +663,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   })
 
   // Usage: Call the function and pass the path to your CSS file
-  loadCSS('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.5.0/build/css/intlTelInput.min.css')
   replaceCSS('https://prod-cdn.damacproperties.com/uploads/instapages/native/css/intlTelInput.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.5.0/build/css/intlTelInput.min.css')
 
 
