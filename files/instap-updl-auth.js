@@ -349,6 +349,20 @@ function loadScript(url, callback) {
 
   document.head.appendChild(script);
 }
+
+function loadCSS(filename) {
+  // Create a new <link> element
+  const link = document.createElement("link");
+  
+  // Set the attributes for the link element
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  link.href = filename;  // Path to the CSS file
+  
+  // Append the link element to the head of the document
+  document.head.appendChild(link);
+}
+
 // ======== E N D   O F   U I   H A N D L E R   F U N C T I O N S ========
 
 
@@ -639,9 +653,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log('intlTelInput Loaded');
   })
 
-  loadScript(`https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.5.0/build/css/intlTelInput.min.css`, function() {
-    console.log('intlTelInput CSS Loaded');
-  })
+  // Usage: Call the function and pass the path to your CSS file
+  loadCSS('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.5.0/build/css/intlTelInput.min.css')
 
 
   // _Translate.set( original in English, translated );
