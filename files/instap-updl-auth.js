@@ -279,9 +279,16 @@ const itiSFCountryAdaptor = [
     {  name: "Åland Islands", diallingCode: "+358", sendAs: { country: "Finland", countryCode: "Finland: 00358" }  }
 ]
 
+function sanitizeName(name) {
+  // Remove Unicode directional marks (e.g., U+202B and U+202C) and other unwanted characters
+  return name.replace(/[\u202b\u202c\u200e]/g, '').trim();
+}
+
 function retrieveCountry(countryName) {
-  // Pass the selected country and return the country object with all details that match SF requirements.
-  const country = itiSFCountryAdaptor.find(country => decodeURIComponent(country.name) == countryName);
+  const sanitizedInput = sanitizeName(countryName);
+  
+  const country = itiSFCountryAdaptor.find(country => sanitizeName(country.name) === sanitizedInput);
+  
   return country;
 }
 
@@ -1967,17 +1974,14 @@ window.addEventListener("DOMContentLoaded", function () {
           .text()
           .replace("+", "00");
 
-        var selectedCountryName = iti[index].getSelectedCountryData().name;
-
-        var decodedCountryName = decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country);
-        var retrieveCountryCode = retrieveCountry(selectedCountryName)?.sendAs?.countryCode;
+        var selectedCountryName = iti[index].getSelectedCountryData().name
         
         var selectedData = iti[index]
           .getSelectedCountryData()
           .name.replace(/ *\([^)]*\) */g, "");
 
-        $("input[name='countryCode']").val(retrieveCountryCode);
-        $("input[name='country']").val(decodedCountryName);
+        $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
+        $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
         $("input[name='ga_client_id']").val(getCookie("_ga"));
         $("input[name='fbid']").val(getFacebookCookie("_fbp"));
         $("input[name='fbclid']").val(getFbc());
