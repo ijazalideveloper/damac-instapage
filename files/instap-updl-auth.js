@@ -378,6 +378,31 @@ function loadCSS(filename) {
   head.appendChild(link);
 }
 
+function replaceCSS(oldFileName, newFileName) {
+  // Get all <link> elements in the <head>
+  const links = document.getElementsByTagName("link");
+
+  // Loop through the <link> elements to find the one with the old CSS file
+  for (let i = 0; i < links.length; i++) {
+      if (links[i].rel === "stylesheet" && links[i].href.includes(oldFileName)) {
+          // If the old CSS file is found, replace its href with the new one
+          links[i].href = newFileName;
+          return; // Exit the function once the replacement is done
+      }
+  }
+
+  // If the old CSS file is not found, create a new <link> element for the new CSS file
+  const newLink = document.createElement("link");
+  newLink.rel = "stylesheet";
+  newLink.type = "text/css";
+  newLink.href = newFileName;
+  document.getElementsByTagName("head")[0].appendChild(newLink);
+}
+
+// Usage: Replace the old CSS file "old-styles.css" with "new-styles.css"
+replaceCSS("old-styles.css", "new-styles.css");
+
+
 // ======== E N D   O F   U I   H A N D L E R   F U N C T I O N S ========
 
 
@@ -670,6 +695,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // Usage: Call the function and pass the path to your CSS file
   loadCSS('https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.5.0/build/css/intlTelInput.min.css')
+  replaceCSS('https://prod-cdn.damacproperties.com/uploads/instapages/native/css/intlTelInput.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.5.0/build/css/intlTelInput.min.css')
 
 
   // _Translate.set( original in English, translated );
