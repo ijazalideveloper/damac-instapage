@@ -2361,7 +2361,7 @@ function getFormData($form) {
 
     indexed_array[n["name"]] = n["value"];
   });
-  console.log(delete indexed_array[campaignName]);
+  console.log(delete indexed_array['campaignName']);
   console.log('indexed_array...', indexed_array)
   return indexed_array;
 }
