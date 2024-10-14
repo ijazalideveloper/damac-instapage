@@ -371,6 +371,7 @@ function replaceCSS(oldFileName, newFileName) {
   document.getElementsByTagName("head")[0].appendChild(newLink);
 }
 
+
 // ======== E N D   O F   U I   H A N D L E R   F U N C T I O N S ========
 
 
@@ -659,6 +660,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   loadScript(`https://dp-site-assets.s3.eu-west-1.amazonaws.com/uploads/instapages/native/js/intlTelInput.min.js`, function() {
     console.log('intlTelInput Loaded');
   })
+
+  // Usage: Call the function and pass the path to your CSS file
+  // replaceCSS('https://prod-cdn.damacproperties.com/uploads/instapages/native/css/intlTelInput.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.5.0/build/css/intlTelInput.min.css')
 
 
   // _Translate.set( original in English, translated );
@@ -1632,7 +1636,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
 
-  filldropdowns();
+filldropdowns();
 });
 
 //cookie function
@@ -2361,6 +2365,10 @@ function getFormData($form) {
 
     indexed_array[n["name"]] = n["value"];
   });
+  //console.log('indexed_array...', indexed_array);
+
+  delete indexed_array['campaignName'];
+
   console.log(delete indexed_array['campaignName']);
   console.log('indexed_array...', indexed_array)
   return indexed_array;
@@ -2407,19 +2415,19 @@ function getLQIdfromQueryString() {
 }
 
 function filldropdowns(){
-  let titleVal = $("input[name='moTitle']").val()
-  //console.log('titleval...',titleVal)
+let titleVal = $("input[name='moTitle']").val()
+//console.log('titleval...',titleVal)
 
-  var k =$("input[name='moTitle']").val();
-  $("select[name='"+titleInput+"'] option").filter(function() {
-  return $(this).val() ==k;
-  }).prop('selected', true);
-  $("select#field-741126b051b758e175dc7d616433758e-0 option").filter(function() {
-  return $(this).val() ==titleVal;
-  }).prop('selected', true);
-  $("select#field-5d7b0ff4610675daada3263278489d62-0 option").filter(function() {
-  return $(this).val() ==titleVal;
-  }).prop('selected', true);
+var k =$("input[name='moTitle']").val();
+$("select[name='"+titleInput+"'] option").filter(function() {
+return $(this).val() ==k;
+}).prop('selected', true);
+$("select#field-741126b051b758e175dc7d616433758e-0 option").filter(function() {
+return $(this).val() ==titleVal;
+}).prop('selected', true);
+$("select#field-5d7b0ff4610675daada3263278489d62-0 option").filter(function() {
+return $(this).val() ==titleVal;
+}).prop('selected', true);
 
 }
 
