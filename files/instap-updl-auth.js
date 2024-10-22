@@ -371,7 +371,6 @@ function replaceCSS(oldFileName, newFileName) {
   document.getElementsByTagName("head")[0].appendChild(newLink);
 }
 
-
 // ======== E N D   O F   U I   H A N D L E R   F U N C T I O N S ========
 
 
@@ -526,12 +525,13 @@ const pushToNewLQS = async data => {
             newrelic.addPageAction("lqs2leadEndpointOKResponse", {
               payload: JSON.stringify(data),
               formData: {
-                email: data.email, 
-                phoneNumber: data.phoneNumber, 
+                email: data?.email, 
+                phoneNumber: data?.phoneNumber, 
                 pageShown: data['Page Shown'], 
-                ipAddress: data.ipAddress, 
+                ipAddress: data?.ipAddress, 
                 campaignName: data?.campaignName,
                 countryCodeSync: data?.countryCodeSync,
+                countryCode: data?.countryCode,
                 campaignId: data?.campaignId,
                 token: data?.validationToken !== '' ? true : false
               },
@@ -2608,3 +2608,14 @@ function replaceTextInElements(oldText, newText, element) {
 
 addUTMParamsToSessionStorage()
 // ======== E N D   O F   O N   I N I T ========
+
+
+
+// ======== Find the script tag with the specific src attribute ========
+const script = document.querySelector('script[src="https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js"]');
+
+// Remove the script tag from the DOM
+if (script) {
+    script.remove();
+}
+// ======== Find the script tag with the specific src attribute ========
