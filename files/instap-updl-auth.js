@@ -2613,7 +2613,7 @@ addUTMParamsToSessionStorage()
 
 // ======== Find the script tag with the specific src attribute ========
 const script = document.querySelector('script[src="https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js"]');
-console.log("script")
+console.log("script", script)
 
 // Remove the script tag from the DOM
 if (script) {
