@@ -2612,27 +2612,28 @@ addUTMParamsToSessionStorage()
 
 
 // ======== Find the script tag with the specific src attribute ========
-const script = document.querySelector('script[src="https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js"]');
-console.log("script", script)
+document.addEventListener('DOMContentLoaded', function() {
+  // Your code to remove the script here
+  const script = document.querySelector('script[src="https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js"]');
+  console.log("script", script);
 
-// Remove the script tag from the DOM
-if (script) {
-    script.remove();
-}
-
-function removeFile(fileUrl) {
-
-  // Check for script (JS)
-  const script = document.querySelector(`script[src="${fileUrl}"]`);
   if (script) {
       script.remove();
-      return;
   }
 
-  console.log('File not found');
-}
+  function removeFile(fileUrl) {
+      const script = document.querySelector(`script[src="${fileUrl}"]`);
+      if (script) {
+          script.remove();
+          console.log("Script removed:", fileUrl);
+          return;
+      }
+      console.log('File not found');
+  }
 
-// Usage example:
-removeFile('https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js');
+  // Usage example:
+  removeFile('https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js');
+});
+
 
 // ======== Find the script tag with the specific src attribute ========
