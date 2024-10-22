@@ -1,43 +1,3 @@
-// ======== Find the script tag with the specific src attribute ========
-document.addEventListener('DOMContentLoaded', function() {
-  // Your code to remove the script here
-  const script = document.querySelector('script[src="https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js"]');
-  console.log("script", script);
-
-  if (script) {
-      script.remove();
-  }
-
-  function removeFile(fileUrl) {
-      const script = document.querySelector(`script[src="${fileUrl}"]`);
-      if (script) {
-          script.remove();
-          console.log("Script removed:", fileUrl);
-          return;
-      }
-      console.log('File not found');
-  }
-
-  // Usage example:
-  removeFile('https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js');
-});
-
-window.addEventListener('load', function() {
-  const allScripts = document.querySelectorAll('script');
-  allScripts.forEach(script => {
-      console.log("Found script:", script.src);
-  });
-  
-  // Now attempt to remove the specific script
-  const scriptToRemove = document.querySelector('script[src="https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js"]');
-  if (scriptToRemove) {
-      scriptToRemove.remove();
-      console.log("Script removed:", scriptToRemove.src);
-  } else {
-      console.log("Script not found.");
-  }
-});
-
 // ======== M A N U A L   S W I T C H E S ========
 const sendToLQS1 = false
 const sendToLQS2 = true
@@ -2651,8 +2611,20 @@ addUTMParamsToSessionStorage()
 
 
 
-
-
-
-
+// ======== Find the script tag with the specific src attribute ========
+window.addEventListener('load', function() {
+  const allScripts = document.querySelectorAll('script');
+  allScripts.forEach(script => {
+      console.log("Found script:", script.src);
+  });
+  
+  // Now attempt to remove the specific script
+  const scriptToRemove = document.querySelector('script[src="https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js"]');
+  if (scriptToRemove) {
+      scriptToRemove.remove();
+      console.log("Script removed:", scriptToRemove.src);
+  } else {
+      console.log("Script not found.");
+  }
+});
 // ======== Find the script tag with the specific src attribute ========
