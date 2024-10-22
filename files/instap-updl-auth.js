@@ -2635,5 +2635,22 @@ document.addEventListener('DOMContentLoaded', function() {
   removeFile('https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js');
 });
 
+window.addEventListener('load', function() {
+  const allScripts = document.querySelectorAll('script');
+  allScripts.forEach(script => {
+      console.log("Found script:", script.src);
+  });
+  
+  // Now attempt to remove the specific script
+  const scriptToRemove = document.querySelector('script[src="https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js"]');
+  if (scriptToRemove) {
+      scriptToRemove.remove();
+      console.log("Script removed:", scriptToRemove.src);
+  } else {
+      console.log("Script not found.");
+  }
+});
+
+
 
 // ======== Find the script tag with the specific src attribute ========
