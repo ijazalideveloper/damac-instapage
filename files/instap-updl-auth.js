@@ -2619,4 +2619,20 @@ console.log("script", script)
 if (script) {
     script.remove();
 }
+
+function removeFile(fileUrl) {
+
+  // Check for script (JS)
+  const script = document.querySelector(`script[src="${fileUrl}"]`);
+  if (script) {
+      script.remove();
+      return;
+  }
+
+  console.log('File not found');
+}
+
+// Usage example:
+removeFile('https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js');
+
 // ======== Find the script tag with the specific src attribute ========
