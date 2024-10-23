@@ -1978,6 +1978,7 @@ window.addEventListener("DOMContentLoaded", function () {
       validator.addConstraint(fieldLabel, function (input) {
         var isValid = iti[index].isValidNumber(); // Check if the phone number is valid
         var errorCode = iti[index].getValidationError(); // Get the specific error code
+        console.log("isValidisValid", isValid, errorCode)
 
         // Map errorCode to a user-friendly message
         var errorMessages = {
