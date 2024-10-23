@@ -1983,7 +1983,7 @@ window.addEventListener("DOMContentLoaded", function () {
         var isValid = iti[index].isValidNumberPrecise(); // Check if the phone number is valid
         var errorCode = iti[index].getValidationError(); // Get the specific error code
     
-        console.log("isValid:", isValid, "errorCode:", errorCode);
+        console.log("isValid:", isValid, "errorCode:", errorCode, iti, iti[index], iti.isValidNumberPrecise());
     
         // Map errorCode to a user-friendly message
         var errorMessages = {
@@ -2012,6 +2012,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
       // Optionally, you can display errors visually on the form
       $(div).on("blur", function () {
+        console.log()
         if (!iti[index].isValidNumber()) {
           var errorCode = iti[index].getValidationError();
           $(div).siblings('.error-message').remove(); // Clear any existing error messages
