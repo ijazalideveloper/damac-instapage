@@ -1975,8 +1975,15 @@ window.addEventListener("DOMContentLoaded", function () {
       var validator = window.__validators[formId];
 
       validator.addConstraint(fieldLabel, function (input) {
+        if (!iti[index]) {
+            console.error("intlTelInput is not initialized for this input.");
+            return { isValid: false, message: "Phone input is not initialized properly." };
+        }
+    
         var isValid = iti[index].isValidNumber(); // Check if the phone number is valid
         var errorCode = iti[index].getValidationError(); // Get the specific error code
+    
+        console.log("isValid:", isValid, "errorCode:", errorCode);
     
         // Map errorCode to a user-friendly message
         var errorMessages = {
