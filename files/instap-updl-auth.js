@@ -1974,27 +1974,34 @@ window.addEventListener("DOMContentLoaded", function () {
       var digitArray = /^\d{1,10}$/g;
       var validator = window.__validators[formId];
 
-      // Add validation constraint
       validator.addConstraint(fieldLabel, function (input) {
         var isValid = iti[index].isValidNumber(); // Check if the phone number is valid
         var errorCode = iti[index].getValidationError(); // Get the specific error code
-        console.log("isValidisValid", isValid, errorCode)
-
+    
         // Map errorCode to a user-friendly message
         var errorMessages = {
-          0: "No error, the phone number is valid.",
-          1: "Invalid country code.",
-          2: "Phone number is too short.",
-          3: "Phone number is too long.",
-          4: "Invalid phone number."
+            0: "No error, the phone number is valid.",
+            1: "Invalid country code.",
+            2: "Phone number is too short.",
+            3: "Phone number is too long.",
+            4: "Invalid phone number."
         };
-
+    
         // If not valid, return error message based on errorCode
-        return {
-          isValid: isValid, // Will be true if valid
-          message: isValid ? "" : errorMessages[errorCode] || "Invalid phone number.",
-        };
-      });
+        if (!isValid) {
+            $(input).addClass('user-invalid');  // Adding invalid class on error
+            return {
+                isValid: false, 
+                message: errorMessages[errorCode] || "Invalid phone number."
+            };
+        } else {
+            $(input).removeClass('user-invalid');  // Remove invalid class if valid
+            return {
+                isValid: true,
+                message: ""
+            };
+        }
+    });
 
       // Optionally, you can display errors visually on the form
       $(div).on("blur", function () {
@@ -2016,6 +2023,8 @@ window.addEventListener("DOMContentLoaded", function () {
       let formValid = instapageForm(forms);
       var handler = forms.onsubmit;
       forms.onsubmit = function (e) {
+        console.log('Form Valid:', formValid.isValid());
+      console.log('Phone Validation:', phoneValid);
         e.preventDefault();
         var delta = Math.abs(new Date().getTime() - startTime) / 1000;
         var hours = Math.floor(delta / 3600) % 24;
@@ -2100,9 +2109,27 @@ window.addEventListener("DOMContentLoaded", function () {
         data.keyword = decodeURIComponent(data.keyword)
 
         //Disable submit buttons
-        if(formValid.isValid() && (sendToLQS1 || sendToLQS2)){
-          toggleSubmitBtns('disable')
-        }
+        forms.onsubmit = function (e) {
+          e.preventDefault();  // Prevent default form submission
+      
+          if (formValid.isValid() && (sendToLQS1 || sendToLQS2)) {
+              // Ensure phone validation passes before proceeding
+              var phoneValid = true;
+              telInput.forEach(function (input) {
+                  if ($(input).hasClass('user-invalid')) {
+                      phoneValid = false;  // Block form submission if phone validation fails
+                  }
+              });
+      
+              if (phoneValid) {
+                  toggleSubmitBtns('disable');  // Disable submit buttons if valid
+                  // Proceed with form submission logic here
+              } else {
+                  // Handle invalid phone case
+                  alert('Please correct the phone number.');
+              }
+          }
+      };
 
         //Send to LQS 2
         if (sendToLQS2 && formValid.isValid()) {
