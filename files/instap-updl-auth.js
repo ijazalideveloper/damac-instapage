@@ -1934,7 +1934,9 @@ window.addEventListener("DOMContentLoaded", function () {
       div.setAttribute("type", "tel");
       iti?.push(
         window.intlTelInput(div, {
-          initialCountry: "auto",
+          // initialCountry: "auto",
+          initialCountry: "us",
+  utilsScript: "/intl-tel-input/js/utils.js?1727952657388",
           preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
           geoIpLookup: function (callback) {
             requestUrl =
@@ -1975,7 +1977,7 @@ window.addEventListener("DOMContentLoaded", function () {
       validator.addConstraint(fieldLabel, function (input) {
         return {
           // isValid: input.value.match(digitArray),
-          isValid: iti[index].isValidNumber(),
+          // isValid: iti[index].isValidNumber(),
           message: window._Translate.get(errorMessage),
         };
       });
