@@ -1625,15 +1625,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         $(this).val(split[1].replace(/"/g, '\\"'));
       });
   }
-  $('input[name="' + phoneInput + '"]').each(function () {
-    $(this)[0].onkeypress = function (e) {
-      e = e || window.event;
-      var charCode = typeof e.which == "undefined" ? e.keyCode : e.which;
-      if (charCode != 8 && charCode != 0 && (charCode < 48 || charCode > 57)) {
-        return false;
-      }
-    };
-  });
+
+  // $('input[name="' + phoneInput + '"]').each(function () {
+  //   $(this)[0].onkeypress = function (e) {
+  //     e = e || window.event;
+  //     var charCode = typeof e.which == "undefined" ? e.keyCode : e.which;
+  //     if (charCode != 8 && charCode != 0 && (charCode < 48 || charCode > 57)) {
+  //       return false;
+  //     }
+  //   };
+  // });
 
 
 filldropdowns();
@@ -1930,40 +1931,40 @@ window.addEventListener("DOMContentLoaded", function () {
     // var digitArray = /^\d{1,10}$/g;
     [].forEach.call(telInput, function (div, index) {
       // do whatever
-      div.setAttribute("type", "tel");
-      iti?.push(
-        window.intlTelInput(div, {
-          initialCountry: "auto",
-          preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
-          geoIpLookup: function (callback) {
-            requestUrl =
-              "https://api.ipapi.com/check?access_key=229c548dcafb9cff13041d9544ac60af";
-            $.ajax({
-              url: requestUrl,
-              type: "GET",
-              success: function (json) {
-                $("input[name='countryCodeSync']").val(json.country_code);
-                $("input[name='city']").val(json.city);
-                $("input[name='citySync']").val(json.city);
-                $("input[name='countryNameSync']").val(json.country_name);
-                $("input[name='country']").val(json.country_name);
-                $("input[name='countryCode']").val(json.country_name);
-                $("input[name='ipAddress']").val(json.ip);
-                callback(json.country_code);
-              },
-              error: function (err) {
-                //console.log("Request failed, error= " + err);
-              },
-            });
-          },
-          //utilsScript: "https://damac-landing-pages.s3.eu-west-1.amazonaws.com/instapage/js/utils.js",
-          // nationalMode: false,
-          separateDialCode: true,
-          placeholderNumberType: "MOBILE",
-          autoPlaceholder: "polite",
-          // any initialisation options go here
-        }),
-      );
+      // div.setAttribute("type", "tel");
+      // iti?.push(
+      //   window.intlTelInput(div, {
+      //     initialCountry: "auto",
+      //     preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
+      //     geoIpLookup: function (callback) {
+      //       requestUrl =
+      //         "https://api.ipapi.com/check?access_key=229c548dcafb9cff13041d9544ac60af";
+      //       $.ajax({
+      //         url: requestUrl,
+      //         type: "GET",
+      //         success: function (json) {
+      //           $("input[name='countryCodeSync']").val(json.country_code);
+      //           $("input[name='city']").val(json.city);
+      //           $("input[name='citySync']").val(json.city);
+      //           $("input[name='countryNameSync']").val(json.country_name);
+      //           $("input[name='country']").val(json.country_name);
+      //           $("input[name='countryCode']").val(json.country_name);
+      //           $("input[name='ipAddress']").val(json.ip);
+      //           callback(json.country_code);
+      //         },
+      //         error: function (err) {
+      //           //console.log("Request failed, error= " + err);
+      //         },
+      //       });
+      //     },
+      //     //utilsScript: "https://damac-landing-pages.s3.eu-west-1.amazonaws.com/instapage/js/utils.js",
+      //     // nationalMode: false,
+      //     separateDialCode: true,
+      //     placeholderNumberType: "MOBILE",
+      //     autoPlaceholder: "polite",
+      //     // any initialisation options go here
+      //   }),
+      // );
       var formId = $(div).parents("form").attr("data-id");
       //var fieldLabel = 'Phone';
       var fieldLabel = phoneInput;
