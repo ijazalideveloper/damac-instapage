@@ -1977,7 +1977,7 @@ window.addEventListener("DOMContentLoaded", function () {
       validator.addConstraint(fieldLabel, function (input) {
         return {
           // isValid: input.value.match(digitArray),
-          // isValid: iti[index].isValidNumber(),
+          isValid: iti[index].isValidNumberPrecise(),
           message: window._Translate.get(errorMessage),
         };
       });
