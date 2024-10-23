@@ -1936,7 +1936,7 @@ window.addEventListener("DOMContentLoaded", function () {
         window.intlTelInput(div, {
           // initialCountry: "auto",
           initialCountry: "us",
-  utilsScript: "/intl-tel-input/js/utils.js?1727952657388",
+          utilsScript: "/intl-tel-input/js/utils.js?1727952657388",
           preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
           geoIpLookup: function (callback) {
             requestUrl =
@@ -1975,10 +1975,12 @@ window.addEventListener("DOMContentLoaded", function () {
       var validator = window.__validators[formId];
 
       validator.addConstraint(fieldLabel, function (input) {
+        var isValid = iti[index].isValidNumber(); // Check if the number is valid
+        var errorCode = iti[index].getValidationError(); // Get specific validation error if needed
+    
         return {
-          // isValid: input.value.match(digitArray),
-          isValid: iti[index].getValidationError(),
-          message: window._Translate.get(errorMessage),
+          isValid: isValid, // Returns true if valid, false otherwise
+          message: isValid ? "" : window._Translate.get(errorMessage), // Display error message if invalid
         };
       });
     });
