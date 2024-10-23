@@ -1974,14 +1974,36 @@ window.addEventListener("DOMContentLoaded", function () {
       var digitArray = /^\d{1,10}$/g;
       var validator = window.__validators[formId];
 
+      // Add validation constraint
       validator.addConstraint(fieldLabel, function (input) {
-        var isValid = iti[index].isValidNumber(); // Check if the number is valid
-        var errorCode = iti[index].getValidationError(); // Get specific validation error if needed
-    
-        return {
-          isValid: isValid, // Returns true if valid, false otherwise
-          message: isValid ? "" : window._Translate.get(errorMessage), // Display error message if invalid
+        var isValid = iti[index].isValidNumber(); // Check if the phone number is valid
+        var errorCode = iti[index].getValidationError(); // Get the specific error code
+
+        // Map errorCode to a user-friendly message
+        var errorMessages = {
+          0: "No error, the phone number is valid.",
+          1: "Invalid country code.",
+          2: "Phone number is too short.",
+          3: "Phone number is too long.",
+          4: "Invalid phone number."
         };
+
+        // If not valid, return error message based on errorCode
+        return {
+          isValid: isValid, // Will be true if valid
+          message: isValid ? "" : errorMessages[errorCode] || "Invalid phone number.",
+        };
+      });
+
+      // Optionally, you can display errors visually on the form
+      $(div).on("blur", function () {
+        if (!iti[index].isValidNumber()) {
+          var errorCode = iti[index].getValidationError();
+          $(div).siblings('.error-message').remove(); // Clear any existing error messages
+          $(div).after(`<span class="error-message">${errorMessages[errorCode] || "Invalid phone number."}</span>`);
+        } else {
+          $(div).siblings('.error-message').remove(); // Remove error if valid
+        }
       });
     });
     //form logic
