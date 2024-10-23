@@ -1975,7 +1975,7 @@ window.addEventListener("DOMContentLoaded", function () {
       var validator = window.__validators[formId];
 
       validator.addConstraint(fieldLabel, function (input) {
-        console.log("iti[index].isValidNumber()", iti, iti[index], iti[index].isValidNumber(), div, div.isValidNumberPrecise())
+        console.log("iti[index].isValidNumber()", iti, iti[index], iti[index].isValidNumber(), div)
         return {
           // isValid: input.value.match(digitArray),
           isValid: iti[index].isValidNumber(),
