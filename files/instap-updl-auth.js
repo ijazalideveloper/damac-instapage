@@ -1935,6 +1935,7 @@ window.addEventListener("DOMContentLoaded", function () {
       iti?.push(
         window.intlTelInput(div, {
           initialCountry: "auto",
+          utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.6.0/js/utils.js", // Load utility functions
           preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
           geoIpLookup: function (callback) {
             requestUrl =
