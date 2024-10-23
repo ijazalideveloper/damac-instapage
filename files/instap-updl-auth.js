@@ -1932,53 +1932,48 @@ window.addEventListener("DOMContentLoaded", function () {
     [].forEach.call(telInput, function (div, index) {
       // do whatever
       div.setAttribute("type", "tel");
-      div.setAttribute("id", "phone");
-      const input = document.querySelector("#phone");
-      window.intlTelInput(input, {
-        loadUtilsOnInit: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
-      });
-      // iti?.push(
-      //   window.intlTelInput(div, {
-      //     initialCountry: "auto",
-      //     preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
-      //     geoIpLookup: function (callback) {
-      //       requestUrl =
-      //         "https://api.ipapi.com/check?access_key=229c548dcafb9cff13041d9544ac60af";
-      //       $.ajax({
-      //         url: requestUrl,
-      //         type: "GET",
-      //         success: function (json) {
-      //           $("input[name='countryCodeSync']").val(json.country_code);
-      //           $("input[name='city']").val(json.city);
-      //           $("input[name='citySync']").val(json.city);
-      //           $("input[name='countryNameSync']").val(json.country_name);
-      //           $("input[name='country']").val(json.country_name);
-      //           $("input[name='countryCode']").val(json.country_name);
-      //           $("input[name='ipAddress']").val(json.ip);
-      //           callback(json.country_code);
-      //         },
-      //         error: function (err) {
-      //           //console.log("Request failed, error= " + err);
-      //         },
-      //       });
-      //     },
-      //     //utilsScript: "https://damac-landing-pages.s3.eu-west-1.amazonaws.com/instapage/js/utils.js",
-      //     // nationalMode: false,
-      //     separateDialCode: true,
-      //     placeholderNumberType: "MOBILE",
-      //     autoPlaceholder: "polite",
-      //     // any initialisation options go here
-      //   }),
-      // );
+      iti?.push(
+        window.intlTelInput(div, {
+          initialCountry: "auto",
+          preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
+          geoIpLookup: function (callback) {
+            requestUrl =
+              "https://api.ipapi.com/check?access_key=229c548dcafb9cff13041d9544ac60af";
+            $.ajax({
+              url: requestUrl,
+              type: "GET",
+              success: function (json) {
+                $("input[name='countryCodeSync']").val(json.country_code);
+                $("input[name='city']").val(json.city);
+                $("input[name='citySync']").val(json.city);
+                $("input[name='countryNameSync']").val(json.country_name);
+                $("input[name='country']").val(json.country_name);
+                $("input[name='countryCode']").val(json.country_name);
+                $("input[name='ipAddress']").val(json.ip);
+                callback(json.country_code);
+              },
+              error: function (err) {
+                //console.log("Request failed, error= " + err);
+              },
+            });
+          },
+          //utilsScript: "https://damac-landing-pages.s3.eu-west-1.amazonaws.com/instapage/js/utils.js",
+          // nationalMode: false,
+          separateDialCode: true,
+          placeholderNumberType: "MOBILE",
+          autoPlaceholder: "polite",
+          // any initialisation options go here
+        }),
+      );
       var formId = $(div).parents("form").attr("data-id");
       //var fieldLabel = 'Phone';
       var fieldLabel = phoneInput;
       var errorMessage = `: ${phoneError}`;
       var digitArray = /^\d{1,10}$/g;
       var validator = window.__validators[formId];
-      console.log("iti[index].isValidNumber()", iti, iti[index], iti[index].isValidNumber(), iti.isValidNumber())
+
       validator.addConstraint(fieldLabel, function (input) {
-        console.log("iti[index].isValidNumber()", iti, iti[index], iti[index].isValidNumber(), iti.isValidNumber())
+        console.log("iti[index].isValidNumber()", iti, iti[index], iti[index].isValidNumber(), iti[index].isValidNumber())
         return {
           // isValid: input.value.match(digitArray),
           isValid: iti[index].isValidNumber(),
