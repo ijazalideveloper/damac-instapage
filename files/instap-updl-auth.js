@@ -1934,8 +1934,8 @@ window.addEventListener("DOMContentLoaded", function () {
       div.setAttribute("type", "tel");
       iti?.push(
         window.intlTelInput(div, {
-          // initialCountry: "auto",
-          initialCountry: "us",
+          initialCountry: "auto",
+          // initialCountry: "us",
           utilsScript: "/intl-tel-input/js/utils.js?1727952657388",
           preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
           geoIpLookup: function (callback) {
