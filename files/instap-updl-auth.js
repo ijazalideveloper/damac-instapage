@@ -1974,13 +1974,13 @@ window.addEventListener("DOMContentLoaded", function () {
       var digitArray = /^\d{1,10}$/g;
       var validator = window.__validators[formId];
 
-      // validator.addConstraint(fieldLabel, function (input) {
-      //   return {
-      //     // isValid: input.value.match(digitArray),
-      //     isValid: iti[index].isValidNumberPrecise(),
-      //     message: window._Translate.get(errorMessage),
-      //   };
-      // });
+      validator.addConstraint(fieldLabel, function (input) {
+        return {
+          // isValid: input.value.match(digitArray),
+          isValid: iti[index].getValidationError(),
+          message: window._Translate.get(errorMessage),
+        };
+      });
     });
     //form logic
     var form = document.querySelectorAll("form.email-form");
