@@ -1931,7 +1931,7 @@ window.addEventListener("DOMContentLoaded", function () {
     // var digitArray = /^\d{1,10}$/g;
     [].forEach.call(telInput, function (div, index) {
       // do whatever
-      // div.setAttribute("type", "tel");
+      div.setAttribute("type", "tel");
       // iti?.push(
       //   window.intlTelInput(div, {
       //     initialCountry: "auto",
