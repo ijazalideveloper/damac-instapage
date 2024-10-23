@@ -1935,6 +1935,7 @@ window.addEventListener("DOMContentLoaded", function () {
       iti?.push(
         window.intlTelInput(div, {
           initialCountry: "auto",
+          loadUtilsOnInit: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
           preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
           geoIpLookup: function (callback) {
             requestUrl =
@@ -1973,7 +1974,7 @@ window.addEventListener("DOMContentLoaded", function () {
       var validator = window.__validators[formId];
 
       validator.addConstraint(fieldLabel, function (input) {
-        console.log("iti[index].isValidNumber()", iti, iti[index], iti[index].isValidNumber(), iti[index].isValidNumber())
+        console.log("iti[index].isValidNumber()", iti, iti[index], iti[index].isValidNumber(), iti.isValidNumber())
         return {
           // isValid: input.value.match(digitArray),
           isValid: iti[index].isValidNumber(),
