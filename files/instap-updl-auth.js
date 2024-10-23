@@ -1980,7 +1980,7 @@ window.addEventListener("DOMContentLoaded", function () {
             return { isValid: false, message: "Phone input is not initialized properly." };
         }
     
-        var isValid = iti[index].isValidNumber(); // Check if the phone number is valid
+        var isValid = iti[index].isValidNumberPrecise(); // Check if the phone number is valid
         var errorCode = iti[index].getValidationError(); // Get the specific error code
     
         console.log("isValid:", isValid, "errorCode:", errorCode);
