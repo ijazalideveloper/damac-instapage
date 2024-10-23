@@ -657,9 +657,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log('New Relic Loaded');
   })
 
-  loadScript(`https://dp-site-assets.s3.eu-west-1.amazonaws.com/uploads/instapages/native/js/intlTelInput.min.js`, function() {
-    console.log('intlTelInput Loaded');
-  })
+  // loadScript(`https://dp-site-assets.s3.eu-west-1.amazonaws.com/uploads/instapages/native/js/intlTelInput.min.js`, function() {
+  //   console.log('intlTelInput Loaded');
+  // })
 
   // Usage: Call the function and pass the path to your CSS file
   // replaceCSS('https://prod-cdn.damacproperties.com/uploads/instapages/native/css/intlTelInput.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.5.0/build/css/intlTelInput.min.css')
