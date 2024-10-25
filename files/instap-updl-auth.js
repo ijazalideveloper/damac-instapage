@@ -16,7 +16,7 @@ const lqs1authKey = "newiuw3ujdjudqoeneoie1E";
 
 // ======== L Q S 2.0   C O N F I G ========
 // const lqs2clientId = "instapage_user";
-const lqs2clientId = "instapage_user-clientid";
+const lqs2clientId = "instapage_user";
 // const lqs2clientSecret = "IAx7jC4brSR9gxVBys6ys6skutRnGeFzdgdZ8skutRnGeFzxVB";
 const lqs2clientSecret = "zAx7jC4brSR9gxVBys6skutRnGeFzxVBys6skutRnGeFzdgdZ8";
 // const lqs2tokenEndpoint = "https://api.damacgroup.com/lqs-api/v1/token";
@@ -267,6 +267,7 @@ const itiSFCountryAdaptor = [
     {  name: "Uganda", diallingCode: "+256", sendAs: { country: "Uganda", countryCode: "Uganda: 00256" }  },
     {  name: "Ukraine (Україна)", diallingCode: "+380", sendAs: { country: "Ukraine", countryCode: "Ukraine: 00380" }  },
     {  name: "United Arab Emirates", diallingCode: "+971", sendAs: { country: "United Arab Emirates", countryCode: "United Arab Emirates: 00971" }  },
+    // {  name: "United Arab Emirates (<U202b>الإمارات العربية المتحدة<U202c>‎)", diallingCode: "+971", sendAs: { country: "United Arab Emirates", countryCode: "United Arab Emirates: 00971" }  },
     {  name: "United Kingdom", diallingCode: "+44", sendAs: { country: "United Kingdom", countryCode: "United Kingdom: 0044" }  },
     {  name: "United States", diallingCode: "+1", sendAs: { country: "United States of America", countryCode: "United States: 001" }  },
     {  name: "Uruguay", diallingCode: "+598", sendAs: { country: "Uruguay", countryCode: "Uruguay: 00598" }  },
