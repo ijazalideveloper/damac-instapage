@@ -262,7 +262,7 @@ const itiSFCountryAdaptor = [
     {  name: "U.S. Virgin Islands", diallingCode: "+1", sendAs: { country: "Virgin Islands, U.S.", countryCode: "U.S. Virgin Islands: 001340" }  },
     {  name: "Uganda", diallingCode: "+256", sendAs: { country: "Uganda", countryCode: "Uganda: 00256" }  },
     {  name: "Ukraine (Україна)", diallingCode: "+380", sendAs: { country: "Ukraine", countryCode: "Ukraine: 00380" }  },
-    {  name: "United Arab Emirates (<U202b>الإمارات العربية المتحدة<U202c>‎)", diallingCode: "+971", sendAs: { country: "United Arab Emirates", countryCode: "United Arab Emirates: 00971" }  },
+    {  name: "United Arab Emirates", diallingCode: "+971", sendAs: { country: "United Arab Emirates", countryCode: "United Arab Emirates: 00971" }  },
     {  name: "United Kingdom", diallingCode: "+44", sendAs: { country: "United Kingdom", countryCode: "United Kingdom: 0044" }  },
     {  name: "United States", diallingCode: "+1", sendAs: { country: "United States of America", countryCode: "United States: 001" }  },
     {  name: "Uruguay", diallingCode: "+598", sendAs: { country: "Uruguay", countryCode: "Uruguay: 00598" }  },
