@@ -262,6 +262,7 @@ let iti;
 document.addEventListener("DOMContentLoaded", function () {
     const phoneInput = Array.from(document.getElementsByTagName('form'))[0][4];
     const countryCodeField = document.querySelector("input[name='countryCode']");
+    const form = document.querySelector('form');  // Adjust if needed to target your Instapage form
 
     iti = window.intlTelInput(phoneInput, {
         initialCountry: "auto",
@@ -280,18 +281,24 @@ document.addEventListener("DOMContentLoaded", function () {
         utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
     });
 
-    // Validate phone input on change
-    function validatePhone() {
+    // Validate phone input on submit
+    function validatePhoneOnSubmit(event) {
         const isValid = iti.isValidNumber();
-        phoneInput.classList.remove("valid", "user-invalid");
-        if (isValid) {
-            phoneInput.classList.add("valid");
+        phoneInput.classList.remove("valid", "invalid");
+        
+        if (!isValid) {
+            phoneInput.classList.add("invalid");
+            alert("Please enter a valid phone number.");
+            event.preventDefault();  // Prevent form submission
         } else {
-            phoneInput.classList.add("user-invalid");
+            phoneInput.classList.add("valid");
         }
     }
 
-    // Use 'countrychange' event to set country when selected or updated
+    // Trigger validation on form submit
+    form.addEventListener("submit", validatePhoneOnSubmit);
+
+    // Initial setup of country code
     phoneInput.addEventListener("countrychange", function () {
         const countryData = iti.getSelectedCountryData();
         const country = retrieveCountry(countryData.name);
@@ -301,14 +308,5 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             console.log(`Country not found in adapter for ${countryData.name}`);
         }
-
-        // Validate on country change
-        validatePhone();
     });
-
-    // Validate on input change
-    phoneInput.addEventListener("input", validatePhone);
-
-    // Initial validation on load
-    phoneInput.dispatchEvent(new Event("countrychange"));
 });
