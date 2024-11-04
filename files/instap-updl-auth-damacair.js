@@ -255,7 +255,12 @@ function sanitizeName(name) {
 
 function retrieveCountry(countryName) {
     const sanitizedInput = sanitizeName(countryName);
-    const country = itiSFCountryAdaptor.find(country => sanitizeName(country.name) == sanitizedInput);
+    const country = itiSFCountryAdaptor.find(country => {
+        const sanitizedCountryName = sanitizeName(country.name);
+        return sanitizedCountryName === sanitizedInput || // Exact match
+               sanitizedCountryName.startsWith(sanitizedInput + " ") || // Starts with and followed by space (for multi-word names)
+               sanitizedCountryName.endsWith(" " + sanitizedInput); // Ends with and preceded by space
+    });
     return country;
 }
 
