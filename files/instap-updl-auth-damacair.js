@@ -287,6 +287,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fixDropdownWidth: true,
         placeholderNumberType: "MOBILE",
         autoPlaceholder: "polite",
+        countrySearch: true,
     });
 
     const countryName = iti.getSelectedCountryData().name;
