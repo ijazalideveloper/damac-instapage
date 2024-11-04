@@ -299,6 +299,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Update the hidden field value when phone input value changes
     phoneInput.addEventListener("input", function () {
         const dialCode = iti.getSelectedCountryData().dialCode;
-        countryCodeField.value = retrieveCountry(dialCode)?.sendAs?.countryCode; // Update hidden field on input change
+        countryCodeField.value = retrieveCountry(countryName)?.sendAs?.countryCode; // Update hidden field on input change
     });
 });
