@@ -248,10 +248,9 @@ const itiSFCountryAdaptor = [
 
 function sanitizeName(name) {
     // Replace Unicode characters and HTML-style placeholders, then trim
-    return name
-        .replace(/[\u202b\u202c]/g, '')   // Remove actual Unicode directional marks
-        .replace(/<U202b>|<U202c>/g, '')  // Remove placeholders
-        .trim();
+    return name?.replace(/[\u202b\u202c]/g, '')   // Remove actual Unicode directional marks
+        ?.replace(/<U202b>|<U202c>/g, '')  // Remove placeholders
+        ?.trim();
   }
   
   function retrieveCountry(countryName) {
