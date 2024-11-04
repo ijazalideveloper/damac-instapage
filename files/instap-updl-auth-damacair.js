@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function () {
         countryCodeField.value = retrieveCountry(dialCode)?.sendAs?.countryCode; // Set the hidden field's initial value
     });
 
-    console.log("iti.getSelectedCountryData()", iti, countryName, dialCode)
+    console.log("iti.getSelectedCountryData()", iti, countryName)
     // Update the hidden field value when phone input value changes
     phoneInput.addEventListener("input", function () {
         const dialCode = iti.getSelectedCountryData().dialCode;
