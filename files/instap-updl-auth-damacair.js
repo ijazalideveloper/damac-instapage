@@ -259,7 +259,7 @@ function retrieveCountry(countryName) {
     console.log("countryName", countryName)
     const sanitizedInput = sanitizeName(countryName);
     
-    const country = itiSFCountryAdaptor.find(country => sanitizeName(country.name).includes(sanitizedInput));
+    const country = itiSFCountryAdaptor.find(country => diallingCode.includes(countryName));
     
     return country;
   }
@@ -293,12 +293,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set initial value once the country is determined
     phoneInput.addEventListener("countrychange", function () {
         const dialCode = iti.getSelectedCountryData().dialCode;
-        countryCodeField.value = retrieveCountry(countryName)?.sendAs?.countryCode; // Set the hidden field's initial value
+        countryCodeField.value = retrieveCountry(dialCode)?.sendAs?.countryCode; // Set the hidden field's initial value
     });
-console.log("iti.getSelectedCountryData()", iti, countryName)
+
+    console.log("iti.getSelectedCountryData()", iti, countryName, dialCode)
     // Update the hidden field value when phone input value changes
     phoneInput.addEventListener("input", function () {
         const dialCode = iti.getSelectedCountryData().dialCode;
-        countryCodeField.value = retrieveCountry(countryName)?.sendAs?.countryCode; // Update hidden field on input change
+        countryCodeField.value = retrieveCountry(dialCode)?.sendAs?.countryCode; // Update hidden field on input change
     });
 });
