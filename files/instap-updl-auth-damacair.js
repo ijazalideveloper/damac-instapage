@@ -281,9 +281,8 @@ document.addEventListener("DOMContentLoaded", function () {
         utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
     });
 
-    // Validate phone input on submit
     function validatePhoneOnSubmit(event) {
-        event.preventDefault(); // Prevent form submission immediately
+        event.preventDefault(); // Prevent form submission initially
     
         const isValid = iti.isValidNumber();
         phoneInput.classList.remove("valid", "invalid");
@@ -291,15 +290,16 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!isValid) {
             phoneInput.classList.add("invalid");
             alert("Please enter a valid phone number.");
-            return; // Exit the function so the form does not submit
+            return false; // Explicitly stop submission
         }
     
         phoneInput.classList.add("valid");
-        form.submit(); // Only submit if the phone number is valid
+        return true; // Let the form submit if the number is valid
     }
-
-    // Trigger validation on form submit
-    form.addEventListener("submit", validatePhoneOnSubmit);
+    
+    // Bind validation to form submit
+    form.onsubmit = validatePhoneOnSubmit; // Use `onsubmit` to override Instapage's default handler
+    
 
     // Initial setup of country code
     phoneInput.addEventListener("countrychange", function () {
