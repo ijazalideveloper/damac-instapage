@@ -295,10 +295,10 @@ document.addEventListener("DOMContentLoaded", function () {
         countryCodeField.value = retrieveCountry(dialCode)?.sendAs?.countryCode; // Set the hidden field's initial value
     });
 
-    console.log("iti.getSelectedCountryData()", iti, countryName)
+    console.log("iti.getSelectedCountryData()", iti, iti.getSelectedCountryData().name)
     // Update the hidden field value when phone input value changes
     phoneInput.addEventListener("input", function () {
         const dialCode = iti.getSelectedCountryData().dialCode;
-        countryCodeField.value = retrieveCountry(countryName)?.sendAs?.countryCode; // Update hidden field on input change
+        countryCodeField.value = retrieveCountry(iti.getSelectedCountryData().name)?.sendAs?.countryCode; // Update hidden field on input change
     });
 });
