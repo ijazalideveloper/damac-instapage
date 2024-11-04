@@ -247,58 +247,54 @@ const itiSFCountryAdaptor = [
 ]
 
 function sanitizeName(name) {
-  // Replace both the Unicode characters (like \u202b, \u202c) and the HTML-style placeholders (<U202b>, <U202c>)
-  return name
-      .replace(/[\u202b\u202c]/g, '')   // Remove actual Unicode directional marks
-      .replace(/<U202b>|<U202c>/g, '')  // Remove placeholders used in your list
-      .trim();                          // Trim any extra spaces
-}
-
-function retrieveCountry(countryName) {
-    const sanitizedInput = sanitizeName(countryName);
-    
-    const country = itiSFCountryAdaptor.find(country => sanitizeName(country.name).includes(sanitizedInput));
-    
-    return country;
-}
-
-// ======== E N D   O F   I T I   T O   S F   C O U N T R Y   A D A P T O R   A N D   R E T R I E V A L   F U N C T I O N S ========
-
-
-
-let iti;
-document.addEventListener("DOMContentLoaded", function () {
-    const phoneInput = Array.from(document.getElementsByTagName('form'))[0][4];
-    const countryCodeField = document.querySelector("input[name='countryCode']"); // Select the hidden input
-
-    iti = window.intlTelInput(phoneInput, {
-        initialCountry: "auto",
-        preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
-        geoIpLookup: callback => {
-            fetch("https://ipapi.co/json")
-                .then(res => res.json())
-                .then(data => callback(data.country_code))
-                .catch(() => callback("ae"));
-        },
-        separateDialCode: true,
-        fixDropdownWidth: true,
-        placeholderNumberType: "MOBILE",
-        autoPlaceholder: "polite",
-        countrySearch: true,
-        loadUtilsOnInit: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
-    });
-
-    const countryName = iti.getSelectedCountryData().name;
-    // Set initial value once the country is determined
-    phoneInput.addEventListener("countrychange", function () {
-        const dialCode = iti.getSelectedCountryData().dialCode;
-        countryCodeField.value = retrieveCountry(dialCode)?.sendAs?.countryCode; // Set the hidden field's initial value
-    });
-
-    console.log("iti.getSelectedCountryData()", iti, iti.getSelectedCountryData().name)
-    // Update the hidden field value when phone input value changes
-    phoneInput.addEventListener("input", function () {
-        const dialCode = iti.getSelectedCountryData().dialCode;
-        countryCodeField.value = retrieveCountry(iti.getSelectedCountryData().name)?.sendAs?.countryCode; // Update hidden field on input change
-    });
-});
+    // Replace Unicode characters and HTML-style placeholders, then trim
+    return name
+        .replace(/[\u202b\u202c]/g, '')   // Remove actual Unicode directional marks
+        .replace(/<U202b>|<U202c>/g, '')  // Remove placeholders
+        .trim();
+  }
+  
+  function retrieveCountry(countryName) {
+      const sanitizedInput = sanitizeName(countryName);
+      const country = itiSFCountryAdaptor.find(country => sanitizeName(country.name).includes(sanitizedInput));
+      return country;
+  }
+  
+  let iti;
+  document.addEventListener("DOMContentLoaded", function () {
+      const phoneInput = Array.from(document.getElementsByTagName('form'))[0][4];
+      const countryCodeField = document.querySelector("input[name='countryCode']");
+  
+      iti = window.intlTelInput(phoneInput, {
+          initialCountry: "auto",
+          preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
+          geoIpLookup: callback => {
+              fetch("https://ipapi.co/json")
+                  .then(res => res.json())
+                  .then(data => callback(data.country_code))
+                  .catch(() => callback("ae"));
+          },
+          separateDialCode: true,
+          fixDropdownWidth: true,
+          placeholderNumberType: "MOBILE",
+          autoPlaceholder: "polite",
+          countrySearch: true,
+          utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
+      });
+  
+      // Use 'countrychange' event to set country when selected or updated
+      phoneInput.addEventListener("countrychange", function () {
+          const countryData = iti.getSelectedCountryData();
+          const country = retrieveCountry(countryData.name);
+  
+          // Set country code from the adapter if found
+          if (country) {
+              countryCodeField.value = country.sendAs?.countryCode || countryData.dialCode;
+          } else {
+              console.log(`Country not found in adapter for ${countryData.name}`);
+          }
+      });
+  
+      // Trigger initial countrychange event to set initial values
+      phoneInput.dispatchEvent(new Event("countrychange"));
+  });
