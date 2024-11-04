@@ -283,16 +283,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Validate phone input on submit
     function validatePhoneOnSubmit(event) {
+        event.preventDefault(); // Prevent form submission immediately
+    
         const isValid = iti.isValidNumber();
         phoneInput.classList.remove("valid", "invalid");
-        
+    
         if (!isValid) {
             phoneInput.classList.add("invalid");
             alert("Please enter a valid phone number.");
-            event.preventDefault();  // Prevent form submission
-        } else {
-            phoneInput.classList.add("valid");
+            return; // Exit the function so the form does not submit
         }
+    
+        phoneInput.classList.add("valid");
+        form.submit(); // Only submit if the phone number is valid
     }
 
     // Trigger validation on form submit
