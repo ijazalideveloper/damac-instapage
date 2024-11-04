@@ -289,9 +289,12 @@ function sanitizeName(name) {
 
 function retrieveCountry(countryName) {
   const sanitizedInput = sanitizeName(countryName);
-  
-  const country = itiSFCountryAdaptor.find(country => sanitizeName(country.name).includes(sanitizedInput));
-  
+  const country = itiSFCountryAdaptor.find(country => {
+      const sanitizedCountryName = sanitizeName(country.name);
+      return sanitizedCountryName === sanitizedInput || // Exact match
+             sanitizedCountryName.startsWith(sanitizedInput + " ") || // Starts with and followed by space (for multi-word names)
+             sanitizedCountryName.endsWith(" " + sanitizedInput); // Ends with and preceded by space
+  });
   return country;
 }
 
@@ -564,6 +567,19 @@ const pushToNewLQS = async data => {
           return response.json()
         } else {
           newrelic.addPageAction("lqs2leadEndpointFailedResponse", {
+            formData: {
+              firstName: data?.firstName,
+              lastName: data?.lastName,
+              email: data?.email, 
+              phoneNumber: data?.phoneNumber, 
+              pageShown: data['Page Shown'], 
+              ipAddress: data?.ipAddress, 
+              campaignName: data?.campaignName,
+              countryCodeSync: data?.countryCodeSync,
+              countryCode: data?.countryCode,
+              campaignId: data?.campaignId,
+              token: data?.validationToken !== '' ? true : false
+            },
             error: error,
             responseStatus : response.status
           });
@@ -578,6 +594,19 @@ const pushToNewLQS = async data => {
         console.error('Error:', error)
         newrelic.addPageAction("leadSubmissionFailure", {
           error: error,
+          formData: {
+            firstName: data?.firstName,
+            lastName: data?.lastName,
+            email: data?.email, 
+            phoneNumber: data?.phoneNumber, 
+            pageShown: data['Page Shown'], 
+            ipAddress: data?.ipAddress, 
+            campaignName: data?.campaignName,
+            countryCodeSync: data?.countryCodeSync,
+            countryCode: data?.countryCode,
+            campaignId: data?.campaignId,
+            token: data?.validationToken !== '' ? true : false
+          },
         });
         toggleSubmitBtns('enable')
       })
