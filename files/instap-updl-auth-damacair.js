@@ -247,7 +247,6 @@ const itiSFCountryAdaptor = [
 ]
 
 function sanitizeName(name) {
-    console.log("sanitizeName", name)
   // Replace both the Unicode characters (like \u202b, \u202c) and the HTML-style placeholders (<U202b>, <U202c>)
   return name
       .replace(/[\u202b\u202c]/g, '')   // Remove actual Unicode directional marks
