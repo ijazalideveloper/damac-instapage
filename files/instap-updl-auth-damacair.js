@@ -259,7 +259,7 @@ function retrieveCountry(countryName) {
     console.log("countryName", countryName)
     const sanitizedInput = sanitizeName(countryName);
     
-    const country = itiSFCountryAdaptor.find(country => diallingCode.includes(countryName));
+    const country = itiSFCountryAdaptor.find(country => country?.diallingCode.includes(countryName));
     
     return country;
   }
