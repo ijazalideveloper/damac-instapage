@@ -247,53 +247,68 @@ const itiSFCountryAdaptor = [
 ]
 
 function sanitizeName(name) {
-    // Replace Unicode characters and HTML-style placeholders, then trim
     return name?.replace(/[\u202b\u202c]/g, '')   // Remove actual Unicode directional marks
         ?.replace(/<U202b>|<U202c>/g, '')  // Remove placeholders
         ?.trim();
-  }
-  
-  function retrieveCountry(countryName) {
-      const sanitizedInput = sanitizeName(countryName);
-      const country = itiSFCountryAdaptor.find(country => sanitizeName(country.name).includes(sanitizedInput));
-      return country;
-  }
-  
-  let iti;
-  document.addEventListener("DOMContentLoaded", function () {
-      const phoneInput = Array.from(document.getElementsByTagName('form'))[0][4];
-      const countryCodeField = document.querySelector("input[name='countryCode']");
-  
-      iti = window.intlTelInput(phoneInput, {
-          initialCountry: "auto",
-          preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
-          geoIpLookup: callback => {
-              fetch("https://ipapi.co/json")
-                  .then(res => res.json())
-                  .then(data => callback(data.country_code))
-                  .catch(() => callback("ae"));
-          },
-          separateDialCode: true,
-          fixDropdownWidth: true,
-          placeholderNumberType: "MOBILE",
-          autoPlaceholder: "polite",
-          countrySearch: true,
-          utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
-      });
-  
-      // Use 'countrychange' event to set country when selected or updated
-      phoneInput.addEventListener("countrychange", function () {
-          const countryData = iti.getSelectedCountryData();
-          const country = retrieveCountry(countryData.name);
-  
-          // Set country code from the adapter if found
-          if (country) {
-              countryCodeField.value = country.sendAs?.countryCode || countryData.dialCode;
-          } else {
-              console.log(`Country not found in adapter for ${countryData.name}`);
-          }
-      });
-  
-      // Trigger initial countrychange event to set initial values
-      phoneInput.dispatchEvent(new Event("countrychange"));
-  });
+}
+
+function retrieveCountry(countryName) {
+    const sanitizedInput = sanitizeName(countryName);
+    const country = itiSFCountryAdaptor.find(country => sanitizeName(country.name).includes(sanitizedInput));
+    return country;
+}
+
+let iti;
+document.addEventListener("DOMContentLoaded", function () {
+    const phoneInput = Array.from(document.getElementsByTagName('form'))[0][4];
+    const countryCodeField = document.querySelector("input[name='countryCode']");
+
+    iti = window.intlTelInput(phoneInput, {
+        initialCountry: "auto",
+        preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
+        geoIpLookup: callback => {
+            fetch("https://ipapi.co/json")
+                .then(res => res.json())
+                .then(data => callback(data.country_code))
+                .catch(() => callback("ae"));
+        },
+        separateDialCode: true,
+        fixDropdownWidth: true,
+        placeholderNumberType: "MOBILE",
+        autoPlaceholder: "polite",
+        countrySearch: true,
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
+    });
+
+    // Validate phone input on change
+    function validatePhone() {
+        const isValid = iti.isValidNumber();
+        phoneInput.classList.remove("valid", "user-invalid");
+        if (isValid) {
+            phoneInput.classList.add("valid");
+        } else {
+            phoneInput.classList.add("user-invalid");
+        }
+    }
+
+    // Use 'countrychange' event to set country when selected or updated
+    phoneInput.addEventListener("countrychange", function () {
+        const countryData = iti.getSelectedCountryData();
+        const country = retrieveCountry(countryData.name);
+
+        if (country) {
+            countryCodeField.value = country.sendAs?.countryCode || countryData.dialCode;
+        } else {
+            console.log(`Country not found in adapter for ${countryData.name}`);
+        }
+
+        // Validate on country change
+        validatePhone();
+    });
+
+    // Validate on input change
+    phoneInput.addEventListener("input", validatePhone);
+
+    // Initial validation on load
+    phoneInput.dispatchEvent(new Event("countrychange"));
+});
