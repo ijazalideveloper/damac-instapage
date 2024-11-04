@@ -280,20 +280,39 @@ function sanitizeName(name) {
           countrySearch: true,
           utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
       });
-  
+
+      function validatePhoneOnSubmit(event) {
+        event.preventDefault(); // Prevent form submission initially
+    
+        const isValid = iti.isValidNumber();
+        phoneInput.classList.remove("valid", "invalid");
+    
+        if (!isValid) {
+            phoneInput.classList.add("invalid");
+            alert("Please enter a valid phone number.");
+            return false; // Explicitly stop submission
+        }
+    
+        phoneInput.classList.add("valid");
+        return true; // Let the form submit if the number is valid
+    }
+    
+    // Bind validation to form submit
+    form.onsubmit = validatePhoneOnSubmit; // Use `onsubmit` to override Instapage's default handler
+
       // Use 'countrychange' event to set country when selected or updated
-      phoneInput.addEventListener("countrychange", function () {
-          const countryData = iti.getSelectedCountryData();
-          const country = retrieveCountry(countryData.name);
-  
+    phoneInput.addEventListener("countrychange", function () {
+        const countryData = iti.getSelectedCountryData();
+        const country = retrieveCountry(countryData.name);
+
           // Set country code from the adapter if found
-          if (country) {
-              countryCodeField.value = country.sendAs?.countryCode || countryData.dialCode;
-          } else {
-              console.log(`Country not found in adapter for ${countryData.name}`);
-          }
-      });
-  
+        if (country) {
+            countryCodeField.value = country.sendAs?.countryCode || countryData.dialCode;
+        } else {
+            console.log(`Country not found in adapter for ${countryData.name}`);
+        }
+    });
+
       // Trigger initial countrychange event to set initial values
-      phoneInput.dispatchEvent(new Event("countrychange"));
-  });
+    phoneInput.dispatchEvent(new Event("countrychange"));
+});
