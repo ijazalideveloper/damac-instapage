@@ -256,13 +256,12 @@ function sanitizeName(name) {
 }
 
 function retrieveCountry(countryName) {
-    console.log("countryName", countryName)
     const sanitizedInput = sanitizeName(countryName);
     
-    const country = itiSFCountryAdaptor.find(country => country?.diallingCode.includes(countryName));
+    const country = itiSFCountryAdaptor.find(country => sanitizeName(country.name).includes(sanitizedInput));
     
     return country;
-  }
+}
 
 // ======== E N D   O F   I T I   T O   S F   C O U N T R Y   A D A P T O R   A N D   R E T R I E V A L   F U N C T I O N S ========
 
@@ -276,7 +275,6 @@ document.addEventListener("DOMContentLoaded", function () {
     iti = window.intlTelInput(phoneInput, {
         initialCountry: "auto",
         preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
-        loadUtilsOnInit: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
         geoIpLookup: callback => {
             fetch("https://ipapi.co/json")
                 .then(res => res.json())
@@ -288,6 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
         placeholderNumberType: "MOBILE",
         autoPlaceholder: "polite",
         countrySearch: true,
+        loadUtilsOnInit: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
     });
 
     const countryName = iti.getSelectedCountryData().name;
