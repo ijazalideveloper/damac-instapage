@@ -287,7 +287,7 @@ function sanitizeName(name) {
         const isValid = iti.isValidNumber();
         phoneInput.classList.remove("valid", "invalid");
     
-        if (!isValid) {
+        if (!isValid && phoneInput !== '') {
             phoneInput.classList.add("invalid");
             alert("Please enter a valid phone number.");
             return false; // Explicitly stop submission
