@@ -22,7 +22,7 @@ const lqs2clientSecret = "zAx7jC4brSR9gxVBys6skutRnGeFzxVBys6skutRnGeFzdgdZ8";
 // const lqs2tokenEndpoint = "https://api.damacgroup.com/lqs-api/v1/token";
 const lqs2tokenEndpoint = "https://uat-mashery.damacgroup.com/v1/oauth/token";
 // const lqs2leadEndpoint = "https://api.damacgroup.com/lqs/v1/getdata";
-const lqs2leadEndpoint = "https://uat-mashery.damacgroup.com/v1/lqs/redi";
+const lqs2leadEndpoint = "https://uat-mashery.damacgroup.com/v1/lqs/redis/";
 // ======== E N D   O F   L Q S 2.0   C O N F I G ========
 
 
@@ -1984,7 +1984,6 @@ window.addEventListener("DOMContentLoaded", function () {
       var validator = window.__validators[formId];
 
       validator.addConstraint(fieldLabel, function (input) {
-        console.log("iti[index].isValidNumber()", iti, iti[index], iti[index].isValidNumber(), div)
         return {
           // isValid: input.value.match(digitArray),
           isValid: iti[index].isValidNumber(),
