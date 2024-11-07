@@ -584,9 +584,10 @@ const pushToNewLQS = async data => {
         toggleSubmitBtns('enable')
       })
       .catch(error => {
-        console.error('Error:', error)
+        console.error('Error:', error, error?.ResponseCode, error?.ResponseMessage)
         newrelic.addPageAction("leadSubmissionFailure", {
-          error: error,
+          ResponseCode: error?.ResponseCode,
+          ResponseMessage: error?.ResponseMessage,
         });
         toggleSubmitBtns('enable')
       })
