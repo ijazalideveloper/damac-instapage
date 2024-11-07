@@ -22,7 +22,7 @@ const lqs2clientSecret = "zAx7jC4brSR9gxVBys6skutRnGeFzxVBys6skutRnGeFzdgdZ8";
 // const lqs2tokenEndpoint = "https://api.damacgroup.com/lqs-api/v1/token";
 const lqs2tokenEndpoint = "https://uat-mashery.damacgroup.com/v1/oauth/token";
 // const lqs2leadEndpoint = "https://api.damacgroup.com/lqs/v1/getdata";
-const lqs2leadEndpoint = "https://uat-mashery.damacgroup.com/v1/lqs/redis/";
+const lqs2leadEndpoint = "https://uat-mashery.damacgroup.com/v1/lqs/redis";
 // ======== E N D   O F   L Q S 2.0   C O N F I G ========
 
 
@@ -2090,15 +2090,15 @@ window.addEventListener("DOMContentLoaded", function () {
 
         //Send to LQS 2
         if (sendToLQS2 && formValid.isValid()) {
-          grecaptcha.ready(function() {
-            grecaptcha.execute(reCAPTCHASiteKey, {action: 'submit'})
-              .then(function(token) {
-                // Add the token to the payload
-                data['validationToken'] = token;
+          // grecaptcha.ready(function() {
+          //   grecaptcha.execute(reCAPTCHASiteKey, {action: 'submit'})
+          //     .then(function(token) {
+          //       // Add the token to the payload
+          //       data['validationToken'] = token;
 
                 pushToNewLQS(data)
-              })
-          })
+              // })
+          // })
         }
 
         //Send to LQS 1
