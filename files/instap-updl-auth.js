@@ -2091,15 +2091,15 @@ window.addEventListener("DOMContentLoaded", function () {
 
         //Send to LQS 2
         if (sendToLQS2 && formValid.isValid()) {
-          // grecaptcha.ready(function() {
-          //   grecaptcha.execute(reCAPTCHASiteKey, {action: 'submit'})
-          //     .then(function(token) {
-          //       // Add the token to the payload
-          //       data['validationToken'] = token;
+          grecaptcha.ready(function() {
+            grecaptcha.execute(reCAPTCHASiteKey, {action: 'submit'})
+              .then(function(token) {
+                // Add the token to the payload
+                data['validationToken'] = token;
 
                 pushToNewLQS(data)
-              // })
-          // })
+              })
+          })
         }
 
         //Send to LQS 1
