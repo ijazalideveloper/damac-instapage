@@ -306,6 +306,8 @@ document.addEventListener("DOMContentLoaded", function () {
     phoneInput.dispatchEvent(new Event("countrychange"));
 
 
+    let fieldsNoNumbers = [firstNameInput, lastNameInput];
+    
     $('input[type="text"]').each(function () {
         if (fieldsNoNumbers.includes($(this).attr("name"))) {
           $(this)[0].onkeypress = function (e) {
@@ -322,7 +324,7 @@ document.addEventListener("DOMContentLoaded", function () {
           };
         }
       });
-      $('input[type="email"]').each(function () {
+    $('input[type="email"]').each(function () {
         $(this)[0].onkeydown = function (e) {
           e = e || window.event;
           // Check if the pressed key is space (key code 32) - Azure Bug ID # 73029
@@ -339,5 +341,5 @@ document.addEventListener("DOMContentLoaded", function () {
           e = e || window.event;
           $(this).val($(this).val().toLocaleLowerCase());
         };
-      });
+    });
 });
