@@ -1395,14 +1395,7 @@ window.addEventListener("DOMContentLoaded", function () {
       var handler = forms.onsubmit;
       forms.onsubmit = function (e) {
         e.preventDefault();
-        var delta = Math.abs(new Date().getTime() - startTime) / 1000;
-        var hours = Math.floor(delta / 3600) % 24;
-        var minutes = Math.floor(delta / 60) % 60;
-        var seconds = Math.floor(delta % 60);
-        var completeTime = hours + ":" + minutes + ":" + seconds;
-        // //console.log(getFormData($('form')));
-
-        $("input[name='timeSpentbeforeFormSubmit']").val(completeTime);
+        
         code = $(this)
           .find(".iti__selected-dial-code")
           .text()
@@ -1733,3 +1726,15 @@ return $(this).val() ==titleVal;
 }
 
 // ======== E N D   O F   L E A D   S U B M I S S I O N   H A N D L I N G ========
+
+
+{/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/css/intlTelInput.css">
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/intlTelInput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js"></script> */}
+
+// <script defer src="https://prod-cdn.damacproperties.com/uploads/instapages/native/js/ypoValidation.js"></script>
+{/* <input type="hidden" name="countryCode" />
+
+<script
+  defer
+  src="https://ijazalideveloper.github.io/damac-instapage/files/instap-updl-auth-damacair-validation.js"></script> */}
