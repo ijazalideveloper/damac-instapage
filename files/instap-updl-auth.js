@@ -1567,7 +1567,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   //console.log("firstNameInput..", firstNameInput, lastNameInput);
-  let fieldsNoNumbers = ['First Name', 'Last Name'];
+  let fieldsNoNumbers = [firstNameInput, lastNameInput];
   var modstring = "";
   try {
     var lqid = getLQIdfromQueryString();

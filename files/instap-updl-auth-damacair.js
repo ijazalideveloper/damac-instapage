@@ -306,8 +306,8 @@ document.addEventListener("DOMContentLoaded", function () {
     phoneInput.dispatchEvent(new Event("countrychange"));
 
 
-    let fieldsNoNumbers = [firstNameInput, lastNameInput];
-    
+    let fieldsNoNumbers = ['First Name', 'Last Name'];
+
     $('input[type="text"]').each(function () {
         if (fieldsNoNumbers.includes($(this).attr("name"))) {
           $(this)[0].onkeypress = function (e) {
