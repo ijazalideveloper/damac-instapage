@@ -1409,36 +1409,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
         $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
         $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
-        $("input[name='ga_client_id']").val(getCookie("_ga"));
-        $("input[name='fbid']").val(getFacebookCookie("_fbp"));
-        $("input[name='fbclid']").val(getFbc());
-        $("input[name='user_agent']").val(jscd.nAgt.slice(0, 255)); //Trimming user_agent to max 255 characters - Based on discussion with Akila and Venkateswarlu
-        $("input[name='os']").val(jscd.os);
-        $("input[name='resolution']").val(jscd.screen);
-        $("input[name='browser']").val(
-          jscd.browser + " " + jscd.browserVersion,
-        );
-        $("input[name='device']").val(jscd.mobile ? "Mobile" : "Desktop");
-        $("input[name='landingPageURL']").val(
-          location.toString().split("?")[0].replace("&", "%26"),
-        );
-        if (
-          $("input[name='campaignId']").val() == "" ||
-          $("input[name='campaignId']").val() == undefined ||
-          $("input[name='campaignId']").val() == "[campaign_id]"
-        ) {
-          $("input[name='campaignId']").val(defaultCampaignId);
-        }
+        
         var data = getFormData($(forms));
-        data.fullLandingPageUrl = location.toString();
-        data.cookieEnabled = navigator.cookieEnabled;
-        data.referrer = document.referrer;
-        let page_variant = window.__variant_custom_name;
-        if (page_variant == "" || page_variant == undefined) {
-          data.page_variant = "";
-        } else {
-          data.page_variant = page_variant;
-        }
+        
         // //console.log("data....",data)
         let fullName = $(`input[name='Full Name']`).val();
         //console.log("fullName...", fullName);
@@ -1521,149 +1494,11 @@ function getFormData($form) {
         n.value = "MRS.";
       }
     }
-    
-    if (n["name"] === preferredLanguageInput){
-        n["name"] = "preferredLanguage"
-    }
-
-    if (n["name"] === lookingTo || n["name"] === areYouLookingTo) {
-      n["name"] = "BuyerType";
-
-      if (n["value"] === invest || n["value"] === 'Invest') { //<TODO> Use language variables instead of hardcoding
-        n.value = "Investor";
-      }
-      if (n["value"] === buyaHome) {
-        n.value = "Homeowner";
-      }
-      if (n["value"] === exploringDamac) {
-        n.value = "Exploring";
-      }
-      // if (n["value"] === exploringDamac) {
-      //   n.value = "job seeker";
-      // }
-      if (n["value"] === workAtDamac || n["value"] === findAJob || n["value"] === iAmAJobSeeker) {
-        n.value = "Jobseeker";
-      }
-    }
-    if (n["name"] === whenToBuy) {
-      n["name"] = "whenToBuy";
-
-      if (n["value"] === daysThirty) {
-        n.value = "Within 30 days";
-      }
-      if (n["value"] === daysNinety) {
-        n.value = "Within 90 days";
-      }
-      if (n["value"] === immediately) {
-        n.value = "Now";
-      }
-      if (n["value"] === withinThreeMonths) {
-        n.value = "Within 3 months";
-      }
-      if (n["value"] === withinSixMonths) {
-        n.value = "Within 6 months";
-      }
-      if (n["value"] === stillConsidering) {
-        n.value = "Still considering";
-      }
-    }
-    // if (n["name"] === `${newsAndOffers}::INSTAPAGE_BOX::${newsInput}`) {
-    //   n["name"] = "AcceptNews_And_Offers__c";
-    // }
-
-    if (n["name"].startsWith(`${newsAndOffers}::INSTAPAGE_BOX::`)) {
-      n["name"] = "newsAndOffers";
-      
-      if(n.value === "yes"){
-        n.value = "Yes"
-      }else{
-        n.value = "No"
-      }
-    }
-
-    if (n["name"].startsWith(`${acceptPrivacyPolicy}::INSTAPAGE_BOX::`) || n["name"] === "موافق على شروط الخصوصية::INSTAPAGE_BOX::لقد قرأت ووافقت على  <u><a href=&quot;https://www.damacproperties.com/ar/privacy-policy&quot; target=&quot;_blank&quot;> سياسة الخصوصية</a></u>") {
-      n["name"] = "acceptPrivacyPolicy";
-    }
-    if (n["name"] === `${contacted}::INSTAPAGE_BOX::${sms}`) {
-      n["name"] = "SMSConsent";
-    }
-    if (n["name"] === `${contacted}::INSTAPAGE_BOX::${whatsapp}`) {
-      n["name"] = "WhatsappConsent";
-    }
-
-    //I am a jobseeker
-    if (n["name"] === `${workAtDamac}::INSTAPAGE_BOX::${iAmAJobSeeker}`) {
-        n["name"] = "jobSeeker";
-    }
-
-    //What is your budget range?
-    if (n["name"] === budgetRangePreference) {
-      n["name"] = "budget";
-
-      if (n["value"] === uptoOneM) {
-        n.value = "Up to AED 1M";
-      }
-      if (n["value"] === oneMtoTwoM) {
-        n.value = "AED 1M to AED 2M";
-      }
-      if (n["value"] === twoMtoFiveM) {
-          n.value = "AED 2M to AED 5M";
-      }
-      if (n["value"] === fiveMPlus) {
-          n.value = "Above AED 5M";
-      }
-    }
-
-
-    //What type of property are you interested in?
-    if (n["name"] === propertyTypePreference) {
-        n["name"] = "Home_Type__c";
-  
-        if (n["value"] === villaHouse) {
-          n.value = "Villa";
-        }
-        if (n["value"] === apartmentFlat) {
-          n.value = "Apartment";
-        }
-      }
-
-
-    //How many bedrooms do you require?
-    if (n["name"] === bedroomCountPreference) {
-        n["name"] = "noOfBedrooms";
-  
-        if (n["value"] === studio) {
-          n.value = "Studio";
-        }
-        if (n["value"] === oneBr) {
-          n.value = "1";
-        }
-        if (n["value"] === twoBr) {
-            n.value = "2";
-        }
-        if (n["value"] === threeBr) {
-            n.value = "3";
-        }
-        if (n["value"] === fourPlusBr) {
-            n.value = "4";
-        }
-      }
-
-
-    if (n["name"].startsWith(`dp_agreement::INSTAPAGE_BOX::`)) {
-      n["name"] = "DP_Agreement";
-    }
-    if (n["value"].indexOf("[") > -1) {
-      n["value"] = "";
-    }
 
     indexed_array[n["name"]] = n["value"];
   });
-  //console.log('indexed_array...', indexed_array);
+ 
 
-  delete indexed_array['campaignName'];
-
-  console.log(delete indexed_array['campaignName']);
   console.log('indexed_array...', indexed_array)
   return indexed_array;
 }
