@@ -546,9 +546,6 @@ const pushToNewLQS = async data => {
               // Replace with real headers if needed
               responseStatus: response.ok,
               // Placeholder for actual response status
-              ResponseMessage: response.ResponseMessage,
-              uuid: response.uuid,
-              ResponseCode: response.ResponseCode,
             });
           }
           //Data layer addition - No Ticket.
@@ -597,6 +594,12 @@ const pushToNewLQS = async data => {
       .then(data => {
         console.log('Success:', data)
         toggleSubmitBtns('enable')
+        if (window.newrelic) {
+          newrelic.addPageAction("lqs2leadEndpointOKResponse", {
+            responseStatus: response.ok
+          });
+        }
+        
       })
       .catch(error => {
         console.error('Error:', error)
