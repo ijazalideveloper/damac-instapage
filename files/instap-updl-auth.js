@@ -524,7 +524,7 @@ const pushToNewLQS = async data => {
       body: requestBody,
     })
       .then(response => {
-        console.log("response", response, response.json())
+        console.log("response", response)
         if (response.ok) {
           // Send form submission details to New Relic
           if (window.newrelic) {
