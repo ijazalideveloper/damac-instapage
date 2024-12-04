@@ -15,10 +15,14 @@ const lqs1authKey = "newiuw3ujdjudqoeneoie1E";
 
 
 // ======== L Q S 2.0   C O N F I G ========
+// const lqs2clientId = "instapage_user";
 const lqs2clientId = "instapage_user";
-const lqs2clientSecret = "IAx7jC4brSR9gxVBys6ys6skutRnGeFzdgdZ8skutRnGeFzxVB";
-const lqs2tokenEndpoint = "https://api.damacgroup.com/lqs-api/v1/token";
-const lqs2leadEndpoint = "https://api.damacgroup.com/lqs/v1/getdata";
+// const lqs2clientSecret = "IAx7jC4brSR9gxVBys6ys6skutRnGeFzdgdZ8skutRnGeFzxVB";
+const lqs2clientSecret = "zAx7jC4brSR9gxVBys6skutRnGeFzxVBys6skutRnGeFzdgdZ8";
+// const lqs2tokenEndpoint = "https://api.damacgroup.com/lqs-api/v1/token";
+const lqs2tokenEndpoint = "https://uat-mashery.damacgroup.com/v1/oauth/token";
+// const lqs2leadEndpoint = "https://api.damacgroup.com/lqs/v1/getdata";
+const lqs2leadEndpoint = "https://uat-mashery.damacgroup.com/v1/lqs/redis";
 // ======== E N D   O F   L Q S 2.0   C O N F I G ========
 
 
@@ -524,7 +528,6 @@ const pushToNewLQS = async data => {
       body: requestBody,
     })
       .then(response => {
-        console.log("response", response)
         if (response.ok) {
           // Send form submission details to New Relic
           if (window.newrelic) {
@@ -546,9 +549,6 @@ const pushToNewLQS = async data => {
               // Replace with real headers if needed
               responseStatus: response.ok,
               // Placeholder for actual response status
-              ResponseMessage: response.ResponseMessage,
-              uuid: response.uuid,
-              ResponseCode: response.ResponseCode,
             });
           }
           //Data layer addition - No Ticket.
@@ -573,23 +573,8 @@ const pushToNewLQS = async data => {
           return response.json()
         } else {
           newrelic.addPageAction("lqs2leadEndpointFailedResponse", {
-            formData: {
-              firstName: data?.firstName,
-              lastName: data?.lastName,
-              email: data?.email, 
-              phoneNumber: data?.phoneNumber, 
-              pageShown: data['Page Shown'], 
-              ipAddress: data?.ipAddress, 
-              campaignName: data?.campaignName,
-              countryCodeSync: data?.countryCodeSync,
-              countryCode: data?.countryCode,
-              campaignId: data?.campaignId,
-              token: data?.validationToken !== '' ? true : false
-            },
             error: error,
-            responseStatus : response.status,
-            ResponseMessage: response.ResponseMessage,
-            ResponseCode: response.ResponseCode
+            responseStatus : response.status
           });
           throw new Error(`Error: ${response.status} - ${response.statusText}`)
         }
@@ -599,24 +584,10 @@ const pushToNewLQS = async data => {
         toggleSubmitBtns('enable')
       })
       .catch(error => {
-        console.error('Error:', error)
+        console.error('Error:', error, error?.ResponseCode, error?.ResponseMessage)
         newrelic.addPageAction("leadSubmissionFailure", {
-          error: error,
-          formData: {
-            firstName: data?.firstName,
-            lastName: data?.lastName,
-            email: data?.email, 
-            phoneNumber: data?.phoneNumber, 
-            pageShown: data['Page Shown'], 
-            ipAddress: data?.ipAddress, 
-            campaignName: data?.campaignName,
-            countryCodeSync: data?.countryCodeSync,
-            countryCode: data?.countryCode,
-            campaignId: data?.campaignId,
-            token: data?.validationToken !== '' ? true : false,
-            errorStatus: error?.status,
-            errorStatusText: error?.statusText
-          },
+          ResponseCode: error?.ResponseCode,
+          ResponseMessage: error?.ResponseMessage,
         });
         toggleSubmitBtns('enable')
       })
@@ -696,9 +667,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log('New Relic Loaded');
   })
 
-  loadScript(`https://dp-site-assets.s3.eu-west-1.amazonaws.com/uploads/instapages/native/js/intlTelInput.min.js`, function() {
-    console.log('intlTelInput Loaded');
-  })
+  // loadScript(`https://dp-site-assets.s3.eu-west-1.amazonaws.com/uploads/instapages/native/js/intlTelInput.min.js`, function() {
+  //   console.log('intlTelInput Loaded');
+  // })
 
   // Usage: Call the function and pass the path to your CSS file
   // replaceCSS('https://prod-cdn.damacproperties.com/uploads/instapages/native/css/intlTelInput.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.5.0/build/css/intlTelInput.min.css')
@@ -1664,15 +1635,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         $(this).val(split[1].replace(/"/g, '\\"'));
       });
   }
-  $('input[name="' + phoneInput + '"]').each(function () {
-    $(this)[0].onkeypress = function (e) {
-      e = e || window.event;
-      var charCode = typeof e.which == "undefined" ? e.keyCode : e.which;
-      if (charCode != 8 && charCode != 0 && (charCode < 48 || charCode > 57)) {
-        return false;
-      }
-    };
-  });
+  
+  // $('input[name="' + phoneInput + '"]').each(function () {
+  //   $(this)[0].onkeypress = function (e) {
+  //     e = e || window.event;
+  //     var charCode = typeof e.which == "undefined" ? e.keyCode : e.which;
+  //     if (charCode != 8 && charCode != 0 && (charCode < 48 || charCode > 57)) {
+  //       return false;
+  //     }
+  //   };
+  // });
 
 
 filldropdowns();
@@ -1970,11 +1942,12 @@ window.addEventListener("DOMContentLoaded", function () {
     [].forEach.call(telInput, function (div, index) {
       // do whatever
       div.setAttribute("type", "tel");
+      div.setAttribute("id", "phone");
       iti?.push(
         window.intlTelInput(div, {
           initialCountry: "auto",
-          preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
           loadUtilsOnInit: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.6.0/build/js/utils.js",
+          preferredCountries: ["ae", "gb", "in", "sa", "qa", "pk"],
           geoIpLookup: function (callback) {
             requestUrl =
               "https://api.ipapi.com/check?access_key=229c548dcafb9cff13041d9544ac60af";
@@ -2648,3 +2621,23 @@ function replaceTextInElements(oldText, newText, element) {
 
 addUTMParamsToSessionStorage()
 // ======== E N D   O F   O N   I N I T ========
+
+
+
+// ======== Find the script tag with the specific src attribute ========
+window.addEventListener('load', function() {
+  const allScripts = document.querySelectorAll('script');
+  allScripts.forEach(script => {
+      console.log("Found script:", script.src);
+  });
+  
+  // Now attempt to remove the specific script
+  const scriptToRemove = document.querySelector('script[src="https://prod-cdn.damacproperties.com/uploads/instapages/native/js/instapage-native-min.js"]');
+  if (scriptToRemove) {
+      scriptToRemove.remove();
+      console.log("Script removed:", scriptToRemove.src);
+  } else {
+      console.log("Script not found.");
+  }
+});
+// ======== Find the script tag with the specific src attribute ========

@@ -342,4 +342,13 @@ document.addEventListener("DOMContentLoaded", function () {
           $(this).val($(this).val().toLocaleLowerCase());
         };
     });
+
+    var validator = window.__validators[formId];
+    validator.addConstraint(fieldLabel, function (input) {
+      return {
+        // isValid: input.value.match(digitArray),
+        isValid: iti[index].isValidNumber(),
+        message: window._Translate.get(errorMessage),
+      };
+    });
 });
