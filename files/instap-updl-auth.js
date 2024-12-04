@@ -524,7 +524,7 @@ const pushToNewLQS = async data => {
       body: requestBody,
     })
       .then(response => {
-        console.log("response", response)
+        console.log("response", response, response.json())
         if (response.ok) {
           // Send form submission details to New Relic
           if (window.newrelic) {
@@ -596,7 +596,9 @@ const pushToNewLQS = async data => {
         toggleSubmitBtns('enable')
         if (window.newrelic) {
           newrelic.addPageAction("lqs2leadEndpointOKResponse", {
-            responseStatus: response.ok
+            ResponseMessage: data.ResponseMessage,
+            uuid: data.uuid,
+            ResponseCode: data.ResponseCode,
           });
         }
         
