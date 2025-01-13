@@ -2435,11 +2435,24 @@ window.__custom_form_validations = [
   {
     fieldName: emailInput,
     validationFn: function (input) {
-      var dateRegex =
-        /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
-      var emailErrorMessage = `: ${emailError}`;
+      // Regex to allow only English letters, numbers, and email symbols
+      const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+      const invalidCharactersRegex = /[^a-z0-9._@-]/i; // Detect invalid characters
+      
+      const emailErrorMessage = `: ${emailError}`;
+      const arabicUrduErrorMessage = "Only English characters are allowed in the email address.";
+
+      // Check for invalid characters
+      if (invalidCharactersRegex.test(input.value)) {
+        return {
+          isValid: false,
+          message: window._Translate.get(arabicUrduErrorMessage),
+        };
+      }
+
+      // Check if the email format is valid
       return {
-        isValid: dateRegex.test(input.value),
+        isValid: emailRegex.test(input.value),
         message: window._Translate.get(emailErrorMessage),
       };
     },
@@ -2476,14 +2489,14 @@ let titleVal = $("input[name='moTitle']").val()
 //console.log('titleval...',titleVal)
 
 var k =$("input[name='moTitle']").val();
-$("select[name='"+titleInput+"'] option").filter(function() {
-return $(this).val() ==k;
+  $("select[name='"+titleInput+"'] option").filter(function() {
+  return $(this).val() ==k;
 }).prop('selected', true);
-$("select#field-741126b051b758e175dc7d616433758e-0 option").filter(function() {
-return $(this).val() ==titleVal;
+  $("select#field-741126b051b758e175dc7d616433758e-0 option").filter(function() {
+  return $(this).val() ==titleVal;
 }).prop('selected', true);
-$("select#field-5d7b0ff4610675daada3263278489d62-0 option").filter(function() {
-return $(this).val() ==titleVal;
+  $("select#field-5d7b0ff4610675daada3263278489d62-0 option").filter(function() {
+  return $(this).val() ==titleVal;
 }).prop('selected', true);
 
 }
