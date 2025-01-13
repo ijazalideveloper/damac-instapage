@@ -524,7 +524,6 @@ const pushToNewLQS = async data => {
       body: requestBody,
     })
       .then(response => {
-        console.log("response", response)
         if (response.ok) {
           // Send form submission details to New Relic
           if (window.newrelic) {
@@ -585,8 +584,6 @@ const pushToNewLQS = async data => {
             },
             error: error,
             responseStatus : response.status,
-            ResponseMessage: response.ResponseMessage,
-            ResponseCode: response.ResponseCode
           });
           throw new Error(`Error: ${response.status} - ${response.statusText}`)
         }
@@ -601,7 +598,6 @@ const pushToNewLQS = async data => {
             ResponseCode: data.ResponseCode,
           });
         }
-        
       })
       .catch(error => {
         console.error('Error:', error)
@@ -1645,19 +1641,35 @@ document.addEventListener("DOMContentLoaded", async function () {
   $('input[type="email"]').each(function () {
     $(this)[0].onkeydown = function (e) {
       e = e || window.event;
-      // Check if the pressed key is space (key code 32) - Azure Bug ID # 73029
+  
+      // Prevent space key (key code 32) - Azure Bug ID # 73029
       if (e.keyCode === 32) {
-          e.preventDefault();
-          return;
+        e.preventDefault();
+        return;
       }
+  
       // Limit the length of the input value to 50 characters - Azure Bug ID # 73018
-      if ($(this).val().length == 50) {
-        e.preventDefault()
+      if ($(this).val().length >= 50) {
+        e.preventDefault();
+        return;
       }
     };
+  
     $(this)[0].onkeyup = function (e) {
       e = e || window.event;
-      $(this).val($(this).val().toLocaleLowerCase());
+  
+      // Convert input to lowercase
+      let value = $(this).val().toLocaleLowerCase();
+  
+      // Allow only English characters, numbers, '@', '.', and basic email symbols
+      const validCharacters = /^[a-z0-9@._\-]*$/;
+  
+      if (!validCharacters.test(value)) {
+        // Remove invalid characters
+        value = value.replace(/[^a-z0-9@._\-]/g, '');
+      }
+  
+      $(this).val(value);
     };
   });
 
