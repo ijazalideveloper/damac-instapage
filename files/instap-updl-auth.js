@@ -1656,7 +1656,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       $(this).val($(this).val().toLocaleLowerCase());
 
       const currentValue = $(this).val().toLocaleLowerCase();
-      console.log("Current Input Value:", currentValue);
+      var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/;
+      if(arabicRegex.test(currentValue)) { 
+        e.preventDefault(); return
+
+      }
+      console.log("Current Input Value:", currentValue, arabicRegex.test(currentValue));
     };
   });
 
