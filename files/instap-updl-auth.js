@@ -1658,7 +1658,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
   
       var emailInput = $(this); // Assuming this is the email input field
-  
+  console.log("emailInput >>>>>>>>>>>>.", emailInput)
       window.__custom_form_validations.push({
         fieldName: emailInput, // Reference the correct input element
         validationFn: function (input) {
