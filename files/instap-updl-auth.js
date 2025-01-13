@@ -2695,19 +2695,19 @@ window.addEventListener('load', function () {
   // Arabic validation regex: Matches Arabic characters
   var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/;
 
+  // Email validation regex
+  var emailRegex = /^([a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4})$/;
+
   // Append your custom validation function
   window.__custom_form_validations.push({
       fieldName: 'emailInput', // Replace with the correct field name or ID
       validationFn: function (input) {
-          // Email validation regex
-          var emailRegex =
-              /^([a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4})$/;
-
           var emailErrorMessage = "Invalid email format.";
           var arabicErrorMessage = "Arabic characters are not allowed.";
 
           // Check for Arabic characters
           if (arabicRegex.test(input.value)) {
+              input.classList.add("user-invalid");
               return {
                   isValid: false,
                   message: arabicErrorMessage,
@@ -2716,13 +2716,15 @@ window.addEventListener('load', function () {
 
           // Check for valid email format
           if (!emailRegex.test(input.value)) {
+              input.classList.add("user-invalid");
               return {
                   isValid: false,
                   message: emailErrorMessage,
               };
           }
 
-          // If no validation errors, return valid
+          // If no validation errors, remove class and return valid
+          input.classList.remove("user-invalid");
           return {
               isValid: true,
               message: "",
@@ -2730,12 +2732,16 @@ window.addEventListener('load', function () {
       },
   });
 
-  // Optional: Add an event listener for real-time feedback
+  // Add real-time validation for every keypress or input
   document.querySelectorAll('input[type="email"]').forEach(function (input) {
       input.addEventListener('input', function () {
-          if (arabicRegex.test(input.value)) {
-              alert("Arabic characters are not allowed in this field.");
+          if (arabicRegex.test(this.value) || !emailRegex.test(this.value)) {
+              this.classList.add("user-invalid");
+          } else {
+              this.classList.remove("user-invalid");
           }
       });
   });
 });
+
+
