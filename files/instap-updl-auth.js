@@ -1644,42 +1644,48 @@ document.addEventListener("DOMContentLoaded", async function () {
       window.__custom_form_validations = [];
     }
   
-    $(this)[0].onkeydown = function (e) {
+    // Use jQuery to bind the keydown event more reliably
+    $(this).on('keydown', function (e) {
       e = e || window.event;
+      
       // Check if the pressed key is space (key code 32) - Azure Bug ID # 73029
       if (e.keyCode === 32) {
-        alert("alert")
+        alert("Space key is disabled!");
         e.preventDefault();
         return;
       }
+  
       // Limit the length of the input value to 50 characters - Azure Bug ID # 73018
-      if ($(this).val().length == 50) {
-        e.preventDefault()
+      if ($(this).val().length === 50) {
+        e.preventDefault();
       }
   
-      var emailInput = $(this); // Assuming this is the email input field
-  console.log("emailInput >>>>>>>>>>>>.", emailInput)
+      var emailInput = $(this); // The email input field reference
+      console.log("emailInput >>>>>>>>>>>>", emailInput);
+  
+      // Push the validation logic into the custom validation array
       window.__custom_form_validations.push({
         fieldName: emailInput, // Reference the correct input element
         validationFn: function (input) {
           var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/;
-          console.log("arabicRegex", arabicRegex)
+          console.log("arabicRegex", arabicRegex);
+  
           var dateRegex = /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
-          var emailErrorMessage = `: ${emailError}`;
+          var emailErrorMessage = ": Email Error"; // Ensure emailError is defined
           
           return {
             isValid: arabicRegex.test(input.value) && dateRegex.test(input.value),
-            message: window._Translate.get(emailErrorMessage),
+            message: window._Translate ? window._Translate.get(emailErrorMessage) : "Invalid email format",
           };
         },
       });
-    };
+    });
   
-    $(this)[0].onkeyup = function (e) {
+    $(this).on('keyup', function (e) {
       e = e || window.event;
       $(this).val($(this).val().toLocaleLowerCase());
-    };
-  });
+    });
+  });  
   
 
   for (var i = 0; i < len; i++) {
