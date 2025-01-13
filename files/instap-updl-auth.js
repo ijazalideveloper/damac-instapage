@@ -1660,10 +1660,11 @@ document.addEventListener("DOMContentLoaded", async function () {
   
     // Handle keyup event
     $(this).on('keyup', function (e) {
-      const currentValue = $(this).val();
+      let currentValue = $(this).val();
       // Check for Arabic characters
       if (arabicRegex.test(currentValue)) {
-        $(this).val(currentValue.replace(arabicRegex, '')); // Remove Arabic characters
+        const filteredValue = currentValue.replace(arabicRegex, ''); // Remove Arabic characters
+        $(this).val(filteredValue);
         console.log("Arabic characters are not allowed");
       }
       console.log("Current Input Value:", $(this).val());
@@ -1672,15 +1673,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Handle paste event
     $(this).on('paste', function (e) {
       e.preventDefault();
-      const pastedData = (e.originalEvent || e).clipboardData.getData('text');
-      // Filter out Arabic characters from pasted data
-      const filteredData = pastedData.replace(arabicRegex, '');
-      console.log("Pasted Data:", pastedData, "Filtered Data:", filteredData);
+      const pastedData = (e.originalEvent || e).clipboardData.getData('text'); // Get pasted content
+      const currentValue = $(this).val(); // Get current input value
+      const filteredData = pastedData.replace(arabicRegex, ''); // Remove Arabic characters from pasted data
+      const newValue = (currentValue + filteredData).substring(0, 50); // Combine current and filtered values, limit to 50 characters
   
-      // Update the input value with the filtered data
-      $(this).val(filteredData.substring(0, 50)); // Enforce the 50-character limit
+      $(this).val(newValue); // Set the filtered value back to the input
+      console.log("Pasted Data:", pastedData, "Filtered Data:", filteredData, "New Value:", newValue);
     });
-  });
+  });  
   
 
   for (var i = 0; i < len; i++) {
