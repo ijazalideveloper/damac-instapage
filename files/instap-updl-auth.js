@@ -1641,35 +1641,19 @@ document.addEventListener("DOMContentLoaded", async function () {
   $('input[type="email"]').each(function () {
     $(this)[0].onkeydown = function (e) {
       e = e || window.event;
-  
-      // Prevent space key (key code 32) - Azure Bug ID # 73029
+      // Check if the pressed key is space (key code 32) - Azure Bug ID # 73029
       if (e.keyCode === 32) {
-        e.preventDefault();
-        return;
+          e.preventDefault();
+          return;
       }
-  
       // Limit the length of the input value to 50 characters - Azure Bug ID # 73018
-      if ($(this).val().length >= 50) {
-        e.preventDefault();
-        return;
+      if ($(this).val().length == 50) {
+        e.preventDefault()
       }
     };
-  
     $(this)[0].onkeyup = function (e) {
       e = e || window.event;
-  
-      // Convert input to lowercase
-      let value = $(this).val().toLocaleLowerCase();
-  
-      // Allow only English characters, numbers, '@', '.', and basic email symbols
-      const validCharacters = /^[a-z0-9@._\-]*$/;
-  
-      if (!validCharacters.test(value)) {
-        // Remove invalid characters
-        value = value.replace(/[^a-z0-9@._\-]/g, '');
-      }
-  
-      $(this).val(value);
+      $(this).val($(this).val().toLocaleLowerCase());
     };
   });
 
