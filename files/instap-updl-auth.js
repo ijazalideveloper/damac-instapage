@@ -719,9 +719,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     _Translate.set("domain starts with a dot", "domain starts with a dot");
     _Translate.set("domain is not valid", "domain is not valid");
     _Translate.set("domain ends with a dot", "domain ends with a dot");
-    _Translate.set("arabic", "arabic");
-    _Translate.set("Invalid email format", "Invalid email format");
-    _Translate.set(": Email Error", ": Email Error");
     phoneInput = "Phone";
     titleInput = "Title";
     firstNameInput = "First Name";
@@ -1545,9 +1542,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     _Translate.set("domain starts with a dot", "domain starts with a dot");
     _Translate.set("domain is not valid", "domain is not valid");
     _Translate.set("domain ends with a dot", "domain ends with a dot");
-    _Translate.set("arabic", "arabic");
-    _Translate.set("Invalid email format", "Invalid email format");
-    _Translate.set(": Email Error", ": Email Error");
     phoneInput = "Phone";
     titleInput = "Title";
     firstNameInput = "First Name";
@@ -1645,54 +1639,25 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
   $('input[type="email"]').each(function () {
-    // Ensure the custom validations array is initialized
-    if (!window.__custom_form_validations) {
-      window.__custom_form_validations = [];
-    }
-  
-    // Use jQuery to bind the keydown event more reliably
-    $(this).on('keydown', function (e) {
+    $(this)[0].onkeydown = function (e) {
       e = e || window.event;
-      
       // Check if the pressed key is space (key code 32) - Azure Bug ID # 73029
       if (e.keyCode === 32) {
-        alert("Space key is disabled!");
-        e.preventDefault();
-        return;
+          e.preventDefault();
+          return;
       }
-  
       // Limit the length of the input value to 50 characters - Azure Bug ID # 73018
-      if ($(this).val().length === 50) {
-        e.preventDefault();
+      if ($(this).val().length == 50) {
+        e.preventDefault()
       }
-  
-      var emailInput = $(this); // The email input field reference
-      console.log("emailInput >>>>>>>>>>>>", emailInput);
-  
-      // Push the validation logic into the custom validation array
-      window.__custom_form_validations.push({
-        fieldName: emailInput, // Reference the correct input element
-        validationFn: function (input) {
-          var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/;
-          console.log("arabicRegex", arabicRegex);
-  
-          var dateRegex = /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
-          var emailErrorMessage = ": Email Error"; // Ensure emailError is defined
-          
-          return {
-            isValid: arabicRegex.test(input.value) && dateRegex.test(input.value),
-            message: window._Translate ? window._Translate.get(emailErrorMessage) : "Invalid email format",
-          };
-        },
-      });
-    });
-  
-    $(this).on('keyup', function (e) {
+    };
+    $(this)[0].onkeyup = function (e) {
       e = e || window.event;
       $(this).val($(this).val().toLocaleLowerCase());
-    });
-  });  
-  
+
+      console.log("Current Input Value:", currentValue);
+    };
+  });
 
   for (var i = 0; i < len; i++) {
     split = query[i].split("=");
@@ -2452,52 +2417,20 @@ function getFormData($form) {
   return indexed_array;
 }
 
-// window.__custom_form_validations = [
-//   {
-//     fieldName: emailInput,
-//     validationFn: function (input) {
-//       // Regex to allow only English letters, numbers, and basic email symbols
-//       const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-      
-//       // Regex to detect Arabic, Urdu, or other non-ASCII characters
-//       const nonAsciiRegex = /[^\x00-\x7F]/;
-
-//       const emailErrorMessage = "Invalid email format.";
-//       const arabicUrduErrorMessage = "Only English characters are allowed in the email address.";
-
-//       // Check for non-ASCII characters (including Arabic or Urdu)
-//       if (nonAsciiRegex.test(input.value)) {
-//         return {
-//           isValid: false,
-//           message: window._Translate.get(arabicUrduErrorMessage),
-//         };
-//       }
-
-//       // Check if the email format is valid
-//       return {
-//         isValid: emailRegex.test(input.value),
-//         message: window._Translate.get(emailErrorMessage),
-//       };
-//     },
-//   },
-// ];
-
-// window.__custom_form_validations = [
-//   {
-//     fieldName: emailInput,
-//     validationFn: function (input) {
-//       var dateRegex =
-//         /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
-//       var emailErrorMessage = `: ${emailError}`;
-//       return {
-//         isValid: dateRegex.test(input.value),
-//         message: window._Translate.get(emailErrorMessage),
-//       };
-//     },
-//   },
-// ];
-
-
+window.__custom_form_validations = [
+  {
+    fieldName: emailInput,
+    validationFn: function (input) {
+      var dateRegex =
+        /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
+      var emailErrorMessage = `: ${emailError}`;
+      return {
+        isValid: dateRegex.test(input.value),
+        message: window._Translate.get(emailErrorMessage),
+      };
+    },
+  },
+];
 
 function submitUrl() {
   $(".redirect-container").hide();
@@ -2529,14 +2462,14 @@ let titleVal = $("input[name='moTitle']").val()
 //console.log('titleval...',titleVal)
 
 var k =$("input[name='moTitle']").val();
-  $("select[name='"+titleInput+"'] option").filter(function() {
-  return $(this).val() ==k;
+$("select[name='"+titleInput+"'] option").filter(function() {
+return $(this).val() ==k;
 }).prop('selected', true);
-  $("select#field-741126b051b758e175dc7d616433758e-0 option").filter(function() {
-  return $(this).val() ==titleVal;
+$("select#field-741126b051b758e175dc7d616433758e-0 option").filter(function() {
+return $(this).val() ==titleVal;
 }).prop('selected', true);
-  $("select#field-5d7b0ff4610675daada3263278489d62-0 option").filter(function() {
-  return $(this).val() ==titleVal;
+$("select#field-5d7b0ff4610675daada3263278489d62-0 option").filter(function() {
+return $(this).val() ==titleVal;
 }).prop('selected', true);
 
 }
@@ -2716,4 +2649,5 @@ function replaceTextInElements(oldText, newText, element) {
   }
 })(); //Run once on init
 
+addUTMParamsToSessionStorage()
 // ======== E N D   O F   O N   I N I T ========
