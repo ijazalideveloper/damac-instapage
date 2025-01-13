@@ -1643,6 +1643,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       e = e || window.event;
       // Check if the pressed key is space (key code 32) - Azure Bug ID # 73029
       if (e.keyCode === 32) {
+        alert("alert")
           e.preventDefault();
           return;
       }
@@ -2445,6 +2446,23 @@ window.__custom_form_validations = [
   },
 ];
 
+// window.__custom_form_validations = [
+//   {
+//     fieldName: emailInput,
+//     validationFn: function (input) {
+//       var dateRegex =
+//         /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
+//       var emailErrorMessage = `: ${emailError}`;
+//       return {
+//         isValid: dateRegex.test(input.value),
+//         message: window._Translate.get(emailErrorMessage),
+//       };
+//     },
+//   },
+// ];
+
+
+
 function submitUrl() {
   $(".redirect-container").hide();
   let utm = location.toString().split("?")[1];
@@ -2662,5 +2680,54 @@ function replaceTextInElements(oldText, newText, element) {
   }
 })(); //Run once on init
 
-addUTMParamsToSessionStorage()
 // ======== E N D   O F   O N   I N I T ========
+
+
+
+
+
+
+
+window.addEventListener('load', function () {
+  // Ensure Instapage custom validations array exists
+  window.__custom_form_validations = window.__custom_form_validations || [];
+
+  // Arabic validation regex
+  var arabicRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+
+  // Append your custom validation function
+  window.__custom_form_validations.push({
+      fieldName: 'emailInput', // Replace with your email input field name or class
+      validationFn: function (input) {
+          // Email validation regex
+          var emailRegex =
+              /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
+
+          var emailErrorMessage = "Invalid email format.";
+          var arabicErrorMessage = "Arabic characters are not allowed.";
+
+          // Check for Arabic characters
+          if (arabicRegex.test(input.value)) {
+              return {
+                  isValid: false,
+                  message: arabicErrorMessage,
+              };
+          }
+
+          // Check for valid email format
+          return {
+              isValid: emailRegex.test(input.value),
+              message: emailErrorMessage,
+          };
+      },
+  });
+
+  // Optional: Add an event listener for real-time feedback
+  document.querySelectorAll('input[type="email"]').forEach(function (input) {
+      input.addEventListener('input', function () {
+          if (arabicRegex.test(input.value)) {
+              alert("Arabic characters are not allowed in this field.");
+          }
+      });
+  });
+});
