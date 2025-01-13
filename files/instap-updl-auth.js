@@ -1663,6 +1663,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         fieldName: emailInput, // Reference the correct input element
         validationFn: function (input) {
           var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/;
+          console.log("arabicRegex", arabicRegex)
           var dateRegex = /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
           var emailErrorMessage = `: ${emailError}`;
           
