@@ -1639,25 +1639,30 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
   $('input[type="email"]').each(function () {
+    // Ensure the custom validations array is initialized
+    if (!window.__custom_form_validations) {
+      window.__custom_form_validations = [];
+    }
+  
     $(this)[0].onkeydown = function (e) {
       e = e || window.event;
       // Check if the pressed key is space (key code 32) - Azure Bug ID # 73029
       if (e.keyCode === 32) {
         alert("alert")
-          e.preventDefault();
-          return;
+        e.preventDefault();
+        return;
       }
       // Limit the length of the input value to 50 characters - Azure Bug ID # 73018
       if ($(this).val().length == 50) {
         e.preventDefault()
       }
-
+  
+      var emailInput = $(this); // Assuming this is the email input field
+  
       window.__custom_form_validations.push({
-        fieldName: emailInput, // Replace with the correct field name or ID
+        fieldName: emailInput, // Reference the correct input element
         validationFn: function (input) {
-
           var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/;
-
           var dateRegex = /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
           var emailErrorMessage = `: ${emailError}`;
           
@@ -1666,13 +1671,15 @@ document.addEventListener("DOMContentLoaded", async function () {
             message: window._Translate.get(emailErrorMessage),
           };
         },
-      })
+      });
     };
+  
     $(this)[0].onkeyup = function (e) {
       e = e || window.event;
       $(this).val($(this).val().toLocaleLowerCase());
     };
   });
+  
 
   for (var i = 0; i < len; i++) {
     split = query[i].split("=");
