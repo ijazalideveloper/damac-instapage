@@ -719,6 +719,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     _Translate.set("domain starts with a dot", "domain starts with a dot");
     _Translate.set("domain is not valid", "domain is not valid");
     _Translate.set("domain ends with a dot", "domain ends with a dot");
+    _Translate.set("arabic", "arabic");
+    _Translate.set("Invalid email format", "Invalid email format");
+    _Translate.set(": Email Error", ": Email Error");
     phoneInput = "Phone";
     titleInput = "Title";
     firstNameInput = "First Name";
@@ -1542,6 +1545,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     _Translate.set("domain starts with a dot", "domain starts with a dot");
     _Translate.set("domain is not valid", "domain is not valid");
     _Translate.set("domain ends with a dot", "domain ends with a dot");
+    _Translate.set("arabic", "arabic");
+    _Translate.set("Invalid email format", "Invalid email format");
+    _Translate.set(": Email Error", ": Email Error");
     phoneInput = "Phone";
     titleInput = "Title";
     firstNameInput = "First Name";
