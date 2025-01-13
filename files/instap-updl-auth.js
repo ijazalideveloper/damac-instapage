@@ -2700,7 +2700,7 @@ window.addEventListener('load', function () {
 
   // Append your custom validation function
   window.__custom_form_validations.push({
-      fieldName: 'emailInput', // Replace with the correct field name or ID
+      fieldName: emailInput, // Replace with the correct field name or ID
       validationFn: function (input) {
           var emailErrorMessage = "Invalid email format.";
           var arabicErrorMessage = "Arabic characters are not allowed.";
