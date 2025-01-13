@@ -2692,16 +2692,16 @@ window.addEventListener('load', function () {
   // Ensure Instapage custom validations array exists
   window.__custom_form_validations = window.__custom_form_validations || [];
 
-  // Arabic validation regex
-  var arabicRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+  // Arabic validation regex: Matches Arabic characters
+  var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/;
 
   // Append your custom validation function
   window.__custom_form_validations.push({
-      fieldName: 'emailInput', // Replace with your email input field name or class
+      fieldName: 'emailInput', // Replace with the correct field name or ID
       validationFn: function (input) {
           // Email validation regex
           var emailRegex =
-              /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
+              /^([a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4})$/;
 
           var emailErrorMessage = "Invalid email format.";
           var arabicErrorMessage = "Arabic characters are not allowed.";
@@ -2715,9 +2715,17 @@ window.addEventListener('load', function () {
           }
 
           // Check for valid email format
+          if (!emailRegex.test(input.value)) {
+              return {
+                  isValid: false,
+                  message: emailErrorMessage,
+              };
+          }
+
+          // If no validation errors, return valid
           return {
-              isValid: emailRegex.test(input.value),
-              message: emailErrorMessage,
+              isValid: true,
+              message: "",
           };
       },
   });
