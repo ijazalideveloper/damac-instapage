@@ -1639,31 +1639,49 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
   $('input[type="email"]').each(function () {
-    $(this)[0].onkeydown = function (e) {
-      e = e || window.event;
-      // Check if the pressed key is space (key code 32) - Azure Bug ID # 73029
+    var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/; // Regex for Arabic characters
+  
+    // Handle keydown event
+    $(this).on('keydown', function (e) {
+      // Prevent space key
       if (e.keyCode === 32) {
-          e.preventDefault();
-          return;
+        e.preventDefault();
+        console.log("Space key is disabled");
+        return;
       }
-      // Limit the length of the input value to 50 characters - Azure Bug ID # 73018
-      if ($(this).val().length == 50) {
-        e.preventDefault()
+  
+      // Prevent typing if input length exceeds 50 characters
+      if ($(this).val().length >= 50) {
+        e.preventDefault();
+        console.log("Input length is limited to 50 characters");
+        return;
       }
-    };
-    $(this)[0].onkeyup = function (e) {
-      e = e || window.event;
-      $(this).val($(this).val().toLocaleLowerCase());
-
-      const currentValue = $(this).val().toLocaleLowerCase();
-      var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/;
-      if(arabicRegex.test(currentValue)) { 
-        e.preventDefault(); return
-
+    });
+  
+    // Handle keyup event
+    $(this).on('keyup', function (e) {
+      const currentValue = $(this).val();
+      // Check for Arabic characters
+      if (arabicRegex.test(currentValue)) {
+        $(this).val(currentValue.replace(arabicRegex, '')); // Remove Arabic characters
+        console.log("Arabic characters are not allowed");
       }
-      console.log("Current Input Value:", currentValue, arabicRegex.test(currentValue));
-    };
+      console.log("Current Input Value:", $(this).val());
+    });
+  
+    // Handle paste event
+    $(this).on('paste', function (e) {
+      e.preventDefault();
+      const pastedData = (e.originalEvent || e).clipboardData.getData('text');
+      // Filter out Arabic characters from pasted data
+      const filteredData = pastedData.replace(arabicRegex, '');
+      console.log("Pasted Data:", pastedData, "Filtered Data:", filteredData);
+  
+      // Update the input value with the filtered data
+      $(this).val(filteredData.substring(0, 50)); // Enforce the 50-character limit
+    });
   });
+  
 
   for (var i = 0; i < len; i++) {
     split = query[i].split("=");
