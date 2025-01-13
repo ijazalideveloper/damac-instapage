@@ -1655,6 +1655,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       e = e || window.event;
       $(this).val($(this).val().toLocaleLowerCase());
 
+      const currentValue = $(this).val().toLocaleLowerCase();
       console.log("Current Input Value:", currentValue);
     };
   });
