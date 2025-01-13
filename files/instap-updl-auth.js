@@ -2416,35 +2416,35 @@ function getFormData($form) {
   return indexed_array;
 }
 
-window.__custom_form_validations = [
-  {
-    fieldName: emailInput,
-    validationFn: function (input) {
-      // Regex to allow only English letters, numbers, and basic email symbols
-      const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+// window.__custom_form_validations = [
+//   {
+//     fieldName: emailInput,
+//     validationFn: function (input) {
+//       // Regex to allow only English letters, numbers, and basic email symbols
+//       const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
       
-      // Regex to detect Arabic, Urdu, or other non-ASCII characters
-      const nonAsciiRegex = /[^\x00-\x7F]/;
+//       // Regex to detect Arabic, Urdu, or other non-ASCII characters
+//       const nonAsciiRegex = /[^\x00-\x7F]/;
 
-      const emailErrorMessage = "Invalid email format.";
-      const arabicUrduErrorMessage = "Only English characters are allowed in the email address.";
+//       const emailErrorMessage = "Invalid email format.";
+//       const arabicUrduErrorMessage = "Only English characters are allowed in the email address.";
 
-      // Check for non-ASCII characters (including Arabic or Urdu)
-      if (nonAsciiRegex.test(input.value)) {
-        return {
-          isValid: false,
-          message: window._Translate.get(arabicUrduErrorMessage),
-        };
-      }
+//       // Check for non-ASCII characters (including Arabic or Urdu)
+//       if (nonAsciiRegex.test(input.value)) {
+//         return {
+//           isValid: false,
+//           message: window._Translate.get(arabicUrduErrorMessage),
+//         };
+//       }
 
-      // Check if the email format is valid
-      return {
-        isValid: emailRegex.test(input.value),
-        message: window._Translate.get(emailErrorMessage),
-      };
-    },
-  },
-];
+//       // Check if the email format is valid
+//       return {
+//         isValid: emailRegex.test(input.value),
+//         message: window._Translate.get(emailErrorMessage),
+//       };
+//     },
+//   },
+// ];
 
 // window.__custom_form_validations = [
 //   {
