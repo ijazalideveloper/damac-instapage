@@ -1639,7 +1639,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
   $('input[type="email"]').each(function () {
-    var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/; // Regex for Arabic characters
+    var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/; // Regex for Arabic/Urdu characters
   
     // Handle keydown event
     $(this).on('keydown', function (e) {
@@ -1661,12 +1661,34 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Handle keyup event
     $(this).on('keyup', function (e) {
       let currentValue = $(this).val();
-      // Check for Arabic characters
+      // Check for Arabic/Urdu characters
       if (arabicRegex.test(currentValue)) {
-        const filteredValue = currentValue.replace(arabicRegex, ''); // Remove Arabic characters
+        // Remove Arabic characters
+        const filteredValue = currentValue.replace(arabicRegex, '');
         $(this).val(filteredValue);
-        console.log("Arabic characters are not allowed");
+  
+        // Add error message and class
+        const errorMessage = "Arabic/Urdu characters are not allowed in email.";
+        const inputField = $(this);
+  
+        // Use Instapage validator to show error
+        if (window.validator) {
+          validator.addConstraint(inputField[0], function () {
+            return {
+              isValid: false,
+              message: window._Translate.get(errorMessage),
+            };
+          });
+        }
+  
+        // Add error class for styling
+        inputField.addClass("error-input");
+        console.log("Arabic/Urdu characters are not allowed");
+      } else {
+        // If valid, remove the error class
+        $(this).removeClass("error-input");
       }
+  
       console.log("Current Input Value:", $(this).val());
     });
   
@@ -1679,9 +1701,31 @@ document.addEventListener("DOMContentLoaded", async function () {
       const newValue = (currentValue + filteredData).substring(0, 50); // Combine current and filtered values, limit to 50 characters
   
       $(this).val(newValue); // Set the filtered value back to the input
+  
+      // Validate the input and add error if necessary
+      if (arabicRegex.test(pastedData)) {
+        const errorMessage = "Arabic/Urdu characters are not allowed in email.";
+        const inputField = $(this);
+  
+        if (window.validator) {
+          validator.addConstraint(inputField[0], function () {
+            return {
+              isValid: false,
+              message: window._Translate.get(errorMessage),
+            };
+          });
+        }
+  
+        inputField.addClass("error-input");
+        console.log("Pasted data contained Arabic/Urdu characters");
+      } else {
+        $(this).removeClass("error-input");
+      }
+  
       console.log("Pasted Data:", pastedData, "Filtered Data:", filteredData, "New Value:", newValue);
     });
-  });  
+  });
+    
   
 
   for (var i = 0; i < len; i++) {
@@ -1697,6 +1741,13 @@ document.addEventListener("DOMContentLoaded", async function () {
       e = e || window.event;
       var charCode = typeof e.which == "undefined" ? e.keyCode : e.which;
       if (charCode != 8 && charCode != 0 && (charCode < 48 || charCode > 57)) {
+        validator.addConstraint(emailInput, function (input) {
+          return {
+            // isValid: input.value.match(digitArray),
+            isValid: false,
+            message: window._Translate.get(errorMessage),
+          };
+        });
         return false;
       }
     };
