@@ -1639,7 +1639,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
   $('input[type="email"]').each(function () {
-    var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/; // Regex for Arabic/Urdu characters
+    var allowedRegex = /^[a-zA-Z0-9@._-]*$/; // Regex to allow only English letters, numbers, and valid email symbols
   
     // Handle keydown event
     $(this).on('keydown', function (e) {
@@ -1661,14 +1661,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Handle keyup event
     $(this).on('keyup', function (e) {
       let currentValue = $(this).val();
-      // Check for Arabic/Urdu characters
-      if (arabicRegex.test(currentValue)) {
-        // Remove Arabic characters
-        const filteredValue = currentValue.replace(arabicRegex, '');
+      // Check if the input contains only allowed characters
+      if (!allowedRegex.test(currentValue)) {
+        // Remove disallowed characters
+        const filteredValue = currentValue.replace(/[^a-zA-Z0-9@._-]/g, '');
         $(this).val(filteredValue);
   
         // Add error message and class
-        const errorMessage = "Arabic/Urdu characters are not allowed in email.";
+        const errorMessage = "Only English letters, numbers, and valid email symbols (@, ., -, _) are allowed.";
         const inputField = $(this);
   
         // Use Instapage validator to show error
@@ -1683,7 +1683,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   
         // Add error class for styling
         inputField.addClass("error-input");
-        console.log("Arabic/Urdu characters are not allowed");
+        console.log("Non-English characters are not allowed");
       } else {
         // If valid, remove the error class
         $(this).removeClass("error-input");
@@ -1697,14 +1697,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       e.preventDefault();
       const pastedData = (e.originalEvent || e).clipboardData.getData('text'); // Get pasted content
       const currentValue = $(this).val(); // Get current input value
-      const filteredData = pastedData.replace(arabicRegex, ''); // Remove Arabic characters from pasted data
+      const filteredData = pastedData.replace(/[^a-zA-Z0-9@._-]/g, ''); // Remove non-English characters
       const newValue = (currentValue + filteredData).substring(0, 50); // Combine current and filtered values, limit to 50 characters
   
       $(this).val(newValue); // Set the filtered value back to the input
   
       // Validate the input and add error if necessary
-      if (arabicRegex.test(pastedData)) {
-        const errorMessage = "Arabic/Urdu characters are not allowed in email.";
+      if (!allowedRegex.test(pastedData)) {
+        const errorMessage = "Only English letters, numbers, and valid email symbols (@, ., -, _) are allowed.";
         const inputField = $(this);
   
         if (window.validator) {
@@ -1717,15 +1717,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
   
         inputField.addClass("error-input");
-        console.log("Pasted data contained Arabic/Urdu characters");
+        console.log("Pasted data contained non-English characters");
       } else {
         $(this).removeClass("error-input");
       }
   
       console.log("Pasted Data:", pastedData, "Filtered Data:", filteredData, "New Value:", newValue);
     });
-  });
-    
+  });   
   
 
   for (var i = 0; i < len; i++) {
