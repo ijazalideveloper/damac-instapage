@@ -1656,7 +1656,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       $(this).val($(this).val().toLocaleLowerCase());
     };
   });
-  
 
   for (var i = 0; i < len; i++) {
     split = query[i].split("=");
@@ -1671,13 +1670,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       e = e || window.event;
       var charCode = typeof e.which == "undefined" ? e.keyCode : e.which;
       if (charCode != 8 && charCode != 0 && (charCode < 48 || charCode > 57)) {
-        validator.addConstraint(emailInput, function (input) {
-          return {
-            // isValid: input.value.match(digitArray),
-            isValid: false,
-            message: window._Translate.get(errorMessage),
-          };
-        });
         return false;
       }
     };
@@ -2423,20 +2415,20 @@ function getFormData($form) {
   return indexed_array;
 }
 
-// window.__custom_form_validations = [
-//   {
-//     fieldName: emailInput,
-//     validationFn: function (input) {
-//       var dateRegex =
-//         /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
-//       var emailErrorMessage = `: ${emailError}`;
-//       return {
-//         isValid: dateRegex.test(input.value),
-//         message: window._Translate.get(emailErrorMessage),
-//       };
-//     },
-//   },
-// ];
+window.__custom_form_validations = [
+  {
+    fieldName: emailInput,
+    validationFn: function (input) {
+      var dateRegex =
+        /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
+      var emailErrorMessage = `: ${emailError}`;
+      return {
+        isValid: dateRegex.test(input.value),
+        message: window._Translate.get(emailErrorMessage),
+      };
+    },
+  },
+];
 
 function submitUrl() {
   $(".redirect-container").hide();
