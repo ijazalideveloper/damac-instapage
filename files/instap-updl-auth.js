@@ -2415,20 +2415,20 @@ function getFormData($form) {
   return indexed_array;
 }
 
-window.__custom_form_validations = [
-  {
-    fieldName: emailInput,
-    validationFn: function (input) {
-      var dateRegex =
-        /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
-      var emailErrorMessage = `: ${emailError}`;
-      return {
-        isValid: dateRegex.test(input.value),
-        message: window._Translate.get(emailErrorMessage),
-      };
-    },
-  },
-];
+// window.__custom_form_validations = [
+//   {
+//     fieldName: emailInput,
+//     validationFn: function (input) {
+//       var dateRegex =
+//         /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
+//       var emailErrorMessage = `: ${emailError}`;
+//       return {
+//         isValid: dateRegex.test(input.value),
+//         message: window._Translate.get(emailErrorMessage),
+//       };
+//     },
+//   },
+// ];
 
 function submitUrl() {
   $(".redirect-container").hide();
