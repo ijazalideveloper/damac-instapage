@@ -1639,96 +1639,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
   $('input[type="email"]').each(function () {
-    var allowedRegex = /^[a-zA-Z0-9@._-]*$/; // Regex to allow only English letters, numbers, and valid email symbols
-  
-    // Handle keydown event
-    $(this).on('keydown', function (e) {
-      // Prevent space key
+    $(this)[0].onkeydown = function (e) {
+      e = e || window.event;
+      // Check if the pressed key is space (key code 32) - Azure Bug ID # 73029
       if (e.keyCode === 32) {
-        e.preventDefault();
-        console.log("Space key is disabled");
-        return;
+          e.preventDefault();
+          return;
       }
-  
-      // Prevent typing if input length exceeds 50 characters
-      if ($(this).val().length >= 50) {
-        e.preventDefault();
-        console.log("Input length is limited to 50 characters");
-        return;
+      // Limit the length of the input value to 50 characters - Azure Bug ID # 73018
+      if ($(this).val().length == 50) {
+        e.preventDefault()
       }
-    });
-  
-    // Handle keyup event
-    $(this).on('keyup', function (e) {
-      const inputField = $(this);
-      const currentValue = inputField.val();
-      
-      // If invalid characters are detected, show error message but don't remove valid characters
-      if (!allowedRegex.test(currentValue)) {
-        // Highlight field and show error message
-        const errorMessage = "Only English letters, numbers, and valid email symbols (@, ., -, _) are allowed.";
-        inputField.addClass("error-input");
-        console.log("Error: Invalid characters entered");
-  
-        // Use Instapage validator to display error message
-        if (window.validator) {
-          validator.addConstraint(inputField[0], function () {
-            return {
-              isValid: false,
-              message: window._Translate.get(errorMessage),
-            };
-          });
-        }
-      } else {
-        // Remove error class if input is valid
-        inputField.removeClass("error-input");
-        if (window.validator) {
-          validator.addConstraint(inputField[0], function () {
-            return { isValid: true };
-          });
-        }
-      }
-  
-      console.log("Current Input Value:", currentValue);
-    });
-  
-    // Handle paste event
-    $(this).on('paste', function (e) {
-      e.preventDefault();
-      const pastedData = (e.originalEvent || e).clipboardData.getData('text'); // Get pasted content
-      const currentValue = $(this).val(); // Get current input value
-      const combinedValue = currentValue + pastedData; // Combine pasted and current values
-  
-      // Check if the combined value contains disallowed characters
-      if (!allowedRegex.test(combinedValue)) {
-        // Remove disallowed characters from pasted data
-        const filteredValue = pastedData.replace(/[^a-zA-Z0-9@._-]/g, '');
-        const newValue = (currentValue + filteredValue).substring(0, 50); // Limit length to 50 characters
-  
-        $(this).val(newValue); // Set the filtered value back to the input
-        console.log("Filtered Pasted Value:", filteredValue);
-  
-        // Highlight field and show error message
-        const errorMessage = "Only English letters, numbers, and valid email symbols (@, ., -, _) are allowed.";
-        $(this).addClass("error-input");
-        if (window.validator) {
-          validator.addConstraint($(this)[0], function () {
-            return {
-              isValid: false,
-              message: window._Translate.get(errorMessage),
-            };
-          });
-        }
-      } else {
-        $(this).val(combinedValue.substring(0, 50)); // Allow valid pasted data
-        $(this).removeClass("error-input");
-        if (window.validator) {
-          validator.addConstraint($(this)[0], function () {
-            return { isValid: true };
-          });
-        }
-      }
-    });
+    };
+    $(this)[0].onkeyup = function (e) {
+      e = e || window.event;
+      $(this).val($(this).val().toLocaleLowerCase());
+    };
   });
   
 
