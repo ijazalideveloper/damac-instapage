@@ -1660,18 +1660,17 @@ document.addEventListener("DOMContentLoaded", async function () {
   
     // Handle keyup event
     $(this).on('keyup', function (e) {
-      let currentValue = $(this).val();
-      // Check if the input contains only allowed characters
+      const inputField = $(this);
+      const currentValue = inputField.val();
+      
+      // If invalid characters are detected, show error message but don't remove valid characters
       if (!allowedRegex.test(currentValue)) {
-        // Remove disallowed characters
-        const filteredValue = currentValue.replace(/[^a-zA-Z0-9@._-]/g, '');
-        $(this).val(filteredValue);
-  
-        // Add error message and class
+        // Highlight field and show error message
         const errorMessage = "Only English letters, numbers, and valid email symbols (@, ., -, _) are allowed.";
-        const inputField = $(this);
+        inputField.addClass("error-input");
+        console.log("Error: Invalid characters entered");
   
-        // Use Instapage validator to show error
+        // Use Instapage validator to display error message
         if (window.validator) {
           validator.addConstraint(inputField[0], function () {
             return {
@@ -1680,16 +1679,17 @@ document.addEventListener("DOMContentLoaded", async function () {
             };
           });
         }
-  
-        // Add error class for styling
-        inputField.addClass("error-input");
-        console.log("Non-English characters are not allowed");
       } else {
-        // If valid, remove the error class
-        $(this).removeClass("error-input");
+        // Remove error class if input is valid
+        inputField.removeClass("error-input");
+        if (window.validator) {
+          validator.addConstraint(inputField[0], function () {
+            return { isValid: true };
+          });
+        }
       }
   
-      console.log("Current Input Value:", $(this).val());
+      console.log("Current Input Value:", currentValue);
     });
   
     // Handle paste event
@@ -1697,34 +1697,39 @@ document.addEventListener("DOMContentLoaded", async function () {
       e.preventDefault();
       const pastedData = (e.originalEvent || e).clipboardData.getData('text'); // Get pasted content
       const currentValue = $(this).val(); // Get current input value
-      const filteredData = pastedData.replace(/[^a-zA-Z0-9@._-]/g, ''); // Remove non-English characters
-      const newValue = (currentValue + filteredData).substring(0, 50); // Combine current and filtered values, limit to 50 characters
+      const combinedValue = currentValue + pastedData; // Combine pasted and current values
   
-      $(this).val(newValue); // Set the filtered value back to the input
+      // Check if the combined value contains disallowed characters
+      if (!allowedRegex.test(combinedValue)) {
+        // Remove disallowed characters from pasted data
+        const filteredValue = pastedData.replace(/[^a-zA-Z0-9@._-]/g, '');
+        const newValue = (currentValue + filteredValue).substring(0, 50); // Limit length to 50 characters
   
-      // Validate the input and add error if necessary
-      if (!allowedRegex.test(pastedData)) {
+        $(this).val(newValue); // Set the filtered value back to the input
+        console.log("Filtered Pasted Value:", filteredValue);
+  
+        // Highlight field and show error message
         const errorMessage = "Only English letters, numbers, and valid email symbols (@, ., -, _) are allowed.";
-        const inputField = $(this);
-  
+        $(this).addClass("error-input");
         if (window.validator) {
-          validator.addConstraint(inputField[0], function () {
+          validator.addConstraint($(this)[0], function () {
             return {
               isValid: false,
               message: window._Translate.get(errorMessage),
             };
           });
         }
-  
-        inputField.addClass("error-input");
-        console.log("Pasted data contained non-English characters");
       } else {
+        $(this).val(combinedValue.substring(0, 50)); // Allow valid pasted data
         $(this).removeClass("error-input");
+        if (window.validator) {
+          validator.addConstraint($(this)[0], function () {
+            return { isValid: true };
+          });
+        }
       }
-  
-      console.log("Pasted Data:", pastedData, "Filtered Data:", filteredData, "New Value:", newValue);
     });
-  });   
+  });
   
 
   for (var i = 0; i < len; i++) {
@@ -2492,20 +2497,20 @@ function getFormData($form) {
   return indexed_array;
 }
 
-window.__custom_form_validations = [
-  {
-    fieldName: emailInput,
-    validationFn: function (input) {
-      var dateRegex =
-        /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
-      var emailErrorMessage = `: ${emailError}`;
-      return {
-        isValid: dateRegex.test(input.value),
-        message: window._Translate.get(emailErrorMessage),
-      };
-    },
-  },
-];
+// window.__custom_form_validations = [
+//   {
+//     fieldName: emailInput,
+//     validationFn: function (input) {
+//       var dateRegex =
+//         /^([0-9]{1,1}[_.-]*)*[a-z]+[._-]*[0-9]*[a-z0-9._-]*@[a-z0-9.-]+\.[a-z]{2,4}$/;
+//       var emailErrorMessage = `: ${emailError}`;
+//       return {
+//         isValid: dateRegex.test(input.value),
+//         message: window._Translate.get(emailErrorMessage),
+//       };
+//     },
+//   },
+// ];
 
 function submitUrl() {
   $(".redirect-container").hide();
