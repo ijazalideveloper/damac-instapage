@@ -302,12 +302,21 @@ function retrieveCountry(countryName) {
   const sanitizedInput = sanitizeName(countryName);
   const country = itiSFCountryAdaptor.find(country => {
       const sanitizedCountryName = sanitizeName(country.name);
-      return sanitizedCountryName === sanitizedInput || // Exact match
-             sanitizedCountryName.startsWith(sanitizedInput + " ") || // Starts with and followed by space (for multi-word names)
-             sanitizedCountryName.endsWith(" " + sanitizedInput); // Ends with and preceded by space
+      return sanitizedCountryName === sanitizedInput
   });
   return country;
 }
+
+// function retrieveCountry(countryName) {
+//     const sanitizedInput = sanitizeName(countryName);
+//     const country = itiSFCountryAdaptor.find(country => {
+//         const sanitizedCountryName = sanitizeName(country.name);
+//         return sanitizedCountryName === sanitizedInput || // Exact match
+//                sanitizedCountryName.startsWith(sanitizedInput + " ") || // Starts with and followed by space (for multi-word names)
+//                sanitizedCountryName.endsWith(" " + sanitizedInput); // Ends with and preceded by space
+//     });
+//     return country;
+//   }
 
 // ======== E N D   O F   I T I   T O   S F   C O U N T R Y   A D A P T O R   A N D   R E T R I E V A L   F U N C T I O N S ========
 
