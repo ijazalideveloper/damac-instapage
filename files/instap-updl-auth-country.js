@@ -299,10 +299,8 @@ function sanitizeName(name) {
 }
 
 function retrieveCountry(countryName) {
-  const sanitizedInput = sanitizeName(countryName);
   const country = itiSFCountryAdaptor.find(country => {
-      const sanitizedCountryName = sanitizeName(country.name);
-      return sanitizedCountryName === sanitizedInput
+      return countryName === country.name
   });
   return country;
 }
