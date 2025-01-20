@@ -331,7 +331,7 @@ function countryCodeForUs(countryName, areaCode, phoneNumber) {
     const countryCodeAsPerArea = itiSFCountryAdaptorDiallingCode.find(country => {
       return '+'+sliptOnSpaces === country.diallingCode
     })
-    return countryCodeAsPerArea || itiSFCountryAdaptorDiallingCode[0]
+    return countryCodeAsPerArea || retrieveCountry(countryName)?.sendAs?.countryCode
   } else {
     return retrieveCountry(countryName)?.sendAs?.countryCode
   }
@@ -2120,7 +2120,7 @@ window.addEventListener("DOMContentLoaded", function () {
           // Set the phone number in a hidden input or use it as needed
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
-          countryCodeForUs(selectedCountryNamee, areaCode,  phoneNumberWithDashInternational)
+          countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational)
         $("input[name='countryCode']").val(countryCodeForUs(selectedCountryNamee, areaCode,  phoneNumberWithDashInternational));
         $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
