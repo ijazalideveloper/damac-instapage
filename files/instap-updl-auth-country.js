@@ -32,6 +32,19 @@ const reCAPTCHASiteKey = '6Le2egYqAAAAAIiz4tGvGyXwB--ERQUfb9Ip8tcb'
 
 
 // ======== I T I   T O   S F   C O U N T R Y   A D A P T O R   A N D   R E T R I E V A L   F U N C T I O N S ========
+const itiSFCountryAdaptorDiallingCode = [
+  {  name: "Dominica", diallingCode: "1767", sendAs: { country: "Dominica", countryCode: "Dominica: 001767" }  },
+  {  name: "Dominican Republic", diallingCode: "+1809", sendAs: { country: "Dominican Republic", countryCode: "Dominican Republic: 001809" }  },
+  {  name: "Dominican Republic", diallingCode: "+1829", sendAs: { country: "Dominican Republic", countryCode: "Dominican Republic: 001829" }  },
+  {  name: "Dominican Republic", diallingCode: "+1849", sendAs: { country: "Dominican Republic", countryCode: "Dominican Republic: 001849" }  },
+  {  name: "Jamaica", diallingCode: "+1", sendAs: { country: "Jamaica", countryCode: "Jamaica: 001" }  },
+  {  name: "Jamaica", diallingCode: "+1876", sendAs: { country: "Jamaica", countryCode: "Jamaica: 001876" }  },
+  {  name: "Puerto Rico", diallingCode: "+1787", sendAs: { country: "Puerto Rico", countryCode: "Puerto Rico: 001787" }  },
+  {  name: "Puerto Rico", diallingCode: "+1939", sendAs: { country: "Puerto Rico", countryCode: "Puerto Rico: 001939" }  },
+  {  name: "Trinidad & Tobago", diallingCode: "+1", sendAs: { country: "Trinidad and Tobago", countryCode: "Trinidad and Tobago: 001" }  },
+  {  name: "Trinidad & Tobago", diallingCode: "+1868", sendAs: { country: "Trinidad and Tobago", countryCode: "Trinidad and Tobago: 001868" }  },
+];
+
 const itiSFCountryAdaptor = [
     {  name: "Afghanistan", diallingCode: "+93", sendAs: { country: "Afghanistan", countryCode: "Afghanistan: 0093" }  },
     {  name: "Albania", diallingCode: "+355", sendAs: { country: "Albania", countryCode: "Albania: 00355" }  },
@@ -150,7 +163,7 @@ const itiSFCountryAdaptor = [
     {  name: "Kiribati", diallingCode: "+686", sendAs: { country: "Kiribati", countryCode: "Kiribati: 00686" }  },
     {  name: "Kosovo", diallingCode: "+383", sendAs: { country: "Kosovo", countryCode: "Kosovo: 00383" }  },
     {  name: "Kuwait", diallingCode: "+965", sendAs: { country: "Kuwait", countryCode: "Kuwait: 00965" }  },
-    {  name: "Kyrgyzstan (Кыргызстан)", diallingCode: "+996", sendAs: { country: "Kyrgyzstan", countryCode: "Kyrgyzstan: 00996" }  },
+    {  name: "Kyrgyzstan", diallingCode: "+996", sendAs: { country: "Kyrgyzstan", countryCode: "Kyrgyzstan: 00996" }  },
     {  name: "Laos", diallingCode: "+856", sendAs: { country: "Lao People's Democratic Republic", countryCode: "Laos: 00856" }  },
     {  name: "Latvia", diallingCode: "+371", sendAs: { country: "Latvia", countryCode: "Latvia: 00371" }  },
     {  name: "Lebanon", diallingCode: "+961", sendAs: { country: "Lebanon", countryCode: "Lebanon: 00961" }  },
@@ -160,7 +173,7 @@ const itiSFCountryAdaptor = [
     {  name: "Liechtenstein", diallingCode: "+423", sendAs: { country: "Liechtenstein", countryCode: "Liechtenstein: 00423" }  },
     {  name: "Lithuania", diallingCode: "+370", sendAs: { country: "Lithuania", countryCode: "Lithuania: 00370" }  },
     {  name: "Luxembourg", diallingCode: "+352", sendAs: { country: "Luxembourg", countryCode: "Luxembourg: 00352" }  },
-    {  name: "Macau (澳門)", diallingCode: "+853", sendAs: { country: "Macao", countryCode: "Macao: 00853" }  }, // This country is not in phone input library
+    {  name: "Macao SAR China", diallingCode: "+853", sendAs: { country: "Macao", countryCode: "Macao: 00853" }  }, // This country is not in phone input library
     {  name: "North Macedonia", diallingCode: "+389", sendAs: { country: "Macedonia, The Former Yugoslav Republic of", countryCode: "Macedonia: 00389" }  },
     {  name: "Madagascar", diallingCode: "+261", sendAs: { country: "Madagascar", countryCode: "Madagascar: 00261" }  },
     {  name: "Malawi", diallingCode: "+265", sendAs: { country: "Malawi", countryCode: "Malawi: 00265" }  },
@@ -181,7 +194,7 @@ const itiSFCountryAdaptor = [
     {  name: "Montenegro", diallingCode: "+382", sendAs: { country: "Montenegro", countryCode: "Montenegro: 00382" }  },
     {  name: "Montserrat", diallingCode: "+1", sendAs: { country: "Montserrat", countryCode: "Montserrat: 001664" }  },
     {  name: "Morocco", diallingCode: "+212", sendAs: { country: "Morocco", countryCode: "Morocco: 00212" }  },
-    {  name: "Mozambique (Moçambique)", diallingCode: "+258", sendAs: { country: "Mozambique", countryCode: "Mozambique: 00258" }  },
+    {  name: "Mozambique", diallingCode: "+258", sendAs: { country: "Mozambique", countryCode: "Mozambique: 00258" }  },
     {  name: "Myanmar (Burma)", diallingCode: "+95", sendAs: { country: "Myanmar", countryCode: "Myanmar: 0095" }  },
     {  name: "Namibia", diallingCode: "+264", sendAs: { country: "Namibia", countryCode: "Namibia: 00264" }  },
     {  name: "Nauru", diallingCode: "+674", sendAs: { country: "Nauru", countryCode: "Nauru: 00674" }  },
@@ -306,11 +319,16 @@ function retrieveCountry(countryName) {
 }
 
 // Function for country code if +1
+function hasWhiteSpace(s) {
+  return s.indexOf(' ') >= 0;
+}
+
 function countryCodeForUs(countryName, areaCode, phoneNumber) {
   if(areaCode === '+1') {
-    let getAreaCode = phoneNumber?.split('-');
+    let getAreaCode = phoneNumber?.split('-')[0];
+    const sliptOnSpaces = hasWhiteSpace(getAreaCode) ? hasWhiteSpace(getAreaCode)?.split(' ')[1] : getAreaCode
     const countryCodeAsPerArea = itiSFCountryAdaptor.find(country => {
-      return getAreaCode === country.diallingCode
+      return '+'+sliptOnSpaces === country.diallingCode
     })
     return countryCodeAsPerArea
   } else {
@@ -2099,7 +2117,7 @@ window.addEventListener("DOMContentLoaded", function () {
           // Set the phone number in a hidden input or use it as needed
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
-          countryCodeForUs(selectedCountryNamee, areaCode,  )
+          countryCodeForUs(selectedCountryNamee, areaCode,  phoneNumberWithDashInternational)
         $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
         $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
