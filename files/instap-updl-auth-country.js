@@ -307,8 +307,12 @@ function retrieveCountry(countryName) {
 
 // Function for country code if +1
 function countryCodeForUs(countryName, areaCode, phoneNumber) {
-  if(countryCode === '+1') {
-
+  if(areaCode === '+1') {
+    let getAreaCode = phoneNumber?.split('-');
+    const countryCodeAsPerArea = itiSFCountryAdaptor.find(country => {
+      return getAreaCode === country.diallingCode
+    })
+    return countryCodeAsPerArea
   } else {
     return countryName
   }
@@ -2077,6 +2081,11 @@ window.addEventListener("DOMContentLoaded", function () {
           .getSelectedCountryData()
           .name.replace(/ *\([^)]*\) */g, "");
 
+          areaCode = $(this)
+          .find(".iti__selected-dial-code")
+          .text()
+          .replace("+", "00");
+
           // Retrieve the selected phone number with country code
           const phoneNumberWithDash = iti[index].getNumber(
             intlTelInputUtils.numberFormat.DASH
@@ -2087,7 +2096,7 @@ window.addEventListener("DOMContentLoaded", function () {
           // Set the phone number in a hidden input or use it as needed
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
-          countryCodeForUs(selectedCountryName, selectedData, )
+          countryCodeForUs(selectedCountryName, areaCode, )
         $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
         $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
