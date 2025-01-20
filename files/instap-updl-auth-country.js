@@ -2112,8 +2112,10 @@ window.addEventListener("DOMContentLoaded", function () {
           const phoneNumberWithoutCode = iti[index].getNumber(intlTelInputUtils.numberFormat.NATIONAL);
 
           const phoneNumberWithDashInternational = iti[index].getNumber(intlTelInputUtils.numberFormat.INTERNATIONAL);
-        
-          console.log("Formatted Phone Number with Dash:",rawPhoneNumber, phoneNumberWithDash, phoneNumberWithoutCode, phoneNumberWithDashInternational, areaCode, countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational));
+
+          const countryCodeForUs = countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational)
+
+          console.log("Formatted Phone Number with Dash:",rawPhoneNumber, phoneNumberWithDash, phoneNumberWithoutCode, phoneNumberWithDashInternational, areaCode, countryCodeForUs);
         
           // Set the phone number in a hidden input or use it as needed
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
