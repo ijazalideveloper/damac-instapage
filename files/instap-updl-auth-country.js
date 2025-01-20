@@ -2086,16 +2086,20 @@ window.addEventListener("DOMContentLoaded", function () {
           .text()
 
           // Retrieve the selected phone number with country code
-          const phoneNumberWithDash = iti[index].getNumber(
-            intlTelInputUtils.numberFormat.DASH
-          );
+          const rawPhoneNumber = iti[index].getNumber();
+
+          const phoneNumberWithDash = iti[index].getNumber(intlTelInputUtils.numberFormat.DASH);
+
+          const phoneNumberWithoutCode = iti[index].getNumber(intlTelInputUtils.numberFormat.NATIONAL);
+
+          const phoneNumberWithDashInternational = iti[index].getNumber(intlTelInputUtils.numberFormat.INTERNATIONAL);
         
-          console.log("Formatted Phone Number with Dash:", phoneNumberWithDash);
+          console.log("Formatted Phone Number with Dash:",rawPhoneNumber, phoneNumberWithDash, phoneNumberWithoutCode, phoneNumberWithDashInternational);
         
           // Set the phone number in a hidden input or use it as needed
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
-          countryCodeForUs(selectedCountryName, areaCode, )
+          countryCodeForUs(selectedCountryName, areaCode )
         $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
         $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
