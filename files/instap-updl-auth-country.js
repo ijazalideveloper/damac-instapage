@@ -305,6 +305,16 @@ function retrieveCountry(countryName) {
   return country;
 }
 
+// Function for country code if +1
+function countryCodeForUs(countryName, areaCode, phoneNumber) {
+  if(countryCode === '+1') {
+
+  } else {
+    return countryName
+  }
+}
+
+
 // function retrieveCountry(countryName) {
 //     const sanitizedInput = sanitizeName(countryName);
 //     const country = itiSFCountryAdaptor.find(country => {
@@ -2059,12 +2069,25 @@ window.addEventListener("DOMContentLoaded", function () {
           .text()
           .replace("+", "00");
 
+        areaCode = code = $(this).find(".iti__selected-dial-code").text()
+
         var selectedCountryName = iti[index].getSelectedCountryData().name
         
         var selectedData = iti[index]
           .getSelectedCountryData()
           .name.replace(/ *\([^)]*\) */g, "");
 
+          // Retrieve the selected phone number with country code
+          const phoneNumberWithDash = iti[index].getNumber(
+            intlTelInputUtils.numberFormat.DASH
+          );
+        
+          console.log("Formatted Phone Number with Dash:", phoneNumberWithDash);
+        
+          // Set the phone number in a hidden input or use it as needed
+          $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
+
+          countryCodeForUs(selectedCountryName, selectedData, )
         $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
         $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
