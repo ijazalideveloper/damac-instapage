@@ -2084,7 +2084,6 @@ window.addEventListener("DOMContentLoaded", function () {
           areaCode = $(this)
           .find(".iti__selected-dial-code")
           .text()
-          .replace("+", "00");
 
           // Retrieve the selected phone number with country code
           const phoneNumberWithDash = iti[index].getNumber(
