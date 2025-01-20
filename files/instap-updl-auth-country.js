@@ -2113,12 +2113,12 @@ window.addEventListener("DOMContentLoaded", function () {
 
           const phoneNumberWithDashInternational = iti[index].getNumber(intlTelInputUtils.numberFormat.INTERNATIONAL);
         
-          console.log("Formatted Phone Number with Dash:",rawPhoneNumber, phoneNumberWithDash, phoneNumberWithoutCode, phoneNumberWithDashInternational, areaCode, countryCodeForUs(selectedCountryNamee, areaCode,  phoneNumberWithDashInternational));
+          console.log("Formatted Phone Number with Dash:",rawPhoneNumber, phoneNumberWithDash, phoneNumberWithoutCode, phoneNumberWithDashInternational, areaCode, countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational));
         
           // Set the phone number in a hidden input or use it as needed
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
-        
+          countryCodeForUs(selectedCountryNamee, areaCode,  phoneNumberWithDashInternational)
         $("input[name='countryCode']").val(countryCodeForUs(selectedCountryNamee, areaCode,  phoneNumberWithDashInternational));
         $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
