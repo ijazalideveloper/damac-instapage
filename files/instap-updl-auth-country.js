@@ -33,6 +33,7 @@ const reCAPTCHASiteKey = '6Le2egYqAAAAAIiz4tGvGyXwB--ERQUfb9Ip8tcb'
 
 // ======== I T I   T O   S F   C O U N T R Y   A D A P T O R   A N D   R E T R I E V A L   F U N C T I O N S ========
 const itiSFCountryAdaptorDiallingCode = [
+  {  name: "United States", diallingCode: "+1", sendAs: { country: "United States of America", countryCode: "United States: 001" }  },
   {  name: "Dominica", diallingCode: "1767", sendAs: { country: "Dominica", countryCode: "Dominica: 001767" }  },
   {  name: "Dominican Republic", diallingCode: "+1809", sendAs: { country: "Dominican Republic", countryCode: "Dominican Republic: 001809" }  },
   {  name: "Dominican Republic", diallingCode: "+1829", sendAs: { country: "Dominican Republic", countryCode: "Dominican Republic: 001829" }  },
@@ -327,12 +328,12 @@ function countryCodeForUs(countryName, areaCode, phoneNumber) {
   if(areaCode === '+1') {
     let getAreaCode = phoneNumber?.split('-')[0];
     const sliptOnSpaces = hasWhiteSpace(getAreaCode) ? hasWhiteSpace(getAreaCode)?.split(' ')[1] : getAreaCode
-    const countryCodeAsPerArea = itiSFCountryAdaptor.find(country => {
+    const countryCodeAsPerArea = itiSFCountryAdaptorDiallingCode.find(country => {
       return '+'+sliptOnSpaces === country.diallingCode
     })
-    return countryCodeAsPerArea
+    return countryCodeAsPerArea || itiSFCountryAdaptorDiallingCode[0]
   } else {
-    return countryName
+    return retrieveCountry(countryName)?.sendAs?.countryCode
   }
 }
 
@@ -2112,13 +2113,13 @@ window.addEventListener("DOMContentLoaded", function () {
 
           const phoneNumberWithDashInternational = iti[index].getNumber(intlTelInputUtils.numberFormat.INTERNATIONAL);
         
-          console.log("Formatted Phone Number with Dash:",rawPhoneNumber, phoneNumberWithDash, phoneNumberWithoutCode, phoneNumberWithDashInternational, areaCode);
+          console.log("Formatted Phone Number with Dash:",rawPhoneNumber, phoneNumberWithDash, phoneNumberWithoutCode, phoneNumberWithDashInternational, areaCode, countryCodeForUs(selectedCountryNamee, areaCode,  phoneNumberWithDashInternational));
         
           // Set the phone number in a hidden input or use it as needed
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
-          countryCodeForUs(selectedCountryNamee, areaCode,  phoneNumberWithDashInternational)
-        $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
+        
+        $("input[name='countryCode']").val(countryCodeForUs(selectedCountryNamee, areaCode,  phoneNumberWithDashInternational));
         $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
         $("input[name='ga_client_id']").val(getCookie("_ga"));
