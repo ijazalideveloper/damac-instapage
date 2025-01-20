@@ -2094,12 +2094,12 @@ window.addEventListener("DOMContentLoaded", function () {
 
           const phoneNumberWithDashInternational = iti[index].getNumber(intlTelInputUtils.numberFormat.INTERNATIONAL);
         
-          console.log("Formatted Phone Number with Dash:",rawPhoneNumber, phoneNumberWithDash, phoneNumberWithoutCode, phoneNumberWithDashInternational);
+          console.log("Formatted Phone Number with Dash:",rawPhoneNumber, phoneNumberWithDash, phoneNumberWithoutCode, phoneNumberWithDashInternational, areaCode);
         
           // Set the phone number in a hidden input or use it as needed
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
-          countryCodeForUs(selectedCountryName, areaCode )
+          countryCodeForUs(selectedCountryNamee, areaCode,  )
         $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
         $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
