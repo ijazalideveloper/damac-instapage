@@ -2120,8 +2120,8 @@ window.addEventListener("DOMContentLoaded", function () {
           // Set the phone number in a hidden input or use it as needed
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
-          countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational)
-        $("input[name='countryCode']").val(countryCodeForUs(selectedCountryNamee, areaCode,  phoneNumberWithDashInternational));
+          
+        $("input[name='countryCode']").val(countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational));
         $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
         $("input[name='ga_client_id']").val(getCookie("_ga"));
