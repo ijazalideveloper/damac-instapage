@@ -16,9 +16,9 @@ const lqs1authKey = "newiuw3ujdjudqoeneoie1E";
 
 // ======== L Q S 2.0   C O N F I G ========
 const lqs2clientId = "instapage_user";
-const lqs2clientSecret = "IAx7jC4brSR9gxVBys6ys6skutRnGeFzdgdZ8skutRnGeFzxVB";
-const lqs2tokenEndpoint = "https://api.damacgroup.com/lqs-api/v1/token";
-const lqs2leadEndpoint = "https://api.damacgroup.com/lqs/v1/getdata";
+const lqs2clientSecret = "zAx7jC4brSR9gxVBys6skutRnGeFzxVBys6skutRnGeFzdgdZ8";
+const lqs2tokenEndpoint = "https://uat-mashery.damacgroup.com/v1/oauth/token";
+const lqs2leadEndpoint = "https://uat-mashery.damacgroup.com/v1/lqs/redis";
 // ======== E N D   O F   L Q S 2.0   C O N F I G ========
 
 
@@ -325,15 +325,23 @@ function hasWhiteSpace(s) {
 }
 
 function countryCodeForUs(countryName, areaCode, phoneNumber) {
-  if(areaCode === '+1') {
-    let getAreaCode = phoneNumber?.split('-')[0];
-    const sliptOnSpaces = hasWhiteSpace(getAreaCode) ? hasWhiteSpace(getAreaCode)?.split(' ')[1] : getAreaCode
-    const countryCodeAsPerArea = itiSFCountryAdaptorDiallingCode.find(country => {
-      return '+'+sliptOnSpaces === country.diallingCode
-    })
-    return countryCodeAsPerArea || retrieveCountry(countryName)?.sendAs?.countryCode
+  if (areaCode === '+1') {
+    // Safely extract the area code from the phone number
+    let getAreaCode = phoneNumber?.split('-')[0] || '';
+
+    // Handle case when area code contains whitespace
+    const splitOnSpaces = hasWhiteSpace(getAreaCode) ? getAreaCode.split(' ')[1] : getAreaCode;
+
+    // Match the dialing code based on the extracted area code
+    const countryCodeAsPerArea = itiSFCountryAdaptorDiallingCode.find(country => 
+      `+${splitOnSpaces}` === country.diallingCode
+    );
+
+    // Return the matched country code or fallback to the country retrieved by name
+    return countryCodeAsPerArea?.sendAs?.countryCode || retrieveCountry(countryName)?.sendAs?.countryCode;
   } else {
-    return retrieveCountry(countryName)?.sendAs?.countryCode
+    // Fallback for non-US area codes
+    return retrieveCountry(countryName)?.sendAs?.countryCode;
   }
 }
 
