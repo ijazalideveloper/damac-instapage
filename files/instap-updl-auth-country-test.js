@@ -2045,7 +2045,8 @@ window.addEventListener("DOMContentLoaded", function () {
                 $("input[name='citySync']").val(json.city);
                 $("input[name='countryNameSync']").val(json.country_name);
                 $("input[name='country']").val(json.country_name);
-                $("input[name='countryCode']").val(json.country_name);
+                $("input[name='countryCode']").val(json.country_code);
+                // $("input[name='countryCode']").val(json.country_name);
                 $("input[name='ipAddress']").val(json.ip);
                 callback(json.country_code);
               },
@@ -2205,7 +2206,8 @@ window.addEventListener("DOMContentLoaded", function () {
               .then(function(token) {
                 // Add the token to the payload
                 data['validationToken'] = token;
-
+                debugger
+                console.log("data", data)
                 pushToNewLQS(data)
               })
           })
