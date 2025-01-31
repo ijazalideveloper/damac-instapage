@@ -2130,7 +2130,7 @@ window.addEventListener("DOMContentLoaded", function () {
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
           
-        // $("input[name='countryCode']").val(countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational));
+        $("input[name='countryCodeSync']").val(countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational));
         $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
         $("input[name='ga_client_id']").val(getCookie("_ga"));
