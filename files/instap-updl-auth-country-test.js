@@ -2130,7 +2130,7 @@ window.addEventListener("DOMContentLoaded", function () {
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
           
-        $("input[name='countryCode']").val(countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational));
+        // $("input[name='countryCode']").val(countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational));
         $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
         $("input[name='ga_client_id']").val(getCookie("_ga"));
@@ -2186,7 +2186,8 @@ window.addEventListener("DOMContentLoaded", function () {
         const givenChars = Array.from(data.phoneNumber)
         const filteredChars = givenChars.filter(obj => allowedChars.includes(obj))
         const transformedNumber = filteredChars.join('') //This is good for the payload
-        data.phoneNumber = transformedNumber
+        // data.phoneNumber = transformedNumber
+        data.phoneNumber = rawPhoneNumber
 
         //Hardcoding Lead_Gen_Identifier based on request from Digital Marketing
         data.Lead_Gen_Identifier = 'instapage'
