@@ -1645,71 +1645,28 @@ document.addEventListener("DOMContentLoaded", async function () {
       };
     }
   });
-  // $('input[type="email"]').each(function () {
-  //   $(this)[0].onkeydown = function (e) {
-  //     e = e || window.event;
-  //     // Check if the pressed key is space (key code 32) - Azure Bug ID # 73029
-  //     if (e.keyCode === 32) {
-  //         e.preventDefault();
-  //         return;
-  //     }
-  //     // Limit the length of the input value to 50 characters - Azure Bug ID # 73018
-  //     if ($(this).val().length == 50) {
-  //       e.preventDefault()
-  //     }
-  //   };
-  //   $(this)[0].onkeyup = function (e) {
-  //     e = e || window.event;
-  //     $(this).val($(this).val().toLocaleLowerCase());
-  //   };
-  // });
-
-  // $('input[type="email"]').each(function () {
-  //   var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/; // Regex for Arabic characters
-  
-  //   // Handle keydown event
-  //   $(this).on('keydown', function (e) {
-  //     // Prevent space key
-  //     if (e.keyCode === 32) {
-  //       e.preventDefault();
-  //       console.log("Space key is disabled");
-  //       return;
-  //     }
-  
-  //     // Prevent typing if input length exceeds 50 characters
-  //     if ($(this).val().length >= 50) {
-  //       e.preventDefault();
-  //       console.log("Input length is limited to 50 characters");
-  //       return;
-  //     }
-  //   });
-  
-  //   // Handle keyup event
-  //   $(this).on('keyup', function (e) {
-  //     let currentValue = $(this).val();
-  //     // Check for Arabic characters
-  //     if (arabicRegex.test(currentValue)) {
-  //       const filteredValue = currentValue.replace(arabicRegex, ''); // Remove Arabic characters
-  //       $(this).val(filteredValue);
-  //       console.log("Arabic characters are not allowed");
-  //     }
-  //     console.log("Current Input Value:", $(this).val());
-  //   });
-  
-  //   // Handle paste event
-  //   $(this).on('paste', function (e) {
-  //     e.preventDefault();
-  //     const pastedData = (e.originalEvent || e).clipboardData.getData('text'); // Get pasted content
-  //     const currentValue = $(this).val(); // Get current input value
-  //     const filteredData = pastedData.replace(arabicRegex, ''); // Remove Arabic characters from pasted data
-  //     const newValue = (currentValue + filteredData).substring(0, 50); // Combine current and filtered values, limit to 50 characters
-  
-  //     $(this).val(newValue); // Set the filtered value back to the input
-  //     console.log("Pasted Data:", pastedData, "Filtered Data:", filteredData, "New Value:", newValue);
-  //   });
-  // });
+  $('input[type="email"]').each(function () {
+    $(this)[0].onkeydown = function (e) {
+      e = e || window.event;
+      // Check if the pressed key is space (key code 32) - Azure Bug ID # 73029
+      if (e.keyCode === 32) {
+          e.preventDefault();
+          return;
+      }
+      // Limit the length of the input value to 50 characters - Azure Bug ID # 73018
+      if ($(this).val().length == 50) {
+        e.preventDefault()
+      }
+    };
+    $(this)[0].onkeyup = function (e) {
+      e = e || window.event;
+      $(this).val($(this).val().toLocaleLowerCase());
+    };
+  });
 
   $('input[type="email"]').each(function () {
+    var arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/; // Regex for Arabic characters
+  
     // Handle keydown event
     $(this).on('keydown', function (e) {
       // Prevent space key
@@ -1730,6 +1687,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Handle keyup event
     $(this).on('keyup', function (e) {
       let currentValue = $(this).val();
+      // Check for Arabic characters
+      if (arabicRegex.test(currentValue)) {
+        const filteredValue = currentValue.replace(arabicRegex, ''); // Remove Arabic characters
+        $(this).val(filteredValue);
+        console.log("Arabic characters are not allowed");
+      }
       console.log("Current Input Value:", $(this).val());
     });
   
@@ -1738,23 +1701,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       e.preventDefault();
       const pastedData = (e.originalEvent || e).clipboardData.getData('text'); // Get pasted content
       const currentValue = $(this).val(); // Get current input value
-      const newValue = (currentValue + pastedData).substring(0, 50); // Combine current and pasted values, limit to 50 characters
+      const filteredData = pastedData.replace(arabicRegex, ''); // Remove Arabic characters from pasted data
+      const newValue = (currentValue + filteredData).substring(0, 50); // Combine current and filtered values, limit to 50 characters
   
-      $(this).val(newValue); // Set the new value back to the input
-      console.log("Pasted Data:", pastedData, "New Value:", newValue);
+      $(this).val(newValue); // Set the filtered value back to the input
+      console.log("Pasted Data:", pastedData, "Filtered Data:", filteredData, "New Value:", newValue);
     });
-  });
-
-  function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-  
-  $('input[type="email"]').on('blur', function () {
-    const email = $(this).val();
-    if (!isValidEmail(email)) {
-      alert("Please enter a valid email address.");
-    }
   });
   
 
@@ -2562,13 +2514,13 @@ let titleVal = $("input[name='moTitle']").val()
 
 var k =$("input[name='moTitle']").val();
 $("select[name='"+titleInput+"'] option").filter(function() {
-return $(this).val() ==k;
+  return $(this).val() ==k;
 }).prop('selected', true);
 $("select#field-741126b051b758e175dc7d616433758e-0 option").filter(function() {
-return $(this).val() ==titleVal;
+  return $(this).val() ==titleVal;
 }).prop('selected', true);
 $("select#field-5d7b0ff4610675daada3263278489d62-0 option").filter(function() {
-return $(this).val() ==titleVal;
+  return $(this).val() ==titleVal;
 }).prop('selected', true);
 
 }
