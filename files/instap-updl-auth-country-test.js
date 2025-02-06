@@ -2143,7 +2143,7 @@ window.addEventListener("DOMContentLoaded", function () {
           // Set the phone number in a hidden input or use it as needed
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
-        var selectedCountryData = iti.getSelectedCountryData();
+        var selectedCountryData = iti[index].getSelectedCountryData();
         var countryCode = selectedCountryData.iso2.toUpperCase();
         $("input[name='countryCode']").val(countryCode);
         // $("input[name='countryCode']").val(countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational));
