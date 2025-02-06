@@ -15,10 +15,24 @@ const lqs1authKey = "newiuw3ujdjudqoeneoie1E";
 
 
 // ======== L Q S 2.0   C O N F I G ========
-const lqs2clientId = "instapage_user";
-const lqs2clientSecret = "zAx7jC4brSR9gxVBys6skutRnGeFzxVBys6skutRnGeFzdgdZ8";
+
+// New Phone number and COuntry Code Format Credentials
+const lqs2clientId = "new_instapage_user";
+const lqs2clientSecret = "NyesIwnskutRRnGeFGnGeFzdgdBysBVM7nGeFzdgdByszAx7brSR09MxBB";
 const lqs2tokenEndpoint = "https://uat-mashery.damacgroup.com/v1/oauth/token";
 const lqs2leadEndpoint = "https://uat-mashery.damacgroup.com/v1/lqs/redis";
+
+// Full Copy URL
+// const lqs2clientId = "instapage_user";
+// const lqs2clientSecret = "zAx7jC4brSR9gxVBys6skutRnGeFzxVBys6skutRnGeFzdgdZ8";
+// const lqs2tokenEndpoint = "https://uat-mashery.damacgroup.com/v1/oauth/token";
+// const lqs2leadEndpoint = "https://uat-mashery.damacgroup.com/v1/lqs/redis";
+
+// Production URL
+// const lqs2clientId = "instapage_user";
+// const lqs2clientSecret = "IAx7jC4brSR9gxVBys6ys6skutRnGeFzdgdZ8skutRnGeFzxVB";
+// const lqs2tokenEndpoint = "https://api.damacgroup.com/lqs-api/v1/token";
+// const lqs2leadEndpoint = "https://api.damacgroup.com/lqs/v1/getdata";
 // ======== E N D   O F   L Q S 2.0   C O N F I G ========
 
 
@@ -2129,9 +2143,13 @@ window.addEventListener("DOMContentLoaded", function () {
           // Set the phone number in a hidden input or use it as needed
           $("input[name='phoneNumberWithDash']").val(phoneNumberWithDash);
 
-          
+        var selectedCountryData = iti.getSelectedCountryData();
+        var countryCode = selectedCountryData.iso2.toUpperCase();
+        $("input[name='countryCode']").val(countryCode);
+        // $("input[name='countryCode']").val(countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational));
         $("input[name='countryCodeSync']").val(countryCodeForUs(selectedCountryName, areaCode,  phoneNumberWithDashInternational));
-        $("input[name='country']").val(selectedCountryName);
+        $("input[name='country']").val('');
+        // $("input[name='country']").val(selectedCountryName);
         // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
         $("input[name='ga_client_id']").val(getCookie("_ga"));
         $("input[name='fbid']").val(getFacebookCookie("_fbp"));
@@ -2207,8 +2225,7 @@ window.addEventListener("DOMContentLoaded", function () {
               .then(function(token) {
                 // Add the token to the payload
                 data['validationToken'] = token;
-                debugger
-                console.log("data", data)
+
                 pushToNewLQS(data)
               })
           })
