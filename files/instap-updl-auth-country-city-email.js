@@ -2279,26 +2279,29 @@ window.addEventListener("DOMContentLoaded", function () {
 
     countryDropdowns.forEach(countryDropdown => {
         countryDropdown.addEventListener("change", function () {
-            const selectedCountry = this.value.toLowerCase();
+            const selectedCountry = this.value; // Get selected country value
             const form = this.closest("form");
-            const cityDropdown = form?.querySelector('select[name="City"]');
-            const cityInput = form?.querySelector("input[name='city']");
 
-            $("input[name='country']").val(selectedCountry); // Set country input field
+            // Target the correct dropdown and input fields
+            const cityDropdown = form?.querySelector('select[name="City"]'); // Select dropdown
+            const countryInput = form?.querySelector('input[name="Country"]'); // Input field
+            const cityInput = form?.querySelector('input[name="City"]'); // Input field
+
+            if (countryInput) countryInput.value = selectedCountry; // Set selected country in input field
 
             if (cityDropdown) {
                 cityDropdown.innerHTML = ""; // Clear previous options
 
-                if (citiesByCountry[selectedCountry]) {
+                if (citiesByCountry[selectedCountry.toLowerCase()]) {
                     cityDropdown.style.display = "block"; // Show city dropdown
                     cityDropdown.appendChild(new Option("Select City", "", true, true));
 
-                    citiesByCountry[selectedCountry].forEach(city => {
-                        let option = new Option(city, city.toLowerCase());
+                    citiesByCountry[selectedCountry.toLowerCase()].forEach(city => {
+                        let option = new Option(city, city);
                         cityDropdown.appendChild(option);
                     });
 
-                    // Reset the city input field
+                    // Reset the city input field when country changes
                     if (cityInput) cityInput.value = "";
                 } else {
                     cityDropdown.style.display = "none"; // Hide if no cities exist
@@ -2310,8 +2313,8 @@ window.addEventListener("DOMContentLoaded", function () {
 
         // Event listener for city selection
         const form = countryDropdown.closest("form");
-        const cityDropdown = form?.querySelector('select[name="City"]');
-        const cityInput = form?.querySelector("input[name='city']");
+        const cityDropdown = form?.querySelector('select[name="City"]'); // Select dropdown
+        const cityInput = form?.querySelector('input[name="City"]'); // Input field
 
         if (cityDropdown) {
             cityDropdown.addEventListener("change", function () {
@@ -2319,8 +2322,8 @@ window.addEventListener("DOMContentLoaded", function () {
             });
         }
     });
-
     // Country City Email End
+
 });
 
 var ga_client_id = getCookie("_gid"),
