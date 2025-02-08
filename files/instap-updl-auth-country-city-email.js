@@ -2185,14 +2185,17 @@ window.addEventListener("DOMContentLoaded", function () {
                 $("input[name='ipAddress']").val(json.ip);
                 callback(json.country_code);
 
-                if (json && json.country) {
-                    const userCountry = json.country; // Country code (e.g., "US", "GB", "IN")
-                    
+                // Pre-select country based on user's location
+                if (json && json.country_name) {
+                    const userCountry = json.country_name; // Country name (e.g., "India")
                     countryDropdowns.forEach(dropdown => {
-                        const option = Array.from(dropdown.options).find(opt => opt.value === userCountry || opt.textContent === data.country_name);
-                        if (option) {
-                            dropdown.value = option.value;
-                        }
+                      const option = Array.from(dropdown.options).find(
+                        opt => opt.textContent.toLowerCase() === userCountry.toLowerCase()
+                      );
+                      if (option) {
+                        dropdown.value = option.value;
+                        dropdown.dispatchEvent(new Event("change")); // Trigger change event to update city dropdown
+                      }
                     });
                 }
                 
