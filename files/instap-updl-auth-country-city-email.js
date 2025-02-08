@@ -2272,7 +2272,7 @@ window.addEventListener("DOMContentLoaded", function () {
   }
 
     // Country City Email Start
-    const countryDropdowns = document.querySelectorAll('[name="Country"]');
+    const countryDropdowns = document.querySelectorAll('select[name="Country"]');
     const citiesByCountry = {
         "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
     };
@@ -2281,7 +2281,7 @@ window.addEventListener("DOMContentLoaded", function () {
         countryDropdown.addEventListener("change", function () {
             const selectedCountry = this.value.toLowerCase();
             const form = this.closest("form");
-            const cityDropdown = form?.querySelector('[name="city"]');
+            const cityDropdown = form?.querySelector('select[name="city"]');
             const cityInput = form?.querySelector("input[name='city']");
 
             $("input[name='country']").val(selectedCountry); // Set country input field
@@ -2310,7 +2310,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
         // Event listener for city selection
         const form = countryDropdown.closest("form");
-        const cityDropdown = form?.querySelector('[name="ijazCity"]');
+        const cityDropdown = form?.querySelector('select[name="city"]');
         const cityInput = form?.querySelector("input[name='city']");
 
         if (cityDropdown) {
