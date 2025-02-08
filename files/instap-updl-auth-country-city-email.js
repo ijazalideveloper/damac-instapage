@@ -2294,7 +2294,7 @@ window.addEventListener("DOMContentLoaded", function () {
                     citiesByCountry[selectedCountry].forEach(city => {
                         let option = new Option(city, city.toLowerCase());
                         cityDropdown.appendChild(option);
-                        $("input[name='city']").val(city); // Set selected city in input field
+                        $("input[name='city']").val(option); // Set selected city in input field
                     });
                 } else {
                     cityDropdown.style.display = "none"; // Hide city dropdown for other countries
