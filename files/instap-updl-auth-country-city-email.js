@@ -2160,32 +2160,51 @@ window.addEventListener("DOMContentLoaded", function () {
         }
 
         // Country City Email Start
-        const countryDropdown = document.getElementById("field-5910e3cec8799809bed96e4b45560f11-5");
-        const cityDropdown = document.getElementById("field-749b8693844a7526a51dd227743678dd-5");
+        // const countryDropdown = document.getElementById("field-5910e3cec8799809bed96e4b45560f11-5");
+        // const cityDropdown = document.getElementById("field-749b8693844a7526a51dd227743678dd-5");
 
-        const citiesByCountry = {
-            "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
-        };
+        // const citiesByCountry = {
+        //     "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
+        // };
 
-        function updateCityDropdown() {
-            const selectedCountry = countryDropdown.value;
-            cityDropdown.innerHTML = ""; // Clear previous options
+        // function updateCityDropdown() {
+        //     const selectedCountry = countryDropdown.value;
+        //     cityDropdown.innerHTML = ""; // Clear previous options
 
-            if (selectedCountry && citiesByCountry[selectedCountry]) {
-                cityDropdown.style.display = "block";
-                cityDropdown.appendChild(new Option("Select City", "", true, true));
+        //     if (selectedCountry && citiesByCountry[selectedCountry]) {
+        //         cityDropdown.style.display = "block";
+        //         cityDropdown.appendChild(new Option("Select City", "", true, true));
                 
-                citiesByCountry[selectedCountry].forEach(city => {
-                    let option = new Option(city, city.toLowerCase());
-                    cityDropdown.appendChild(option);
-                });
-            } else {
-                cityDropdown.style.display = "none";
+        //         citiesByCountry[selectedCountry].forEach(city => {
+        //             let option = new Option(city, city.toLowerCase());
+        //             cityDropdown.appendChild(option);
+        //         });
+        //     } else {
+        //         cityDropdown.style.display = "none";
+        //     }
+        // }
+
+        // countryDropdown.addEventListener("change", updateCityDropdown);
+        // updateCityDropdown(); // Initial check on page load
+
+        const countrySelect = document.querySelector('[name="country"]');
+        const citySelect = document.querySelector('[name="cityyyyyyyy"]');
+
+        if (countrySelect && citySelect) {
+            countrySelect.addEventListener("change", function () {
+                if (this.value === "India") {
+                    citySelect.style.display = "block"; // Show city dropdown
+                } else {
+                    citySelect.style.display = "none"; // Hide city dropdown
+                    citySelect.value = ""; // Reset selection
+                }
+            });
+
+            // Initialize visibility
+            if (countrySelect.value !== "India") {
+                citySelect.style.display = "none";
             }
         }
-
-        countryDropdown.addEventListener("change", updateCityDropdown);
-        updateCityDropdown(); // Initial check on page load
         // Country City Email End
         var data = getFormData($(forms));
         data.fullLandingPageUrl = location.toString();
