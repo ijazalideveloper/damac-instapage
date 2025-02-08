@@ -2187,8 +2187,8 @@ window.addEventListener("DOMContentLoaded", function () {
         // countryDropdown.addEventListener("change", updateCityDropdown);
         // updateCityDropdown(); // Initial check on page load
 
-        const countrySelect = document.querySelector('[name="country"]');
-        const citySelect = document.querySelector('[name="cityyyyyyyy"]');
+        const countrySelect = document.querySelectorAll('[name="country"]');
+        const citySelect = document.querySelectorAll('[name="cityyyyyyyy"]');
 
         if (countrySelect && citySelect) {
             countrySelect.addEventListener("change", function () {
