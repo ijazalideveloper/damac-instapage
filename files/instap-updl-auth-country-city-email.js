@@ -2158,6 +2158,12 @@ window.addEventListener("DOMContentLoaded", function () {
         ) {
           $("input[name='campaignId']").val(defaultCampaignId);
         }
+
+        // Country City Email Start
+        var cityyyyyyyy = document.querySelectorAll(`form input[name='cityyyyyyyy']`);
+        console.log("cityyyyyyyy", cityyyyyyyy)
+        cityyyyyyyy.style.display = "none"
+        // Country City Email End
         var data = getFormData($(forms));
         data.fullLandingPageUrl = location.toString();
         data.cookieEnabled = navigator.cookieEnabled;
