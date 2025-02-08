@@ -2071,7 +2071,7 @@ window.addEventListener("DOMContentLoaded", function () {
               type: "GET",
               success: function (json) {
                 $("input[name='countryCodeSync']").val(json.country_code);
-                $("input[name='city']").val(json.city);
+                // $("input[name='city']").val(json.city);
                 $("input[name='citySync']").val(json.city);
                 $("input[name='countryNameSync']").val(json.country_name);
                 $("input[name='country']").val(json.country_name);
@@ -2137,7 +2137,7 @@ window.addEventListener("DOMContentLoaded", function () {
           .name.replace(/ *\([^)]*\) */g, "");
 
         $("input[name='countryCode']").val(retrieveCountry(selectedCountryName)?.sendAs?.countryCode);
-        $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
+        // $("input[name='country']").val(decodeURIComponent(retrieveCountry(selectedCountryName)?.sendAs?.country));
         $("input[name='ga_client_id']").val(getCookie("_ga"));
         $("input[name='fbid']").val(getFacebookCookie("_fbp"));
         $("input[name='fbclid']").val(getFbc());
