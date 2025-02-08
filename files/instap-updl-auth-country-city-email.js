@@ -2160,9 +2160,32 @@ window.addEventListener("DOMContentLoaded", function () {
         }
 
         // Country City Email Start
-        var cityyyyyyyy = document.querySelectorAll(`form input[name='cityyyyyyyy']`);
-        console.log("cityyyyyyyy", cityyyyyyyy)
-        cityyyyyyyy.style.display = "none"
+        const countryDropdown = document.getElementById("field-5910e3cec8799809bed96e4b45560f11-5");
+        const cityDropdown = document.getElementById("field-749b8693844a7526a51dd227743678dd-5");
+
+        const citiesByCountry = {
+            "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
+        };
+
+        function updateCityDropdown() {
+            const selectedCountry = countryDropdown.value;
+            cityDropdown.innerHTML = ""; // Clear previous options
+
+            if (selectedCountry && citiesByCountry[selectedCountry]) {
+                cityDropdown.style.display = "block";
+                cityDropdown.appendChild(new Option("Select City", "", true, true));
+                
+                citiesByCountry[selectedCountry].forEach(city => {
+                    let option = new Option(city, city.toLowerCase());
+                    cityDropdown.appendChild(option);
+                });
+            } else {
+                cityDropdown.style.display = "none";
+            }
+        }
+
+        countryDropdown.addEventListener("change", updateCityDropdown);
+        updateCityDropdown(); // Initial check on page load
         // Country City Email End
         var data = getFormData($(forms));
         data.fullLandingPageUrl = location.toString();
