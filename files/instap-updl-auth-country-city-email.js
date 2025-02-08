@@ -2058,6 +2058,8 @@ window.addEventListener("DOMContentLoaded", function () {
           const cityDropdown = form?.querySelector('select[name="City"]');
           const cityInput = form?.querySelector("input[name='city']");
 
+          cityDropdown.style.display = "none";
+          
           $("input[name='country']").val(selectedCountry); // Set country input field
 
           if (cityDropdown) {
