@@ -2206,8 +2206,8 @@ window.addEventListener("DOMContentLoaded", function () {
         //     }
         // }
 
-        const countryDropdowns = document.querySelectorAll('[name="country"]');
-        const cityDropdowns = document.querySelectorAll('[name="city"]');
+        const countryDropdowns = document.querySelectorAll('[name="ijazCountry"]');
+        const cityDropdowns = document.querySelectorAll('[name="ijazCity"]');
 
         const citiesByCountry = {
             "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
