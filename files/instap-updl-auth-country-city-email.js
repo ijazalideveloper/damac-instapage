@@ -2272,58 +2272,55 @@ window.addEventListener("DOMContentLoaded", function () {
   }
 
     // Country City Email Start
-const countryDropdowns = document.querySelectorAll('select[name="Country"]');
-const citiesByCountry = {
-    "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
-};
+    const countryDropdowns = document.querySelectorAll('select[name="Country"]');
+    const citiesByCountry = {
+        "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
+    };
 
-countryDropdowns.forEach(countryDropdown => {
-    countryDropdown.addEventListener("change", function () {
-        const selectedCountry = this.value.toLowerCase();
-        const form = this.closest("form");
+    countryDropdowns.forEach(countryDropdown => {
+        countryDropdown.addEventListener("change", function () {
+            const selectedCountry = this.value.toLowerCase();
+            const form = this.closest("form");
+            const cityDropdown = form?.querySelector('select[name="City"]');
+            const cityInput = form?.querySelector("input[name='city']");
 
-        // Target the correct dropdown and input fields
-        const cityDropdown = form?.querySelector('select[name="City"]'); // Select dropdown
-        const countryInput = form?.querySelector('input[name="Country"]'); // Input field
-        const cityInput = form?.querySelector('input[name="City"]'); // Input field
+            $("input[name='country']").val(selectedCountry); // Set country input field
 
-        if (countryInput) countryInput.value = this.value; // Set selected country in input field
+            if (cityDropdown) {
+                cityDropdown.innerHTML = ""; // Clear previous options
+
+                if (citiesByCountry[selectedCountry]) {
+                    cityDropdown.style.display = "block"; // Show city dropdown
+                    cityDropdown.appendChild(new Option("Select City", "", true, true));
+
+                    citiesByCountry[selectedCountry].forEach(city => {
+                        let option = new Option(city, city.toLowerCase());
+                        cityDropdown.appendChild(option);
+                    });
+
+                    // Reset the city input field
+                    if (cityInput) cityInput.value = "";
+                } else {
+                    cityDropdown.style.display = "none"; // Hide if no cities exist
+                    cityDropdown.value = ""; // Reset dropdown
+                    if (cityInput) cityInput.value = "";
+                }
+            }
+        });
+
+        // Event listener for city selection
+        const form = countryDropdown.closest("form");
+        const cityDropdown = form?.querySelector('select[name="City"]');
+        const cityInput = form?.querySelector("input[name='city']");
 
         if (cityDropdown) {
-            cityDropdown.innerHTML = ""; // Clear previous options
-
-            if (citiesByCountry[selectedCountry]) {
-                cityDropdown.style.display = "block"; // Show city dropdown
-                cityDropdown.appendChild(new Option("Select City", "", true, true));
-
-                citiesByCountry[selectedCountry].forEach(city => {
-                    let option = new Option(city, city.toLowerCase());
-                    cityDropdown.appendChild(option);
-                });
-
-                // Reset the city input field when country changes
-                if (cityInput) cityInput.value = "";
-            } else {
-                cityDropdown.style.display = "none"; // Hide if no cities exist
-                cityDropdown.value = ""; // Reset dropdown
-                if (cityInput) cityInput.value = "";
-            }
+            cityDropdown.addEventListener("change", function () {
+                if (cityInput) cityInput.value = this.value; // Set selected city in input field
+            });
         }
     });
 
-    // Event listener for city selection
-    const form = countryDropdown.closest("form");
-    const cityDropdown = form?.querySelector('select[name="City"]'); // Select dropdown
-    const cityInput = form?.querySelector('input[name="City"]'); // Input field
-
-    if (cityDropdown) {
-        cityDropdown.addEventListener("change", function () {
-            if (cityInput) cityInput.value = this.value; // Set selected city in input field
-        });
-    }
-});
-// Country City Email End
-
+    // Country City Email End
 });
 
 var ga_client_id = getCookie("_gid"),
