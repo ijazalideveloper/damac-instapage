@@ -2047,55 +2047,55 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // Country City Email Start
   const countryDropdowns = document.querySelectorAll('select[name="Country"]');
-  const citiesByCountry = {
-      "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
-  };
+    const citiesByCountry = {
+        "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
+    };
 
-  countryDropdowns.forEach(countryDropdown => {
-      countryDropdown.addEventListener("change", function () {
-          const selectedCountry = this.value.toLowerCase();
-          const form = this.closest("form");
-          const cityDropdown = form?.querySelector('select[name="City"]');
-          const cityInput = form?.querySelector("input[name='city']");
+    countryDropdowns.forEach(countryDropdown => {
+        const form = countryDropdown.closest("form");
+        const cityDropdown = form?.querySelector('select[name="City"]');
+        const cityInput = form?.querySelector("input[name='city']");
 
-          cityDropdown.style.display = "none";
-          
-          $("input[name='country']").val(selectedCountry); // Set country input field
+        // Function to update city dropdown based on country
+        function updateCityDropdown(selectedCountry) {
+            $("input[name='country']").val(selectedCountry); // Set country input field
 
-          if (cityDropdown) {
-              cityDropdown.innerHTML = ""; // Clear previous options
+            if (cityDropdown) {
+                cityDropdown.innerHTML = ""; // Clear previous options
 
-              if (citiesByCountry[selectedCountry]) {
-                  cityDropdown.style.display = "block"; // Show city dropdown
-                  cityDropdown.appendChild(new Option("Select City", "", true, true));
+                if (citiesByCountry[selectedCountry]) {
+                    cityDropdown.style.display = "block"; // Show city dropdown
+                    cityDropdown.appendChild(new Option("Select City", "", true, true));
 
-                  citiesByCountry[selectedCountry].forEach(city => {
-                      let option = new Option(city, city.toLowerCase());
-                      cityDropdown.appendChild(option);
-                  });
+                    citiesByCountry[selectedCountry].forEach(city => {
+                        let option = new Option(city, city.toLowerCase());
+                        cityDropdown.appendChild(option);
+                    });
 
-                  // Reset the city input field
-                  if (cityInput) cityInput.value = "";
-              } else {
-                  cityDropdown.style.display = "none"; // Hide if no cities exist
-                  cityDropdown.value = ""; // Reset dropdown
-                  if (cityInput) cityInput.value = "";
-              }
-          }
-      });
+                    if (cityInput) cityInput.value = "";
+                } else {
+                    cityDropdown.style.display = "none"; // Hide city dropdown
+                    cityDropdown.value = ""; // Reset dropdown
+                    if (cityInput) cityInput.value = "";
+                }
+            }
+        }
 
-      // Event listener for city selection
-      const form = countryDropdown.closest("form");
-      const cityDropdown = form?.querySelector('select[name="City"]');
-      const cityInput = form?.querySelector("input[name='city']");
+        // Handle country change event
+        countryDropdown.addEventListener("change", function () {
+            updateCityDropdown(this.value.toLowerCase());
+        });
 
-      if (cityDropdown) {
-          cityDropdown.addEventListener("change", function () {
-              if (cityInput) cityInput.value = this.value; // Set selected city in input field
-          });
-      }
-  });
+        // Hide city dropdown on page load if country is not "India"
+        updateCityDropdown(countryDropdown.value.toLowerCase());
 
+        // Event listener for city selection
+        if (cityDropdown) {
+            cityDropdown.addEventListener("change", function () {
+                if (cityInput) cityInput.value = this.value; // Set selected city in input field
+            });
+        }
+    });
   // Country City Email End
 
   function alterFormHandler() {
