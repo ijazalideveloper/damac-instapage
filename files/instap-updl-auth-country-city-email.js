@@ -2045,6 +2045,57 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Country City Email Start
+  const countryDropdowns = document.querySelectorAll('select[name="Country"]');
+  const citiesByCountry = {
+      "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
+  };
+
+  countryDropdowns.forEach(countryDropdown => {
+      countryDropdown.addEventListener("change", function () {
+          const selectedCountry = this.value.toLowerCase();
+          const form = this.closest("form");
+          const cityDropdown = form?.querySelector('select[name="City"]');
+          const cityInput = form?.querySelector("input[name='city']");
+
+          $("input[name='country']").val(selectedCountry); // Set country input field
+
+          if (cityDropdown) {
+              cityDropdown.innerHTML = ""; // Clear previous options
+
+              if (citiesByCountry[selectedCountry]) {
+                  cityDropdown.style.display = "block"; // Show city dropdown
+                  cityDropdown.appendChild(new Option("Select City", "", true, true));
+
+                  citiesByCountry[selectedCountry].forEach(city => {
+                      let option = new Option(city, city.toLowerCase());
+                      cityDropdown.appendChild(option);
+                  });
+
+                  // Reset the city input field
+                  if (cityInput) cityInput.value = "";
+              } else {
+                  cityDropdown.style.display = "none"; // Hide if no cities exist
+                  cityDropdown.value = ""; // Reset dropdown
+                  if (cityInput) cityInput.value = "";
+              }
+          }
+      });
+
+      // Event listener for city selection
+      const form = countryDropdown.closest("form");
+      const cityDropdown = form?.querySelector('select[name="City"]');
+      const cityInput = form?.querySelector("input[name='city']");
+
+      if (cityDropdown) {
+          cityDropdown.addEventListener("change", function () {
+              if (cityInput) cityInput.value = this.value; // Set selected city in input field
+          });
+      }
+  });
+
+  // Country City Email End
+
   function alterFormHandler() {
     //phone field name
     // var field = "Phone";
@@ -2078,6 +2129,19 @@ window.addEventListener("DOMContentLoaded", function () {
                 $("input[name='countryCode']").val(json.country_name);
                 $("input[name='ipAddress']").val(json.ip);
                 callback(json.country_code);
+
+                if (json && json.country) {
+                    const userCountry = json.country; // Country code (e.g., "US", "GB", "IN")
+                    
+                    countryDropdowns.forEach(dropdown => {
+                        const option = Array.from(dropdown.options).find(opt => opt.value === userCountry || opt.textContent === data.country_name);
+                        if (option) {
+                            dropdown.value = option.value;
+                        }
+                    });
+                }
+                
+                
               },
               error: function (err) {
                 //console.log("Request failed, error= " + err);
@@ -2270,57 +2334,6 @@ window.addEventListener("DOMContentLoaded", function () {
       };
     });
   }
-
-    // Country City Email Start
-    const countryDropdowns = document.querySelectorAll('select[name="Country"]');
-    const citiesByCountry = {
-        "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
-    };
-
-    countryDropdowns.forEach(countryDropdown => {
-        countryDropdown.addEventListener("change", function () {
-            const selectedCountry = this.value.toLowerCase();
-            const form = this.closest("form");
-            const cityDropdown = form?.querySelector('select[name="City"]');
-            const cityInput = form?.querySelector("input[name='city']");
-
-            $("input[name='country']").val(selectedCountry); // Set country input field
-
-            if (cityDropdown) {
-                cityDropdown.innerHTML = ""; // Clear previous options
-
-                if (citiesByCountry[selectedCountry]) {
-                    cityDropdown.style.display = "block"; // Show city dropdown
-                    cityDropdown.appendChild(new Option("Select City", "", true, true));
-
-                    citiesByCountry[selectedCountry].forEach(city => {
-                        let option = new Option(city, city.toLowerCase());
-                        cityDropdown.appendChild(option);
-                    });
-
-                    // Reset the city input field
-                    if (cityInput) cityInput.value = "";
-                } else {
-                    cityDropdown.style.display = "none"; // Hide if no cities exist
-                    cityDropdown.value = ""; // Reset dropdown
-                    if (cityInput) cityInput.value = "";
-                }
-            }
-        });
-
-        // Event listener for city selection
-        const form = countryDropdown.closest("form");
-        const cityDropdown = form?.querySelector('select[name="City"]');
-        const cityInput = form?.querySelector("input[name='city']");
-
-        if (cityDropdown) {
-            cityDropdown.addEventListener("change", function () {
-                if (cityInput) cityInput.value = this.value; // Set selected city in input field
-            });
-        }
-    });
-
-    // Country City Email End
 });
 
 var ga_client_id = getCookie("_gid"),
