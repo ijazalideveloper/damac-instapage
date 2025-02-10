@@ -2130,6 +2130,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 } else {
                     // cityDropdown.style.display = "none"; // Hide city dropdown
                     cityDropdown.value = ""; // Reset dropdown
+                    cityDropdown.appendChild(new Option("Select City", "", true, true));
                     if (cityInput) cityInput.value = "";
                 }
             }
