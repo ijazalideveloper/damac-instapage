@@ -2186,19 +2186,18 @@ window.addEventListener("DOMContentLoaded", function () {
                 callback(json.country_code);
 
                 // Pre-select country based on user's location
-                if (json && json.country_name) {
-                    const userCountry = json.country_name; // Country name (e.g., "India")
-                    countryDropdowns.forEach(dropdown => {
-                      const option = Array.from(dropdown.options).find(
-                        opt => opt.textContent.toLowerCase() === userCountry.toLowerCase()
-                      );
-                      if (option) {
-                        dropdown.value = option.value;
-                        dropdown.dispatchEvent(new Event("change")); // Trigger change event to update city dropdown
-                      }
-                    });
-                }
-                
+                // if (json && json.country_name) {
+                //     const userCountry = json.country_name; // Country name (e.g., "India")
+                //     countryDropdowns.forEach(dropdown => {
+                //       const option = Array.from(dropdown.options).find(
+                //         opt => opt.textContent.toLowerCase() === userCountry.toLowerCase()
+                //       );
+                //       if (option) {
+                //         dropdown.value = option.value;
+                //         dropdown.dispatchEvent(new Event("change")); // Trigger change event to update city dropdown
+                //       }
+                //     });
+                // }
                 
               },
               error: function (err) {
