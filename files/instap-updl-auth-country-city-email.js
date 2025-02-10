@@ -2100,7 +2100,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     const countryDropdowns = document.querySelectorAll('select[name="Country"]');
     const citiesByCountry = {
-        "india": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"]
+        "india": ["Hyderabad", "Ahmedabad", "Amritsar", "Bengaluru", "Chandigarh", "Chennai", "Dehradun", "Gurgaon", "Jaipur", "Jammu", "Kanpur", "Kochi", "Kolhapur", "Kolkata", "Kozhikode", "Lucknow", "Ludhiana", "Mangalore", "Mumbai", "NCR", "Surat", "Vishakhapatnam", "Others"]
     };
 
     countryDropdowns.forEach(countryDropdown => {
