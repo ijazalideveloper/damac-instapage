@@ -2128,7 +2128,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
                     if (cityInput) cityInput.value = "";
                 } else {
-                    cityDropdown.style.display = "none"; // Hide city dropdown
+                    // cityDropdown.style.display = "none"; // Hide city dropdown
                     cityDropdown.value = ""; // Reset dropdown
                     if (cityInput) cityInput.value = "";
                 }
@@ -2620,7 +2620,9 @@ function getFormData($form) {
   delete indexed_array['campaignName'];
 
   delete indexed_array['Country'];
-  delete indexed_array['City'];
+  delete indexed_array['Country'];
+  delete indexed_array['Country of Residence'];
+  delete indexed_array['City of Residence'];
 
   console.log(delete indexed_array['campaignName']);
   console.log('indexed_array...', indexed_array)
