@@ -2115,7 +2115,7 @@ window.addEventListener("DOMContentLoaded", function () {
             $("input[name='country']").val(selectedCountry); // Set country input field
 
             if (cityDropdown) {
-                cityDropdown.innerHTML = ""; // Clear previous options
+                // cityDropdown.innerHTML = ""; // Clear previous options
 
                 if (citiesByCountry[selectedCountry]) {
                     cityDropdown.style.display = "block"; // Show city dropdown
