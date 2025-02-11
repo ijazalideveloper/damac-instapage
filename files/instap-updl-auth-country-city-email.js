@@ -2336,6 +2336,9 @@ window.addEventListener("DOMContentLoaded", function () {
                 data['validationToken'] = token;
 
                 pushToNewLQS(data)
+
+                // City of Residence - Rest the doopdown after form submission
+                const cityDropdown = form?.querySelector('select[name="City of Residence"]');
                 if (cityDropdown) {
                   cityDropdown.style.display = "block";
                 }
