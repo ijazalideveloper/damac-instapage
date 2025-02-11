@@ -2098,14 +2098,14 @@ window.addEventListener("DOMContentLoaded", function () {
     // });
     // Final - Country City Email End
 
-    const countryDropdowns = document.querySelectorAll('select[name="Country"]');
+    const countryDropdowns = document.querySelectorAll('select[name="Country of Residence"]');
     const citiesByCountry = {
         "india": ["Hyderabad", "Ahmedabad", "Amritsar", "Bengaluru", "Chandigarh", "Chennai", "Dehradun", "Gurgaon", "Jaipur", "Jammu", "Kanpur", "Kochi", "Kolhapur", "Kolkata", "Kozhikode", "Lucknow", "Ludhiana", "Mangalore", "Mumbai", "NCR", "Surat", "Vishakhapatnam", "Others"]
     };
 
     countryDropdowns.forEach(countryDropdown => {
         const form = countryDropdown.closest("form");
-        const cityDropdown = form?.querySelector('select[name="City"]');
+        const cityDropdown = form?.querySelector('select[name="City of Residence"]');
         const cityInput = form?.querySelector("input[name='city']");
 
         console.log("countryDropdown>>>>", countryDropdown, form)
@@ -2128,7 +2128,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
                     if (cityInput) cityInput.value = "";
                 } else {
-                    // cityDropdown.style.display = "none"; // Hide city dropdown
+                    cityDropdown.style.display = "none"; // Hide city dropdown
                     cityDropdown.value = ""; // Reset dropdown
                     if (cityInput) cityInput.value = "";
                 }
