@@ -2108,16 +2108,16 @@ window.addEventListener("DOMContentLoaded", function () {
         const cityDropdown = form?.querySelector('select[name="City of Residence"]');
         const cityInput = form?.querySelector("input[name='city']");
 
-        console.log("countryDropdown>>>>", countryDropdown, form)
+        console.log("countryDropdown>>>>", countryDropdown, form);
 
         // Function to update city dropdown based on country
         function updateCityDropdown(selectedCountry) {
             $("input[name='country']").val(selectedCountry); // Set country input field
 
             if (cityDropdown) {
-                // cityDropdown.innerHTML = ""; // Clear previous options
+                cityDropdown.innerHTML = ""; // Clear previous options
 
-                if (citiesByCountry[selectedCountry]) {
+                if (selectedCountry === "india" && citiesByCountry[selectedCountry]) {
                     cityDropdown.style.display = "block"; // Show city dropdown
                     cityDropdown.appendChild(new Option("Select City", "", true, true));
 
