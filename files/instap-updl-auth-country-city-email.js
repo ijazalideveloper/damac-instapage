@@ -2112,28 +2112,28 @@ window.addEventListener("DOMContentLoaded", function () {
 
         // Function to update city dropdown based on country
         function updateCityDropdown(selectedCountry) {
-            $("input[name='country']").val(selectedCountry); // Set country input field
+          $("input[name='country']").val(selectedCountry); // Set country input field
 
-            if (cityDropdown) {
-                cityDropdown.innerHTML = ""; // Clear previous options
+          if (cityDropdown) {
+              cityDropdown.innerHTML = ""; // Clear previous options
 
-                if (selectedCountry === "india" && citiesByCountry[selectedCountry]) {
-                    cityDropdown.style.display = "block"; // Show city dropdown
-                    cityDropdown.appendChild(new Option("Select City", "", true, true));
+              if (selectedCountry === "india" && citiesByCountry[selectedCountry]) {
+                  cityDropdown.style.display = "block"; // Show city dropdown
+                  cityDropdown.appendChild(new Option("Select City", "", true, true));
 
-                    citiesByCountry[selectedCountry].forEach(city => {
-                        let option = new Option(city, city.toLowerCase());
-                        cityDropdown.appendChild(option);
-                    });
+                  citiesByCountry[selectedCountry].forEach(city => {
+                      let option = new Option(city, city.toLowerCase());
+                      cityDropdown.appendChild(option);
+                  });
 
-                    if (cityInput) cityInput.value = "";
-                } else {
-                    cityDropdown.style.display = "none"; // Hide city dropdown
-                    cityDropdown.value = ""; // Reset dropdown
-                    if (cityInput) cityInput.value = "";
-                }
-            }
-        }
+                  if (cityInput) cityInput.value = "";
+              } else if (selectedCountry !== "india") {
+                  cityDropdown.style.display = "none"; // Hide if country is not India
+                  cityDropdown.value = ""; // Reset dropdown
+                  if (cityInput) cityInput.value = "";
+              }
+          }
+      }
 
         // Handle country change event
         countryDropdown.addEventListener("change", function () {
