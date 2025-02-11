@@ -2119,7 +2119,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
                 if (citiesByCountry[selectedCountry]) {
                     cityDropdown.style.display = "block"; // Show city dropdown
-                    cityDropdown.appendChild(new Option("Select City", "", true, true));
+                    // cityDropdown.appendChild(new Option("Select City", "", true, true));
 
                     citiesByCountry[selectedCountry].forEach(city => {
                         let option = new Option(city, city.toLowerCase());
