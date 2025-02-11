@@ -2127,11 +2127,12 @@ window.addEventListener("DOMContentLoaded", function () {
                     });
 
                     if (cityInput) cityInput.value = "";
-                } else {
-                    // cityDropdown.style.display = "none"; // Hide city dropdown
-                    cityDropdown.value = ""; // Reset dropdown
-                    if (cityInput) cityInput.value = "";
-                }
+                } 
+                // else {
+                //     cityDropdown.style.display = "none"; // Hide city dropdown
+                //     cityDropdown.value = ""; // Reset dropdown
+                //     if (cityInput) cityInput.value = "";
+                // }
             }
         }
 
