@@ -2336,6 +2336,9 @@ window.addEventListener("DOMContentLoaded", function () {
                 data['validationToken'] = token;
 
                 pushToNewLQS(data)
+                if (cityDropdown) {
+                  cityDropdown.style.display = "block";
+                }
               })
           })
         }
