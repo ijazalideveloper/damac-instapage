@@ -2338,10 +2338,17 @@ window.addEventListener("DOMContentLoaded", function () {
                 pushToNewLQS(data)
 
                 // City of Residence - Rest the doopdown after form submission
-                const cityDropdown = form?.querySelector('select[name="City of Residence"]');
-                if (cityDropdown) {
-                  cityDropdown.style.display = "block";
-                }
+                const countryDropdowns = document.querySelectorAll('select[name="Country of Residence"]');
+
+                countryDropdowns.forEach(countryDropdown => {
+                    const form = countryDropdown.closest("form");
+                    const cityDropdown = form?.querySelector('select[name="City of Residence"]');
+
+                    console.log("countryDropdown>>>>", countryDropdown, form);
+                    if (cityDropdown) {
+                      cityDropdown.style.display = "block";
+                    }
+                });
               })
           })
         }
