@@ -2127,13 +2127,14 @@ window.addEventListener("DOMContentLoaded", function () {
                   });
 
                   if (cityInput) cityInput.value = "";
-              } else if (selectedCountry !== "india") {
-                  cityDropdown.style.display = "none"; // Hide if country is not India
-                  cityDropdown.value = "others"; // Reset dropdown
+              } else {
+                  // If country is not India, default city value should be "Others"
+                  cityDropdown.style.display = "none"; // Keep city dropdown visible
+                  cityDropdown.appendChild(new Option("Others", "others", true, true));
                   if (cityInput) cityInput.value = "others";
               }
           }
-        }
+      }
 
         // Handle country change event
         countryDropdown.addEventListener("change", function () {
