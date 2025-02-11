@@ -2127,12 +2127,11 @@ window.addEventListener("DOMContentLoaded", function () {
                     });
 
                     if (cityInput) cityInput.value = "";
-                } 
-                // else {
-                //     cityDropdown.style.display = "none"; // Hide city dropdown
-                //     cityDropdown.value = ""; // Reset dropdown
-                //     if (cityInput) cityInput.value = "";
-                // }
+                } else {
+                    cityDropdown.style.display = "none"; // Hide city dropdown
+                    cityDropdown.value = ""; // Reset dropdown
+                    if (cityInput) cityInput.value = "";
+                }
             }
         }
 
@@ -2142,7 +2141,7 @@ window.addEventListener("DOMContentLoaded", function () {
         });
 
         // Hide city dropdown on page load if country is not "India"
-        updateCityDropdown(countryDropdown.value.toLowerCase());
+        // updateCityDropdown(countryDropdown.value.toLowerCase());
 
         // Event listener for city selection
         if (cityDropdown) {
