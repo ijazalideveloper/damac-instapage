@@ -2217,7 +2217,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
                 if (selectedCountry === "india" && citiesByCountry[selectedCountry]) {
                     cityDropdown.disabled = false; // Enable city dropdown
-                    cityDropdown.appendChild(new Option("Select City", "", true, true));
+                    cityDropdown.appendChild(new Option("City of Residence", "", true, true));
 
                     citiesByCountry[selectedCountry].forEach(city => {
                         let option = new Option(city, city.toLowerCase());
