@@ -2217,23 +2217,22 @@ window.addEventListener("DOMContentLoaded", function () {
 
                 if (selectedCountry === "india" && citiesByCountry[selectedCountry]) {
                     cityDropdown.disabled = false; // Enable city dropdown
-                    cityDropdown.appendChild(new Option("City of Residence", "", true, true));
+                    let defaultOption = new Option("City of Residence", "", true, true);
+                    defaultOption.disabled = true; // Disable selection of default option
+                    cityDropdown.appendChild(defaultOption);
 
                     citiesByCountry[selectedCountry].forEach(city => {
                         let option = new Option(city, city.toLowerCase());
                         cityDropdown.appendChild(option);
                     });
 
-                    // Agar pehle se koi city selected hai toh usko set karo
-                    if (cityInput && cityInput.value) {
-                        cityDropdown.value = cityInput.value.toLowerCase();
-                    } else {
-                        cityInput.value = ""; // Reset city input field
-                    }
+                    // Set default value to "City of Residence"
+                    cityDropdown.value = "";
+                    if (cityInput) cityInput.value = "";
                 } else {
                     // If country is not India, set city to "Others" and disable dropdown
                     cityDropdown.disabled = true; // Disable city dropdown
-                    cityDropdown.appendChild(new Option("City of Residence", "others", true, true));
+                    cityDropdown.appendChild(new Option("Others", "others", true, true));
                     if (cityInput) cityInput.value = "others";
                 }
             }
