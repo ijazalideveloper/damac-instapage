@@ -2153,6 +2153,51 @@ window.addEventListener("DOMContentLoaded", function () {
     // });
 
 
+    // const countryDropdowns = document.querySelectorAll('select[name="Country of Residence"]');
+    // const citiesByCountry = {
+    //     "india": ["Hyderabad", "Ahmedabad", "Amritsar", "Bengaluru", "Chandigarh", "Chennai", "Dehradun", "Gurgaon", "Jaipur", "Jammu", "Kanpur", "Kochi", "Kolhapur", "Kolkata", "Kozhikode", "Lucknow", "Ludhiana", "Mangalore", "Mumbai", "NCR", "Surat", "Vishakhapatnam", "Others"]
+    // };
+
+    // countryDropdowns.forEach(countryDropdown => {
+    //     const form = countryDropdown.closest("form");
+    //     const cityDropdown = form?.querySelector('select[name="City of Residence"]');
+    //     const cityInput = form?.querySelector("input[name='city']");
+
+    //     // Function to update city dropdown based on selected country
+    //     function updateCityDropdown(selectedCountry) {
+    //         $("input[name='country']").val(selectedCountry); // Set country input field
+
+    //         if (cityDropdown) {
+    //             cityDropdown.innerHTML = ""; // Clear previous options
+
+    //             if (selectedCountry === "india" && citiesByCountry[selectedCountry]) {
+    //                 cityDropdown.disabled = false; // Enable city dropdown
+    //                 cityDropdown.appendChild(new Option("Select City", "", true, true));
+
+    //                 citiesByCountry[selectedCountry].forEach(city => {
+    //                     let option = new Option(city, city.toLowerCase());
+    //                     cityDropdown.appendChild(option);
+    //                 });
+
+    //                 if (cityInput) cityInput.value = "";
+    //             } else {
+    //                 // If country is not India, set city to "Others" and disable dropdown
+    //                 cityDropdown.disabled = true; // Disable city dropdown
+    //                 cityDropdown.appendChild(new Option("Others", "others", true, true));
+    //                 if (cityInput) cityInput.value = "others";
+    //             }
+    //         }
+    //     }
+
+    //     // Attach event listener to country dropdown
+    //     countryDropdown.addEventListener("change", function () {
+    //         updateCityDropdown(this.value.toLowerCase());
+    //     });
+
+    //     // Initialize with the current selected country on page load
+    //     updateCityDropdown(countryDropdown.value.toLowerCase());
+    // });
+
     const countryDropdowns = document.querySelectorAll('select[name="Country of Residence"]');
     const citiesByCountry = {
         "india": ["Hyderabad", "Ahmedabad", "Amritsar", "Bengaluru", "Chandigarh", "Chennai", "Dehradun", "Gurgaon", "Jaipur", "Jammu", "Kanpur", "Kochi", "Kolhapur", "Kolkata", "Kozhikode", "Lucknow", "Ludhiana", "Mangalore", "Mumbai", "NCR", "Surat", "Vishakhapatnam", "Others"]
@@ -2172,14 +2217,19 @@ window.addEventListener("DOMContentLoaded", function () {
 
                 if (selectedCountry === "india" && citiesByCountry[selectedCountry]) {
                     cityDropdown.disabled = false; // Enable city dropdown
-                    cityDropdown.appendChild(new Option("City of Residence", "", true, true));
+                    cityDropdown.appendChild(new Option("Select City", "", true, true));
 
                     citiesByCountry[selectedCountry].forEach(city => {
                         let option = new Option(city, city.toLowerCase());
                         cityDropdown.appendChild(option);
                     });
 
-                    if (cityInput) cityInput.value = "";
+                    // Agar pehle se koi city selected hai toh usko set karo
+                    if (cityInput && cityInput.value) {
+                        cityDropdown.value = cityInput.value.toLowerCase();
+                    } else {
+                        cityInput.value = ""; // Reset city input field
+                    }
                 } else {
                     // If country is not India, set city to "Others" and disable dropdown
                     cityDropdown.disabled = true; // Disable city dropdown
@@ -2193,6 +2243,13 @@ window.addEventListener("DOMContentLoaded", function () {
         countryDropdown.addEventListener("change", function () {
             updateCityDropdown(this.value.toLowerCase());
         });
+
+        // Attach event listener to city dropdown (set value in city input field)
+        if (cityDropdown) {
+            cityDropdown.addEventListener("change", function () {
+                if (cityInput) cityInput.value = this.value; // Jo user select karega, wahi city input me store hoga
+            });
+        }
 
         // Initialize with the current selected country on page load
         updateCityDropdown(countryDropdown.value.toLowerCase());
@@ -2389,8 +2446,6 @@ window.addEventListener("DOMContentLoaded", function () {
                 countryDropdowns.forEach(countryDropdown => {
                     const form = countryDropdown.closest("form");
                     const cityDropdown = form?.querySelector('select[name="City of Residence"]');
-
-                    console.log("countryDropdown>>>>", countryDropdown, form);
                     if (cityDropdown) {
                       cityDropdown.style.display = "block";
                     }
