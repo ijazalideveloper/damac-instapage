@@ -2233,7 +2233,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 } else {
                     // If country is not India, set city to "Others" and disable dropdown
                     cityDropdown.disabled = true; // Disable city dropdown
-                    cityDropdown.appendChild(new Option("Others", "others", true, true));
+                    cityDropdown.appendChild(new Option("City of Residence", "others", true, true));
                     if (cityInput) cityInput.value = "others";
                 }
             }
