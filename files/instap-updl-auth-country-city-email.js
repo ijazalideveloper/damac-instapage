@@ -2229,7 +2229,12 @@ window.addEventListener("DOMContentLoaded", function () {
 
     const countryDropdowns = document.querySelectorAll('select[name="Country of Residence"]');
     const citiesByCountry = {
-        "india": ["Hyderabad", "Ahmedabad", "Amritsar", "Bengaluru", "Chandigarh", "Chennai", "Dehradun", "Gurgaon", "Jaipur", "Jammu", "Kanpur", "Kochi", "Kolhapur", "Kolkata", "Kozhikode", "Lucknow", "Ludhiana", "Mangalore", "Mumbai", "NCR", "Surat", "Vishakhapatnam", "Others"]
+      "india": [
+          "Hyderabad", "Ahmedabad", "Amritsar", "Bengaluru", "Chandigarh", "Chennai", 
+          "Dehradun", "Gurgaon", "Jaipur", "Jammu", "Kanpur", "Kochi", "Kolhapur", 
+          "Kolkata", "Kozhikode", "Lucknow", "Ludhiana", "Mangalore", "Mumbai", 
+          "NCR", "Surat", "Vishakhapatnam", "Others"
+      ].sort() // 🔹 Sorting the array alphabetically
     };
 
     countryDropdowns.forEach(countryDropdown => {
