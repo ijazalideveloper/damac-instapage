@@ -2230,12 +2230,18 @@ window.addEventListener("DOMContentLoaded", function () {
     const countryDropdowns = document.querySelectorAll('select[name="Country of Residence"]');
     const citiesByCountry = {
       "india": [
-          "Hyderabad", "Ahmedabad", "Amritsar", "Bengaluru", "Chandigarh", "Chennai", 
-          "Dehradun", "Gurgaon", "Jaipur", "Jammu", "Kanpur", "Kochi", "Kolhapur", 
-          "Kolkata", "Kozhikode", "Lucknow", "Ludhiana", "Mangalore", "Mumbai", 
-          "NCR", "Surat", "Vishakhapatnam", "Others"
+          // "Hyderabad", "Ahmedabad", "Amritsar", "Bengaluru", "Chandigarh", "Chennai", 
+          // "Dehradun", "Gurgaon", "Jaipur", "Jammu", "Kanpur", "Kochi", "Kolhapur", 
+          // "Kolkata", "Kozhikode", "Lucknow", "Ludhiana", "Mangalore", "Mumbai", 
+          // "NCR", "Surat", "Vishakhapatnam", "Others"
+          "Agra", "Ahmedabad", "Alwar", "Amritsar", "Bangalore", "Bhopal", "Bhubaneswar", 
+          "Bijapur", "Chandigarh", "Chennai", "Coimbatore", "Dehradun", "Dhanbad", "Faridabad", 
+          "Ghaziabad", "Gurgaon", "Hyderabad", "Indore", "Jaipur", "Jammu", "Kanpur", "Kochi", 
+          "Kolhapur", "Kolkata", "Kozhikode", "Lucknow", "Ludhiana", "Mangalore", "Mumbai", 
+          "NCR", "New Delhi", "Pune", "Surat", "Tiruchirappalli", "Vishakhapatnam"
       ].sort() // 🔹 Sorting the array alphabetically
     };
+    citiesByCountry["india"].push("Others");
 
     countryDropdowns.forEach(countryDropdown => {
         const form = countryDropdown.closest("form");
