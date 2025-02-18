@@ -779,8 +779,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     contacted = "I can be contacted via";
     sms = "SMS";
     whatsapp = "WhatsApp";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "AR") {
     _Translate.set("Processing...","جاري العمل...");
     _Translate.set("Please Fix These Errors","الرجاء التأكد من الأخطاء التالية");
@@ -850,8 +850,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "رسالة نصيّة";
     whatsapp = "تطبيق واتساب";
     preferredLanguageInput = "اللغة المفضلة";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "FR") {
     _Translate.set("Processing...","En cours de traitement...");
     _Translate.set("Please Fix These Errors","Veuillez corriger ces erreurs");
@@ -921,8 +921,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "SMS";
     whatsapp = "Whatsapp";
     preferredLanguageInput = "langue préferée";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "SP") {
     _Translate.set("Processing...","Procesando...");
     _Translate.set("Please Fix These Errors","Solucione estos errores");
@@ -985,8 +985,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "SMS";
     whatsapp = "WhatsApp";
     preferredLanguageInput = "Idioma preferido";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "HE") {
     _Translate.set("Processing...","מעבד...");
     _Translate.set("Please Fix These Errors","נא לתקן את השגיאות הבאות");
@@ -1049,8 +1049,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "הודעת SMS";
     whatsapp = "WhatsApp";
     preferredLanguageInput = "שפה מועדפת";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "CH") {
     _Translate.set("Processing...","处理中...");
     _Translate.set("Please Fix These Errors","请修复这些错误");
@@ -1113,8 +1113,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "手机短信";
     whatsapp = "WhatsApp";
     preferredLanguageInput = "首选语言";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "IT") {
     _Translate.set("Processing...","In elaborazione...");
     _Translate.set("Please Fix These Errors","Si prega di correggere gli errori");
@@ -1177,8 +1177,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "SMS";
     whatsapp = "WhatsApp";
     preferredLanguageInput = "Lingua di preferenza";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "RU") {
     _Translate.set("Processing...","В обработке...");
     _Translate.set("Please Fix These Errors","Исправьте эти ошибки");
@@ -1241,8 +1241,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "SMS";
     whatsapp = "WhatsApp";
     preferredLanguageInput = "Предпочитаемый язык";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "GK") {
     _Translate.set("Processing...","Γίνεται επεξεργασία...");
     _Translate.set("Please Fix These Errors","Διορθώστε αυτά τα σφάλματα");
@@ -1305,8 +1305,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "SMS";
     whatsapp = "WhatsApp";
     preferredLanguageInput = "Προτιμώμενη γλώσσα";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "GR") {
     _Translate.set("Processing...","Verarbeitung läuft...");
     _Translate.set("Please Fix These Errors","Bitte beheben Sie diese Fehler");
@@ -1369,8 +1369,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "SMS";
     whatsapp = "WhatsApp";
     preferredLanguageInput = "Bevorzugte Sprache";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "NL") {
     _Translate.set("Processing...","Verwerken...");
     _Translate.set("Please Fix These Errors","Corrigeer deze fouten a.u.b.");
@@ -1433,8 +1433,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "SMS";
     whatsapp = "WhatsApp";
     preferredLanguageInput = "Voorkeurstaal";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "RO") {
     _Translate.set("Processing...","Se procesează…...");
     _Translate.set("Please Fix These Errors","Vă rugăm să remediați aceste erori");
@@ -1497,8 +1497,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "SMS";
     whatsapp = "WhatsApp";
     preferredLanguageInput = "Limbă preferată";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else if (websiteLanguage == "TR") { //TURKISH
     _Translate.set("Processing...","İşleniyor...");
     _Translate.set("Please Fix These Errors","Lütfen Bu Hataları Düzeltin");
@@ -1561,8 +1561,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "SMS";
     whatsapp = "WhatsApp";
     preferredLanguageInput = "Tercih Edilen Dil";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   } else {
     _Translate.set("Processing...", "Processing...");
     _Translate.set("Please Fix These Errors", "Please Fix These Errors");
@@ -1628,8 +1628,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     sms = "SMS";
     whatsapp = "WhatsApp";
     preferredLanguageInput = "Preferred Language";
-    countryOfResidence = "City of Residence";
-    cityOfResidence = "Country of Residence";
+    countryOfResidence = "Country of Residence";
+    cityOfResidence = "City of Residence";
   }
 
   //console.log("firstNameInput..", firstNameInput, lastNameInput);
