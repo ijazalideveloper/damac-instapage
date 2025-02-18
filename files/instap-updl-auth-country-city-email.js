@@ -2829,6 +2829,9 @@ function getFormData($form) {
     }
     if (n["name"] === cityOfResidence) {
       n["name"] = "City_of_Permanent_Residence__c";
+    } else {
+      n["name"] = "City_of_Permanent_Residence__c";
+      n["City_of_Permanent_Residence__c"] = "Others";
     }
 
     indexed_array[n["name"]] = n["value"];
