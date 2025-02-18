@@ -2303,7 +2303,7 @@ window.addEventListener("DOMContentLoaded", function () {
             "Ghaziabad", "Gurgaon", "Hyderabad", "Indore", "Jaipur", "Jammu", "Kanpur", "Kochi", 
             "Kolhapur", "Kolkata", "Kozhikode", "Lucknow", "Ludhiana", "Mangalore", "Mumbai", 
             "NCR", "New Delhi", "Pune", "Surat", "Tiruchirappalli", "Vishakhapatnam"
-        ].sort() // Cities sorted alphabetically
+        ].sort()
     };
 
     citiesByCountry["india"].push("Others");
@@ -2313,7 +2313,6 @@ window.addEventListener("DOMContentLoaded", function () {
         const cityDropdown = form?.querySelector('select[name="City of Residence"]');
         const cityInput = form?.querySelector("input[name='city']");
 
-        // Function to update city dropdown based on selected country
         function updateCityDropdown(selectedCountry) {
             $("input[name='country']").val(selectedCountry); // Set country input field
 
@@ -2321,7 +2320,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 cityDropdown.innerHTML = ""; // Clear previous options
 
                 if (selectedCountry === "india" && citiesByCountry[selectedCountry]) {
-                    cityDropdown.disabled = false; // Enable city dropdown
+                    cityDropdown.disabled = false; // Enable dropdown for India
                     let defaultOption = new Option("City of Residence", "", true, true);
                     defaultOption.disabled = true;
                     cityDropdown.appendChild(defaultOption);
@@ -2333,22 +2332,19 @@ window.addEventListener("DOMContentLoaded", function () {
 
                     cityDropdown.value = "";
                 } else {
-                    // For other countries, show "Others" as only option
-                    cityDropdown.disabled = true; // Keep dropdown enabled
-                    let othersOption = new Option("Others", "others", true, true);
-                    cityDropdown.appendChild(othersOption);
+                    // For other countries, disable dropdown and set "Others"
+                    cityDropdown.disabled = true; 
+                    cityDropdown.appendChild(new Option("Others", "others", true, true));
                     cityDropdown.value = "others"; // Automatically select "Others"
                 }
             }
         }
 
-        // Attach event listener to country dropdown
         countryDropdown.addEventListener("change", function () {
             updateCityDropdown(this.value.toLowerCase());
         });
 
-        // Initialize with the current selected country on page load
-        updateCityDropdown(countryDropdown.value.toLowerCase());
+        updateCityDropdown(countryDropdown.value.toLowerCase()); // Initialize on page load
     });
 
   function alterFormHandler() {
