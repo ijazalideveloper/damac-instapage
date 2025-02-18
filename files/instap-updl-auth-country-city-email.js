@@ -2334,7 +2334,7 @@ window.addEventListener("DOMContentLoaded", function () {
                     cityDropdown.value = "";
                 } else {
                     // For other countries, show "Others" as only option
-                    cityDropdown.disabled = false; // Keep dropdown enabled
+                    cityDropdown.disabled = true; // Keep dropdown enabled
                     let othersOption = new Option("Others", "others", true, true);
                     cityDropdown.appendChild(othersOption);
                     cityDropdown.value = "others"; // Automatically select "Others"
