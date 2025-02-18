@@ -2829,9 +2829,9 @@ function getFormData($form) {
     }
     if (n["name"] === cityOfResidence) {
       n["name"] = "City_of_Permanent_Residence__c";
-    } else {
-      n["name"] = "City_of_Permanent_Residence__c";
-      n["City_of_Permanent_Residence__c"] = "Others";
+    } else if (!indexed_array["City_of_Permanent_Residence__c"]) {
+      // Only set to "Others" if City_of_Permanent_Residence__c is not already set
+      indexed_array["City_of_Permanent_Residence__c"] = "Others";
     }
 
     indexed_array[n["name"]] = n["value"];
